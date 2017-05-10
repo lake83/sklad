@@ -19,7 +19,7 @@ class ManufacturersSearch extends Manufacturers
     {
         return [
             [['id', 'is_active'], 'integer'],
-            [['name', 'slug', 'description', 'title', 'keywords', 'meta_description'], 'safe'],
+            [['brand', 'name', 'slug', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
         ];
     }
 
@@ -63,12 +63,14 @@ class ManufacturersSearch extends Manufacturers
             'is_active' => $this->is_active,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'brand', $this->brand])
+            ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'intro_text', $this->intro_text])
+            ->andFilterWhere(['like', 'full_text', $this->full_text])
             ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'keywords', $this->keywords])
-            ->andFilterWhere(['like', 'meta_description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

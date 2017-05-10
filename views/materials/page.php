@@ -10,7 +10,6 @@ if ($model->keywords) {
 if ($model->description) {
     $this->registerMetaTag(['name' => 'description', 'content' => $model->description]);
 }
-$this->params['breadcrumbs'][] = $model->name;
 
 echo $model->full_text;
 ?>

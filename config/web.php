@@ -27,7 +27,7 @@ $config = [
             'class' => 'app\components\User',
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['site/login']
+            'loginUrl' => ['admin']
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -49,8 +49,14 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'suffix' => '/',
+            'normalizer' => [
+                'class' => 'yii\web\UrlNormalizer'
+            ],
             'rules' => [
-                '<alias>'=>'materials/page',
+                ['class' => 'app\components\UrlRule'],
+                'admin' => 'site/admin',
+                '<alias>' => 'materials/page',
+                'about/nashi_postavchshiki' => 'materials/postavchshiki',
                 
                 '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<action:\w+>/<id:\d+>' => 'site/<action>',

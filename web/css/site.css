@@ -14,6 +14,46 @@ a, a:hover, a:active, a:visited, a:focus {
     width: 1006px;
 }
 .footer {
+    margin-top: 40px;
+    border-top: 2px solid #e31e24;
+    color: #545454;
+    font-size: 11px;
+    padding-top: 20px;
+    display: block;
+    height: 80px;
+}
+.footer div {
+    float: left;
+}
+.footer div:nth-child(1) {
+    width: 35%;
+}
+.footer div:nth-child(2) {
+    width: 20%;
+    margin-left: 30px;
+}
+.footer div:nth-child(3) {
+    width: 12%;
+}
+.footer div:nth-child(4) {
+    width: 15%;
+    margin-top: 10px;
+    margin-left:15px;
+}
+.footer .sitemap_link {
+    width: 10%;
+    margin: 26px 10px 0;
+    float: left;
+}
+.footer a {
+    color: #1e1a19;
+    text-decoration: underline;
+}
+.footer a:hover {
+    color: #ffb612;
+}
+.sitemap ul {
+    list-style-image: url('/images/bullet.png');
 }
 .Ztopper {
     position: relative;
@@ -139,6 +179,9 @@ a, a:hover, a:active, a:visited, a:focus {
     margin-top: 48px;
     width: 678px;
     float: right;
+}
+.Ztopper {
+    margin-bottom: 30px;
 }
 .Ztopper .z-right {
     width: 350px;
@@ -276,4 +319,51 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 .lower-menu li {
     margin-right: 60px;
+}
+.left-column {
+    padding: 0;
+    width: 233px;
+    float: left;
+    min-height: 200px;
+}
+.right-column {
+    float: left;
+    width: 743px;
+    padding-left: 20px;
+}
+.glossary_item {
+    min-height: 130px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+}
+.glossary_head {
+    background: #fff79d;
+    height: 40px;
+    padding: 10px 0 0;
+}
+.glossary_head a {
+    color: #000;
+    font-weight: 700;
+    padding: 10px;
+}
+.glossary_img {
+    float: left;
+    width: 100px;
+    margin: 10px 0 0 10px;
+}
+.glossary_txt {
+    width: 600px;
+    padding-top: 20px;
+    float: right;
+    display: block;
+}
+a.artmore {
+    display: block;
+    float: right;
+    width: 100px;
+    height: 23px;
+    background: url('/images/readmore.png');
+    background-repeat: no-repeat;
+    background-position: bottom right;
 }

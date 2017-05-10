@@ -15,12 +15,15 @@ class m170506_101730_manufacturers extends Migration
 
         $this->createTable('manufacturers', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(100)->notNull(),
-            'slug' => $this->string(100)->notNull(),
-            'description' => $this->text()->notNull(),
+            'brand' => $this->string(100)->notNull(),
+            'image' => $this->string(100)->notNull(),
+            'name' => $this->string()->notNull(),
+            'slug' => $this->string()->notNull(),
+            'intro_text' => $this->text()->notNull(),
+            'full_text' => $this->text()->notNull(),
             'title' => $this->string()->notNull(),
             'keywords' => $this->string()->notNull(),
-            'meta_description' => $this->text()->notNull(),
+            'description' => $this->text()->notNull(),
             'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
     }

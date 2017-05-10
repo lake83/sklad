@@ -37,7 +37,7 @@ AppAsset::register($this);
             <?= Html::mailto('Отправить письмо', 'zapros@maxi-sklad.ru', ['class' => 'sendletter']) ?>
             <div class="ZTleft">
                 <div class="Zlogo">
-                    <?php if($_SERVER['REQUEST_URI'] == '/'): ?>
+                    <?php if(Yii::$app->request->url == '/'): ?>
                         <img src="/images/logo.png" alt="<?=Yii::$app->name?>" />
                     <?php else: ?>
                         <a href="/" title="<?=Yii::$app->name?>">
@@ -46,7 +46,7 @@ AppAsset::register($this);
                     <?php endif;?>
                 </div>
                 <div class="Zreg-sel">
-                    <?//= RegionSelect::widget() /*php /* * / */?>
+                    <?//= RegionSelect::widget() ?>
                 </div>
             </div>
             <div class="ZTmiddle">
@@ -84,7 +84,7 @@ AppAsset::register($this);
                     <div class="phone-top">
                         <span id="main_tel">
                             <span><?= $region->phone1?></span>
-                            <span>+7 (800) 555-5393<p> Звонок бесплатный по РФ</p></span>
+                            <span>+7 (800) 555-5393<p>Звонок бесплатный по РФ</p></span>
                         </span>
                     </div>
                 </div>
@@ -96,21 +96,42 @@ AppAsset::register($this);
                 </div>
             </div>
         </div>
-        <?= Breadcrumbs::widget([
+        <div class="left-column">
+            
+        </div>
+        <div class="right-column">
+            <?= Breadcrumbs::widget([
             'homeLink' => [ 
                 'label' => 'Складская техника',
                 'url' => Yii::$app->homeUrl
             ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= $content ?>
+            <?= $content ?>
+        </div>
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-    </div>
-</footer>
+<div class="container">
+    <footer class="footer">
+        <div>
+            © 2007 - <?= date( 'Y' ) ?>, <b>"МаксиСклад"</b><br/>
+            При полном или частичном использовании материалов ссылка на сайт обязательна
+        </div>
+        <div>
+            Адрес: <?= $region->city_name ?>, <br/><?= $region->address?><br/>
+            E-mail: <a href="mailto:<?= $region->email ?>"><?= $region->email ?></a>
+        </div>
+        <a href="<?=Url::to(['materials/page', 'alias' => 'karta_sayta'])?>" class="sitemap_link">Карта сайта</a>
+        <div>
+            <a style="text-decoration-line: none;" href="http://astonia.ru/" target="_blank" rel="nofollow" title="Разработка сайта">>Разработка сайта</a>
+            <a style="text-decoration-line: none;" href="http://www.astoni.ru/" target="_blank" rel="nofollow" title="Продвижение сайтов">>Поддержка сайтов</a>  
+        </div>
+        <div>
+            <a href="http://www.cool-reklama.ru" target="_blank"><img src="/images/astonia.png" alt="реклама в интернете"/></a>
+        </div>
+    </footer>
+</div>
 
 <?php $this->endBody() ?>
 </body>

@@ -7,21 +7,16 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = $exception->statusCode . ' ' . nl2br(Html::encode($message));
 ?>
-<div class="site-error">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
-
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
-
-</div>
+<p>Возможные причины, по которым вы увидели это сообщение:</p>
+<ul>
+    <li>Вы неправильно ввели путь к странице в адресной строке</li>
+    <li>Вы перешли по старой ссылке из закладок</li>
+    <li>Вы перешли по неправильной ссылке из поисковой системы</li>
+</ul>
+<p>Если вы попали сюда, нажав на ссылку на нашем сайте, то можете написать об этом по адресу <a href="mailto:zapros@maxi-sklad.ru">zapros@maxi-sklad.ru</a></p>
+<p><a href="/">Перейти на главную страницу</a> сайта.</p>

@@ -22,7 +22,15 @@ $this->title = 'Производители';
         'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
+            [
+                'attribute' => 'image',
+                'format' => 'raw',
+                'filter' => false,
+                'value' => function ($model, $index, $widget) {
+                    return Html::img(SiteHelper::resized_image($model->image, 70, 70), ['width' => 70]);
+                }
+            ],
+            'brand',
             'slug',
             SiteHelper::is_active($searchModel),
 
