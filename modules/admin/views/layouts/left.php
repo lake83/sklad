@@ -19,6 +19,7 @@ app\assets\AdminAsset::register($this);
                 ['label' => 'Новости', 'url' => ['/admin/materials/index', 'type' => 1], 'icon' => 'caret-right'],
                 ['label' => 'Статьи', 'url' => ['/admin/materials/index', 'type' => 2], 'icon' => 'caret-right'],
                 ['label' => 'Страницы', 'url' => ['/admin/materials/index', 'type' => 3], 'icon' => 'caret-right'],
+                ['label' => 'Клиенты', 'url' => ['/admin/materials/index', 'type' => 4], 'icon' => 'caret-right']
             ]
         ],
         ['label' => 'Меню', 'url' => ['/admin/menu/index'], 'icon' => 'bars'],

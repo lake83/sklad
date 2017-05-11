@@ -113,6 +113,7 @@ AppAsset::register($this);
 </div>
 
 <div class="container">
+    <div id="toTop" style="display: block;"><img src="/images/up.png" alt="Вверх"/></div>
     <footer class="footer">
         <div>
             © 2007 - <?= date( 'Y' ) ?>, <b>"МаксиСклад"</b><br/>

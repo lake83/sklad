@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\LoginForm;
+use app\models\Materials;
+use yii\caching\TagDependency;
 
 class SiteController extends Controller
 {
@@ -27,7 +29,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $main = Materials::findOne(['slug' => 'main']);
+        
+        return $this->render('index', ['main' => $main, 'slider' => Materials::getClients()]);
     }
 
     /**

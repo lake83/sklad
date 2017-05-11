@@ -70,7 +70,7 @@ class Menu extends \yii\db\ActiveRecord
      */
     public function getMenuItems()
     {
-        return $this->hasMany(MenuItems::className(), ['menu_id' => 'id'])->asArray();
+        return $this->hasMany(MenuItems::className(), ['menu_id' => 'id'])->orderBy('position ASC')->asArray();
     }
     
     /**

@@ -17,7 +17,11 @@ $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
     <?= $form->field($model, 'slug')->textInput(['maxlength' => true])->hint('Генерируется из названия.') ?>
 
     <?php if ((int)$type !== 3) {
-        echo $form->field($model, 'intro_text')->widget(RedactorTinymce::className());
+        echo $form->field($model, 'image')->widget(\app\components\FilemanagerInput::className());
+        
+        if ((int)$type !== 4) {
+            echo $form->field($model, 'intro_text')->widget(RedactorTinymce::className());
+        }
     } ?>
 
     <?= $form->field($model, 'full_text')->widget(RedactorTinymce::className()) ?>

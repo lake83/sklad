@@ -1,24 +1,26 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $dataProvider app\models\Manufacturers */
+/* @var $dataProvider app\models\Materials */
 
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
-$this->title = 'Наши поставщики';
+$this->title = 'Клиенты';
 $this->registerMetaTag(['name' => 'keywords', 'content' => '']);
 $this->registerMetaTag(['name' => 'description', 'content' => '']);
-$this->params['breadcrumbs'][] = ['label' => 'О компании', 'url' => ['/about']];
 $this->params['breadcrumbs'][] = $this->title;
+?>
 
-Pjax::begin(['id' => 'manufacturers_items', 'timeout' => false]);
+<h1>Наши клиенты</h1>
+
+<?php Pjax::begin(['id' => 'clients_items', 'timeout' => false]);
 
 echo ListView::widget([
-     'id' => 'manufacturers_list',
+     'id' => 'clients_list',
      'dataProvider' => $dataProvider,
      'layout' => "{items}\n{pager}",
-     'itemView' => '_manufacturer_item'
+     'itemView' => '_clients_item'
 ]);
 
 Pjax::end();

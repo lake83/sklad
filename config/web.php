@@ -55,8 +55,13 @@ $config = [
             'rules' => [
                 ['class' => 'app\components\UrlRule'],
                 'admin' => 'site/admin',
+                'clients' => 'materials/clients',
                 '<alias>' => 'materials/page',
                 'about/nashi_postavchshiki' => 'materials/postavchshiki',
+                'nashi_postavchshiki/<alias>' => 'materials/postavchshiki-view',
+                'press-centr/news' => 'materials/news',
+                'press-centr/stati' => 'materials/articles',
+                '<_a:(stati|news|clients)>/<alias>' => 'materials/materials-view',
                 
                 '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '<action:\w+>/<id:\d+>' => 'site/<action>',
