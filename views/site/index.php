@@ -1,11 +1,36 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $news app\models\Materials */
 /* @var $main app\models\Materials */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\SiteHelper;
+
+if ($news):
+?>
+
+<div class ="Znews">
+    <p class="Znews__header"><span class="Znews__headerInner">Новости</span></p>
+    <div class="Znews__inner">
+        <?php foreach ($news as $n): ?>
+        <div class="ZnewsItem">
+            <div class="ZnewsItem__imgbox">
+                <img src="<?=SiteHelper::resized_image($n['image'], 100, 100)?>" alt="<?=$n['name']?>"/>
+            </div>
+            <div class="ZnewsItem__txtbox">
+                <a href="<?=Url::to(['/news/' . $n['slug']])?>" class="ZnewsItem__head"><?=$n['name']?></a>
+                <div class="ZnewsItem__date"><?= Yii::$app->formatter->asDate($n['created_at'], 'php:d.m.Y') ?></div>
+                <div class="ZnewsItem__description"><?=$n['intro_text']?></div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+        <a href="<?=Url::to(['/press-centr/news'])?>" class="Znews__all">Все новости</a>
+    </div>
+</div>
+
+<?php endif;
 
 echo $this->context->renderPartial('/materials/page', ['model' => $main]);
 

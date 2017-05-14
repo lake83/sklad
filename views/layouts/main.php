@@ -6,10 +6,19 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\MenuWidget;
+use app\components\RegionSelect;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Regions;
 
 AppAsset::register($this);
+
+$regions = Regions::getRegions();
+
+if (Yii::$app->request->hostName !== DOMAIN) {
+    $region = explode('.', Yii::$app->request->hostName);
+    Yii::$app->params['region'] = $region[0];
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -19,7 +28,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode($this->title) ?> | «МаксиСклад» г. <?= $regions[Yii::$app->params['region']]['name'] ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -46,7 +55,7 @@ AppAsset::register($this);
                     <?php endif;?>
                 </div>
                 <div class="Zreg-sel">
-                    <?//= RegionSelect::widget() ?>
+                    <?= RegionSelect::widget(['regions' => $regions]) ?>
                 </div>
             </div>
             <div class="ZTmiddle">
@@ -83,7 +92,7 @@ AppAsset::register($this);
                 <div class="z-right">
                     <div class="phone-top">
                         <span id="main_tel">
-                            <span><?= $region->phone1?></span>
+                            <span><?= $regions[Yii::$app->params['region']]['phone'] ?></span>
                             <span>+7 (800) 555-5393<p>Звонок бесплатный по РФ</p></span>
                         </span>
                     </div>
@@ -97,7 +106,17 @@ AppAsset::register($this);
             </div>
         </div>
         <div class="left-column">
-            
+            <div class="asideContacts">
+                <div class="asideEmail asideContacts__block">
+                    <div class="asideContacts__block_heading">Электронная почта:</div>
+                    <a href="mailto:<?= $regions[Yii::$app->params['region']]['email'] ?>"><?= $regions[Yii::$app->params['region']]['email'] ?></a>
+                </div>
+                <div class="asidePhone asideContacts__block">
+                    <div class="asideContacts__block_heading">Телефон:</div>
+                    +7 (800) 555-5393<br/>
+                    <?= $regions[Yii::$app->params['region']]['phone'] ?>
+                </div>
+            </div>
         </div>
         <div class="right-column">
             <?= Breadcrumbs::widget([
@@ -120,8 +139,8 @@ AppAsset::register($this);
             При полном или частичном использовании материалов ссылка на сайт обязательна
         </div>
         <div>
-            Адрес: <?= $region->city_name ?>, <br/><?= $region->address?><br/>
-            E-mail: <a href="mailto:<?= $region->email ?>"><?= $region->email ?></a>
+            Адрес: <?= $regions[Yii::$app->params['region']]['name'] ?>, <br/><?= $regions[Yii::$app->params['region']]['address'] ?><br/>
+            E-mail: <a href="mailto:<?= $regions[Yii::$app->params['region']]['email'] ?>"><?= $regions[Yii::$app->params['region']]['email'] ?></a>
         </div>
         <a href="<?=Url::to(['materials/page', 'alias' => 'karta_sayta'])?>" class="sitemap_link">Карта сайта</a>
         <div>

@@ -16,4 +16,8 @@ jQuery(document).ready(function () {
     $('#toTop').click(function() {
         $('body,html').animate({scrollTop:0},800);
     });
+    // смена региона
+    $('#download_now').click(function() {
+        $('#region-list').toggle();
+    });
 });

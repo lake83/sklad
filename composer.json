@@ -26,7 +26,8 @@
         "kartik-v/yii2-widget-growl": "*",
         "xvs32x/tinymce-responsivefilemanager": "^1.0",
         "yiisoft/yii2-imagine": "^2.1",
-        "yii2mod/yii2-bx-slider": "*"
+        "yii2mod/yii2-bx-slider": "*",
+        "jisoft/yii2-sypexgeo": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

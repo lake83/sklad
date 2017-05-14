@@ -1,4 +1,11 @@
 <?php
+if (substr_count($_SERVER['SERVER_NAME'], '.') > 1) {
+    $host = explode('.', $_SERVER['SERVER_NAME']);
+    array_shift($host);
+    define('DOMAIN', implode('.', $host));
+} else {
+    define('DOMAIN', $_SERVER['SERVER_NAME']);
+}
 $config = [
     'id' => 'basic',
     'name' => 'MaxiSklad',
@@ -55,24 +62,23 @@ $config = [
             'rules' => [
                 ['class' => 'app\components\UrlRule'],
                 'admin' => 'site/admin',
-                'clients' => 'materials/clients',
-                '<alias>' => 'materials/page',
-                'about/nashi_postavchshiki' => 'materials/postavchshiki',
-                'nashi_postavchshiki/<alias>' => 'materials/postavchshiki-view',
-                'press-centr/news' => 'materials/news',
-                'press-centr/stati' => 'materials/articles',
-                '<_a:(stati|news|clients)>/<alias>' => 'materials/materials-view',
+                '/clients' => 'materials/clients',
+                '/about/nashi_postavchshiki' => 'materials/postavchshiki',
+                '/press-centr/news' => 'materials/news',
+                '/press-centr/stati' => 'materials/articles',
+                '/<alias>' => 'materials/page',
+                '/nashi_postavchshiki/<alias>' => 'materials/postavchshiki-view',
+                '/<_a:(stati|news|clients)>/<alias>' => 'materials/materials-view',
                 
-                '<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
-                '<action:\w+>/<id:\d+>' => 'site/<action>',
-                '' => 'site/index',
-                '<action>'=>'site/<action>'
+                '/<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
+                '/<action:\w+>/<id:\d+>' => 'site/<action>',
+                '' => 'site/index'
             ]
 
         ],
         'formatter' => [
             'timeZone' => 'Europe/Moscow'
-        ],
+        ]     
     ]
 ];
 

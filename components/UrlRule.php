@@ -1,6 +1,7 @@
 <?php
 namespace app\components;
 
+use Yii;
 use yii\web\UrlRuleInterface;
 use yii\base\Object;
 use app\models\Materials;

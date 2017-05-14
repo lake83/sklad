@@ -29,9 +29,33 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $main = Materials::findOne(['slug' => 'main']);
+        $db = Yii::$app->db;
+        $main = $db->cache(function ($db) {
+            return Materials::findOne(['slug' => 'main']);
+        }, 0, new TagDependency(['tags' => 'main']));
+        $news = $db->cache(function ($db) {
+            return Materials::find()->where(['type' => 1, 'is_active' => 1])->orderBy('created_at DESC')->limit(2)->asArray()->all();
+        }, 0, new TagDependency(['tags' => 'news']));
         
-        return $this->render('index', ['main' => $main, 'slider' => Materials::getClients()]);
+        return $this->render('index', ['main' => $main, 'slider' => Materials::getClients(), 'news' => $news]);
+    }
+    
+    /**
+     * Установка нового региона в куки пользователя.
+     * 
+     * @param string|null $subdomain субдомен региона
+     * @return string
+     */
+    public function actionRegion($subdomain)
+    {
+        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+            'name' => 'region',
+            'value' => $subdomain,
+            'expire' => time() + 86400*30,
+            'domain' => '.' . DOMAIN
+        ]));
+        Yii::$app->params['region'] = $subdomain;
+        return $this->redirect((Yii::$app->request->isSecureConnection ? 'https://' : 'http://') . ($subdomain ? $subdomain . '.' : '') . DOMAIN);
     }
 
     /**

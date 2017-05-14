@@ -113,8 +113,14 @@ class Materials extends \yii\db\ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
+        if ($this->type == 1) {
+            TagDependency::invalidate(Yii::$app->cache, 'news');
+        }
         if ($this->type == 4) {
             TagDependency::invalidate(Yii::$app->cache, 'clients');
+        }
+        if ($this->slug == 'main') {
+            TagDependency::invalidate(Yii::$app->cache, 'main');
         }
         return parent::afterSave($insert, $changedAttributes);
     }
@@ -124,8 +130,14 @@ class Materials extends \yii\db\ActiveRecord
      */
     public function afterDelete()
     {
+        if ($this->type == 1) {
+            TagDependency::invalidate(Yii::$app->cache, 'news');
+        }
         if ($this->type == 4) {
             TagDependency::invalidate(Yii::$app->cache, 'clients');
+        }
+        if ($this->slug == 'main') {
+            TagDependency::invalidate(Yii::$app->cache, 'main');
         }
         parent::afterDelete();
     }

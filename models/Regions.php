@@ -93,7 +93,7 @@ class Regions extends \yii\db\ActiveRecord
     {
         $db = Yii::$app->db;
         return $db->cache(function ($db) {
-            return ArrayHelper::map(self::find()->select('subdomain,name')->where(['is_active' => 1])->asArray()->all(), 'subdomain', 'name');
+            return ArrayHelper::map(self::find()->where(['is_active' => 1])->asArray()->all(), 'subdomain', function($model) {return $model;});
         }, 0, new TagDependency(['tags' => 'regions']));
     }
 }
