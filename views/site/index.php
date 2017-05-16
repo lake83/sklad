@@ -15,6 +15,7 @@ if ($news):
     <p class="Znews__header"><span class="Znews__headerInner">Новости</span></p>
     <div class="Znews__inner">
         <?php foreach ($news as $n): ?>
+        <?php if ($n['not_show_region'] == 0): ?>
         <div class="ZnewsItem">
             <div class="ZnewsItem__imgbox">
                 <img src="<?=SiteHelper::resized_image($n['image'], 100, 100)?>" alt="<?=$n['name']?>"/>
@@ -25,6 +26,7 @@ if ($news):
                 <div class="ZnewsItem__description"><?=$n['intro_text']?></div>
             </div>
         </div>
+        <?php endif; ?>
         <?php endforeach; ?>
         <a href="<?=Url::to(['/press-centr/news'])?>" class="Znews__all">Все новости</a>
     </div>
@@ -36,7 +38,9 @@ echo $this->context->renderPartial('/materials/page', ['model' => $main]);
 
 if ($slider) :
 foreach ($slider as $item) {
-    $items[] = Html::a(Html::img(SiteHelper::resized_image($item['image'], 200, 200), ['alt' => $item['name'], 'title' => $item['name']]), Url::to(['/clients/' . $item['slug']]));
+    if ($item['not_show_region'] == 0) {
+        $items[] = Html::a(Html::img(SiteHelper::resized_image($item['image'], 200, 200), ['alt' => $item['name'], 'title' => $item['name']]), Url::to(['/clients/' . $item['slug']]));
+    }
 } ?>
 
 <div class="clearfix"></div>

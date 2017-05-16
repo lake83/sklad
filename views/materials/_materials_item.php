@@ -6,7 +6,8 @@
 use app\components\SiteHelper;
 
 $type = $model->type == 1 ? '/news/' : '/stati/';
-?>
+
+if ($model->not_show_region == 0): ?>
   
 <div class="art-block">
     <div class="ab1">
@@ -21,3 +22,5 @@ $type = $model->type == 1 ? '/news/' : '/stati/';
     <a class="artmore" href="<?=$type . $model->slug?>/"></a>     
     <div class="clearfix"></div>
 </div>
+
+<?php endif; ?>

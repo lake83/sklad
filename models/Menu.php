@@ -35,7 +35,8 @@ class Menu extends \yii\db\ActiveRecord
         return [
             [
                 'class' => SluggableBehavior::className(),
-                'attribute' => 'name'
+                'attribute' => 'name',
+                'immutable' => true
             ]
         ];
     }

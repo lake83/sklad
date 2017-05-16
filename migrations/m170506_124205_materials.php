@@ -17,6 +17,8 @@ class m170506_124205_materials extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'slug' => $this->string()->notNull(),
+            'parent_id' => $this->integer()->notNull(),
+            'region' => $this->string(50)->notNull(),
             'image' => $this->string(100)->notNull(),
             'intro_text' => $this->text()->notNull(),
             'full_text' => $this->text()->notNull(),
@@ -24,6 +26,7 @@ class m170506_124205_materials extends Migration
             'keywords' => $this->string()->notNull(),
             'description' => $this->text()->notNull(),
             'type' => $this->boolean()->defaultValue(1)->comment('1-Новость,2-Статья,3-Страница,4-Клиент'),
+            'not_show_region' => $this->boolean()->defaultValue(0),
             'is_active' => $this->boolean()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull()

@@ -18,9 +18,9 @@ class MaterialsSearch extends Materials
     public function rules()
     {
         return [
-            [['id', 'type', 'is_active'], 'integer'],
+            [['id', 'parent_id', 'type', 'not_show_region', 'is_active'], 'integer'],
             [['created_at', 'updated_at'], 'date', 'format' => 'd.m.Y'],
-            [['name', 'slug', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
+            [['name', 'slug', 'region', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
         ];
     }
 
@@ -47,6 +47,8 @@ class MaterialsSearch extends Materials
         if ($type = Yii::$app->request->get('type')) {
             $query->andWhere(['type' => $type]);
         }
+        $query->andWhere(['parent_id' => 0]);
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -65,7 +67,9 @@ class MaterialsSearch extends Materials
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'type' => $this->type,
+            'not_show_region' => $this->not_show_region,
             'is_active' => $this->is_active,
             'FROM_UNIXTIME(created_at, "%d.%m.%Y")' => $this->created_at,
             'FROM_UNIXTIME(updated_at, "%d.%m.%Y")' => $this->updated_at
@@ -73,6 +77,7 @@ class MaterialsSearch extends Materials
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'region', $this->slug])
             ->andFilterWhere(['like', 'intro_text', $this->intro_text])
             ->andFilterWhere(['like', 'full_text', $this->full_text])
             ->andFilterWhere(['like', 'title', $this->title])

@@ -12,12 +12,16 @@ trait ActionsTraite
      * @param string $message сообщение при успешном сохранении
      * @param string $view вид
      * @param string $redirect адрес для переадресации после сохранения записи
+     * @param string $scenario сценарий модели
      * @return mixed
      */
-    protected function actionBody($model, $message, $view, $redirect)
+    protected function actionBody($model, $message, $view, $redirect, $scenario=null)
     {
         $model = is_object($model) ? $model : $this->findModel($model);
         
+        if (!is_null($scenario)) {
+            $model->scenario = $scenario;
+        }
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return \yii\widgets\ActiveForm::validate($model);

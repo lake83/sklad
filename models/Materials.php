@@ -7,6 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 use yii\caching\TagDependency;
+use app\components\localizedActiveRecord;
 
 /**
  * This is the model class for table "{{%materials}}".
@@ -14,6 +15,8 @@ use yii\caching\TagDependency;
  * @property integer $id
  * @property string $name
  * @property string $slug
+ * @property integer $parent_id
+ * @property string $region
  * @property string $image
  * @property string $intro_text
  * @property string $full_text
@@ -21,11 +24,12 @@ use yii\caching\TagDependency;
  * @property string $keywords
  * @property string $description
  * @property integer $type
+ * @property integer $not_show_region
  * @property integer $is_active
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Materials extends \yii\db\ActiveRecord
+class Materials extends localizedActiveRecord
 {
     /**
      * @inheritdoc
@@ -44,7 +48,8 @@ class Materials extends \yii\db\ActiveRecord
             TimestampBehavior::className(),
             [
                 'class' => SluggableBehavior::className(),
-                'attribute' => 'name'
+                'attribute' => 'name',
+                'immutable' => true
             ]
         ];
     }
@@ -55,11 +60,13 @@ class Materials extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'full_text', 'type'], 'required'],
+            [['name', 'full_text', 'type'], 'required', 'on' => 'main'],
             [['intro_text', 'full_text', 'description'], 'string'],
-            [['type', 'is_active', 'created_at', 'updated_at'], 'integer'],
+            [['parent_id', 'type', 'is_active', 'not_show_region', 'created_at', 'updated_at'], 'integer'],
+            ['region', 'string', 'max' => 50],
             ['image', 'string', 'max' => 100],
             [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
+            ['not_show_region', \app\components\ShowRegionValidator::className()],
         ];
     }
 
@@ -71,7 +78,9 @@ class Materials extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'parent_id' => 'Родитель',
             'slug' => 'Алиас',
+            'region' => 'Регион',
             'image' => 'Изображение',
             'intro_text' => 'Короткий текст',
             'full_text' => 'Полный текст',
@@ -79,6 +88,7 @@ class Materials extends \yii\db\ActiveRecord
             'keywords' => 'Keywords',
             'description' => 'Description',
             'type' => 'Тип',
+            'not_show_region' => 'Не выводить для региона',
             'is_active' => 'Активно',
             'created_at' => 'Создан',
             'updated_at' => 'Обновлен',
@@ -139,6 +149,9 @@ class Materials extends \yii\db\ActiveRecord
         if ($this->slug == 'main') {
             TagDependency::invalidate(Yii::$app->cache, 'main');
         }
+        self::deleteAll(['parent_id' => $this->id]);
+        self::deleteAll(['name' => '', 'image' => '', 'intro_text' => '', 'full_text' => '', 'title' => '', 'keywords' => '', 'description' => '', 'not_show_region' => 0]);
+        
         parent::afterDelete();
     }
     
@@ -151,7 +164,7 @@ class Materials extends \yii\db\ActiveRecord
     {
         $db = Yii::$app->db;
         return $db->cache(function ($db) {
-            return self::find()->select('slug,name,image')->where(['type' => 4, 'is_active' => 1])->asArray()->all();
+            return self::find()->where(['type' => 4, 'is_active' => 1, 'parent_id' => 0])->localized()->asArray()->all();
         }, 0, new TagDependency(['tags' => 'clients']));
     }
 }

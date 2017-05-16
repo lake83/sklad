@@ -14,11 +14,6 @@ use app\models\Regions;
 AppAsset::register($this);
 
 $regions = Regions::getRegions();
-
-if (Yii::$app->request->hostName !== DOMAIN) {
-    $region = explode('.', Yii::$app->request->hostName);
-    Yii::$app->params['region'] = $region[0];
-}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

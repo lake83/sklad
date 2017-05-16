@@ -25,7 +25,10 @@ class settings implements BootstrapInterface
             $settings = ArrayHelper::map($this->db->createCommand("SELECT name, value FROM settings")->queryAll(), 'name', 'value');
             Yii::$app->cache->set('settings', $settings, 0, new \yii\caching\TagDependency(['tags' => 'settings']));           
         }
-        Yii::$app->params = array_merge($settings, ['region' => '']);        
+        if (Yii::$app->request->hostName !== DOMAIN) {
+            $region = explode('.', Yii::$app->request->hostName);
+        }
+        Yii::$app->params = array_merge($settings, ['region' => $region[0]]);        
         
         if (!$app instanceof \yii\console\Application) {
             // Установка темы в админке

@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
+use app\models\Materials;
 
 /**
  * MaterialsController implements the CRUD actions for Materials model.
@@ -20,12 +21,14 @@ class MaterialsController extends AdminController
             'create' => [
                 'class' => $this->actionsPath.'Create',
                 'model' => $this->modelPath.'Materials',
-                'redirect' => ['/admin/materials/index', 'type' => $type]
+                'redirect' => ['/admin/materials/index', 'type' => $type],
+                'scenario' => 'main'
             ],
             'update' => [
                 'class' => $this->actionsPath.'Update',
                 'model' => $this->modelPath.'Materials',
-                'redirect' => ['/admin/materials/index', 'type' => $type]
+                'redirect' => Yii::$app->request->referrer,
+                'scenario' => 'main'
             ],
             'delete' => [
                 'class' => $this->actionsPath.'Delete',
@@ -38,5 +41,25 @@ class MaterialsController extends AdminController
                 'attribute' => 'is_active'
             ]
         ];
+    }
+    
+    /**
+     * Сохранение и вывод для экшенов Create и Update
+     * 
+     * @param integer $parent_id ID родительской модели
+     * @param string $region субдомен региона
+     * @return string
+     */
+    public function actionLocalization($parent_id, $region)
+    {
+        if (!$model = Materials::findOne(['parent_id' => $parent_id, 'region' => $region])) {
+            $model = new Materials;
+            $model->slug = Materials::find()->select('slug')->where(['id' => $parent_id])->scalar();
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
+            return $this->refresh();
+        }
+        return $this->render('_form', ['model' => $model]);
     }
 }

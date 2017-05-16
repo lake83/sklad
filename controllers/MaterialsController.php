@@ -10,6 +10,7 @@ use app\models\ManufacturersSearch;
 use app\models\MaterialsSearch;
 use yii\web\NotFoundHttpException;
 use yii\data\ArrayDataProvider;
+use yii\data\ActiveDataProvider;
 
 class MaterialsController extends Controller
 {
@@ -22,7 +23,7 @@ class MaterialsController extends Controller
      */
     public function actionPage($alias)
     {
-        if (!$model = Materials::findOne(['slug' => $alias, 'is_active' => 1])) {
+        if ((!$model = Materials::find()->where(['slug' => $alias, 'is_active' => 1])->localized()->one()) || $model->not_show_region == 1) {
             throw new NotFoundHttpException('Страница не найдена.');
         }
         $view = $this->view;
@@ -79,11 +80,12 @@ class MaterialsController extends Controller
      */
     public function actionNews($type = 1)
     {
-        $searchModel = new MaterialsSearch;
-        $searchModel->is_active = 1;
-        $searchModel->type = $type;       
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $dataProvider = new ActiveDataProvider([
+            'query' => Materials::find()->where(['type' => $type, 'is_active' => 1])->localized(),
+            'pagination' => [
+                'defaultPageSize' => 10
+            ]
+        ]);
         return $this->render('materials', ['dataProvider' => $dataProvider, 'type' => $type]);
     }
     
@@ -106,7 +108,7 @@ class MaterialsController extends Controller
      */
     public function actionMaterialsView($alias)
     {
-        if (!$model = Materials::findOne(['slug' => $alias, 'is_active' => 1])) {
+        if ((!$model = Materials::find()->where(['slug' => $alias, 'is_active' => 1])->localized()->one()) || $model->not_show_region == 1) {
             throw new NotFoundHttpException('Страница не найдена.');
         }
         return $this->render('materials-view', ['model' => $model]);
