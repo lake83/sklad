@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e1acae9302b8d0cd388f38ce1bb9aec",
+    "content-hash": "6e26ab91e36bc64d5cd4da5e21e08c51",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -337,6 +337,43 @@
             }
         },
         {
+            "name": "bower-asset/treegrid",
+            "version": "v0.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dkhlystov/jquery-treegrid.git",
+                "reference": "91853bf8b8fe8c2c618c01fc962e15a7c92b4a5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dkhlystov/jquery-treegrid/zipball/91853bf8b8fe8c2c618c01fc962e15a7c92b4a5a",
+                "reference": "91853bf8b8fe8c2c618c01fc962e15a7c92b4a5a",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.9.1"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./dist/js/treegrid.jquery.js",
+                    "./dist/css/treegrid.jquery.css"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests",
+                    "docs"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "TreeGrid plugin for jQuery, supported data manipulating."
+        },
+        {
             "name": "bower-asset/yii2-pjax",
             "version": "v2.0.6",
             "source": {
@@ -472,6 +509,90 @@
                 "yii"
             ],
             "time": "2013-12-10T17:49:58+00:00"
+        },
+        {
+            "name": "creocoder/yii2-nested-sets",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creocoder/yii2-nested-sets.git",
+                "reference": "cb8635a459b6246e5a144f096b992dcc30cf9954"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creocoder/yii2-nested-sets/zipball/cb8635a459b6246e5a144f096b992dcc30cf9954",
+                "reference": "cb8635a459b6246e5a144f096b992dcc30cf9954",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "creocoder\\nestedsets\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kochetov",
+                    "email": "creocoder@gmail.com"
+                }
+            ],
+            "description": "The nested sets behavior for the Yii framework",
+            "keywords": [
+                "nested sets",
+                "yii2"
+            ],
+            "time": "2015-01-27T10:53:51+00:00"
+        },
+        {
+            "name": "dkhlystov/yii2-treegrid",
+            "version": "v0.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dkhlystov/yii2-treegrid.git",
+                "reference": "54f891f785b8e3506e796014f39586aecf587ed3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dkhlystov/yii2-treegrid/zipball/54f891f785b8e3506e796014f39586aecf587ed3",
+                "reference": "54f891f785b8e3506e796014f39586aecf587ed3",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/treegrid": ">= 0.1.5",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "dkhlystov\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Khlystov",
+                    "email": "dkhlystov@gmail.com"
+                }
+            ],
+            "description": "TreeGrid widget for Yii PHP Framework Version 2",
+            "keywords": [
+                "extension",
+                "grid",
+                "tree",
+                "widget",
+                "yii2"
+            ],
+            "time": "2017-04-13T04:34:20+00:00"
         },
         {
             "name": "dmstr/yii2-adminlte-asset",

@@ -68,3 +68,9 @@ $('#menuitems-type').on('change', function() {
         $('#type-list').css('display', 'none').find('select').attr('disabled', true);
     }
 });
+
+// каталог открыт при открытии страницы
+$('.treegrid-1').addClass('expanded');
+$('#catalog_items').on('pjax:success', function(event, data, status, xhr, options) {
+      $('.treegrid-1').find('.treegrid-expander').trigger('click');
+});

@@ -27,7 +27,9 @@
         "xvs32x/tinymce-responsivefilemanager": "^1.0",
         "yiisoft/yii2-imagine": "^2.1",
         "yii2mod/yii2-bx-slider": "*",
-        "jisoft/yii2-sypexgeo": "dev-master"
+        "jisoft/yii2-sypexgeo": "dev-master",
+        "dkhlystov/yii2-treegrid": "^0.1.6",
+        "creocoder/yii2-nested-sets": "^0.9.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

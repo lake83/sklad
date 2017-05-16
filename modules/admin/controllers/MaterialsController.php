@@ -44,7 +44,7 @@ class MaterialsController extends AdminController
     }
     
     /**
-     * Сохранение и вывод для экшенов Create и Update
+     * Создание и редактирование локальных версий для регионов
      * 
      * @param integer $parent_id ID родительской модели
      * @param string $region субдомен региона
