@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\MenuWidget;
 use app\components\RegionSelect;
+use app\components\CatalogMenu;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\Regions;
@@ -75,12 +76,12 @@ $regions = Regions::getRegions();
                         ]);*/ ?>
                         </span>
                         <input type="submit" id="submit-search-button" class="submitsearch"/>
-                        <?php $catId = 0;
+                        <?php /*$catId = 0;
                         if (Yii::$app->controller->id == 'catalog') {
                             $catId = $this->model->id;
                         } elseif (Yii::$app->controller->id=='search') {
                             $catId = $cat_id;
-                        } ?>
+                        }*/ ?>
                         <input type="hidden" name="cat_id" value="<?= $catId ?>"/>
                     </form>
                 </div>
@@ -101,6 +102,7 @@ $regions = Regions::getRegions();
             </div>
         </div>
         <div class="left-column">
+            <?= CatalogMenu::widget() ?>
             <div class="asideContacts">
                 <div class="asideEmail asideContacts__block">
                     <div class="asideContacts__block_heading">Электронная почта:</div>

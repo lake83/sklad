@@ -20,4 +20,12 @@ jQuery(document).ready(function () {
     $('#download_now').click(function() {
         $('#region-list').toggle();
     });
+    // меню каталога
+    $('.cat-modal').hover(
+         function () {
+             $(this).find('ul:first').addClass('cat-preview').toggle();
+         }, function () {
+             $(this).find('ul:first').removeClass('cat-preview').toggle();
+         }
+    );
 });

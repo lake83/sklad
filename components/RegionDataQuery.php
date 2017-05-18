@@ -33,7 +33,7 @@ class RegionDataQuery extends \yii\db\ActiveQuery
             foreach ($models as &$model) {
                 if (!empty($model['location'])) {
                     foreach ($model['location'] as $key => $value) {
-                        if (!empty($value)) {
+                        if (array_key_exists($key, $model) && !empty($value)) {
                             $model[$key] = $value;
                         }
                     }                   

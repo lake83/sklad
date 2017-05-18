@@ -4,6 +4,7 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Catalog;
+use app\models\CatalogRegions;
 
 /**
  * CatalogController implements the CRUD actions for Catalog model.
@@ -105,13 +106,9 @@ class CatalogController extends AdminController
      */
     public function actionLocalization($parent_id, $region)
     {
-        if (!$model = Catalog::findOne(['parent_id' => $parent_id, 'region' => $region])) {
-            $parent = Catalog::find()->select('lft,rgt,depth,slug')->where(['id' => $parent_id])->one();
-            $model = new Catalog;
-            $model->lft = $parent->lft;
-            $model->rgt = $parent->rgt;
-            $model->depth = $parent->depth;
-            $model->slug = $parent->slug;
+        if (!$model = CatalogRegions::findOne(['catalog_id' => $parent_id, 'region' => $region])) {
+            $model = new CatalogRegions;
+            $model->catalog_id = $parent_id;
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));

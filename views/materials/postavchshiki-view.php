@@ -12,7 +12,6 @@ if ($model->description) {
 }
 $this->params['breadcrumbs'][] = ['label' => 'О компании', 'url' => ['/about']];
 $this->params['breadcrumbs'][] = ['label' => 'Наши поставщики', 'url' => ['/about/nashi_postavchshiki']];
-$this->params['breadcrumbs'][] = $model->brand;
 ?>
 
 <h1><?= $model->name ?></h1>

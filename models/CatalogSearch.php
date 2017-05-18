@@ -18,8 +18,8 @@ class CatalogSearch extends Catalog
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'lft', 'rgt', 'depth', 'not_show_region', 'is_active'], 'integer'],
-            [['name', 'slug', 'region', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
+            [['id', 'lft', 'rgt', 'depth', 'not_show_region', 'is_active'], 'integer'],
+            [['name', 'slug', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
         ];
     }
 
@@ -43,10 +43,8 @@ class CatalogSearch extends Catalog
     {
         $query = Catalog::find();
 
-        $query->andWhere(['parent_id' => 0]);
-
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->orderBy('rgt DESC, lft ASC'),
         ]);
 
         $this->load($params);
@@ -63,14 +61,12 @@ class CatalogSearch extends Catalog
             'lft' => $this->lft,
             'rgt' => $this->rgt,
             'depth' => $this->depth,
-            'parent_id' => $this->parent_id,
             'not_show_region' => $this->not_show_region,
             'is_active' => $this->is_active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'region', $this->slug])
             ->andFilterWhere(['like', 'intro_text', $this->intro_text])
             ->andFilterWhere(['like', 'full_text', $this->full_text])
             ->andFilterWhere(['like', 'title', $this->title])

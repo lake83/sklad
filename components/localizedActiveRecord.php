@@ -33,7 +33,7 @@ class localizedActiveRecord extends ActiveRecord
     {
         if ($this->isRelationPopulated('location') && $related = $this->getRelatedRecords()['location']) {
             foreach ($related as $key => $value) {
-                if (!empty($value)) {
+                if ($this->hasAttribute($key) && !empty($value)) {
                     $this->setAttribute($key, $value);
                 }
             }

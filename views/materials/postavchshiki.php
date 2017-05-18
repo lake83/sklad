@@ -10,7 +10,6 @@ $this->title = 'Наши поставщики';
 $this->registerMetaTag(['name' => 'keywords', 'content' => '']);
 $this->registerMetaTag(['name' => 'description', 'content' => '']);
 $this->params['breadcrumbs'][] = ['label' => 'О компании', 'url' => ['/about']];
-$this->params['breadcrumbs'][] = $this->title;
 
 Pjax::begin(['id' => 'manufacturers_items', 'timeout' => false]);
 
