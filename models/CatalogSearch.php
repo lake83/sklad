@@ -44,7 +44,8 @@ class CatalogSearch extends Catalog
         $query = Catalog::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query->orderBy('rgt DESC, lft ASC'),
+            'query' => $query,
+            'pagination' => false
         ]);
 
         $this->load($params);

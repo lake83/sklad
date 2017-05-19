@@ -10,8 +10,11 @@ $this->title = 'Наши поставщики';
 $this->registerMetaTag(['name' => 'keywords', 'content' => '']);
 $this->registerMetaTag(['name' => 'description', 'content' => '']);
 $this->params['breadcrumbs'][] = ['label' => 'О компании', 'url' => ['/about']];
+?>
 
-Pjax::begin(['id' => 'manufacturers_items', 'timeout' => false]);
+<h1><?= $this->title ?></h1>
+
+<?php Pjax::begin(['id' => 'manufacturers_items', 'timeout' => false]);
 
 echo ListView::widget([
      'id' => 'manufacturers_list',

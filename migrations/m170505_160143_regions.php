@@ -29,8 +29,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Москва',
                 'subdomain' => '',
-                'lng' => '55.755833',
-                'lat' => '37.617778',
+                'lng' => '37.6155',
+                'lat' => '55.7522',
                 'phone' => '+7 (495) 646-8227',
                 'address' => 'ул. Краснобогатырская, д.2, стр.2',
                 'email' => 'zapros@maxi-sklad.ru'
@@ -38,8 +38,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Ростов',
                 'subdomain' => 'rostov',
-                'lng' => '47.240556',
-                'lat' => '39.710556',
+                'lng' => '47.2313',
+                'lat' => '39.7232',
                 'phone' => '',
                 'address' => 'ул. Суворова, 93',
                 'email' => 'rostov@maxi-sklad.ru'
@@ -47,8 +47,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Екатеринбург',
                 'subdomain' => 'ekb',
-                'lng' => '56.833333',
-                'lat' => '60.583333',
+                'lng' => '60.6122',
+                'lat' => '56.8519',
                 'phone' => '',
                 'address' => 'ул. Хохрякова, 10',
                 'email' => 'ekb@maxi-sklad.ru'
@@ -56,8 +56,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Новгород',
                 'subdomain' => 'novgorod',
-                'lng' => '58.525',
-                'lat' => '31.275',
+                'lng' => '58.5213',
+                'lat' => '31.2710',
                 'phone' => '',
                 'address' => 'ул. М. Горького, 117',
                 'email' => 'novgorod@maxi-sklad.ru'
@@ -65,8 +65,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Самара',
                 'subdomain' => 'samara',
-                'lng' => '53.183333',
-                'lat' => '50.116667',
+                'lng' => '53.2000',
+                'lat' => '50.1500',
                 'phone' => '',
                 'address' => 'ул. Мичурина, 78',
                 'email' => 'samara@maxi-sklad.ru'
@@ -74,8 +74,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Санкт-Петербург',
                 'subdomain' => 'spb',
-                'lng' => '59.95',
-                'lat' => '30.316667',
+                'lng' => '30.3141',
+                'lat' => '59.9386',
                 'phone' => '',
                 'address' => 'ул. Воронежская, 5',
                 'email' => 'spb@maxi-sklad.ru'
@@ -83,8 +83,8 @@ class m170505_160143_regions extends Migration
             [
                 'name' => 'Волгоград',
                 'subdomain' => 'volgograd',
-                'lng' => '48.699167',
-                'lat' => '44.473333',
+                'lng' => '44.5018',
+                'lat' => '48.7193',
                 'phone' => '',
                 'address' => 'ул. им. Ткачева, 20Б',
                 'email' => 'volgograd@maxi-sklad.ru'

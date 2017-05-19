@@ -45,9 +45,8 @@ class CatalogQuery extends \yii\db\ActiveQuery
                         }
                     }                   
                 }
+                unset($model['location']);
             }
-            unset($model['location']);
-            
             return $models;
         }
     }

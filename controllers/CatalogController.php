@@ -38,7 +38,9 @@ class CatalogController extends Controller
                 }
             }
         }
-        return $this->render('page', ['model' => $model]);
+        $children = $model->children(1)->andWhere(['is_active' => 1])->localized()->asArray()->all();
+        
+        return $this->render('page', ['model' => $model, 'children' => $children]);
     }
 }
 ?>

@@ -26,9 +26,18 @@ foreach($catalogItems as $category) {
 			    echo '</li>'."\n";
 		    }
 	    }
-	    echo '<li' . ($category['depth'] == 1 && ($category['rgt']-$category['lft']) !== 1 ? ' class="cat-modal"' : '') . '>';
+        $path = trim(Yii::$app->request->pathInfo, '/');
+        if (($path == $category['slug'] && $path !== $catalogItems[0]['slug']) || ($category['depth'] == 1 && strpos($path, $category['slug']) !== false)) {
+            $active = true;
+            if (!isset($active_cat)) {
+                $active_cat = $category['rgt'];
+            }
+        } else {
+            $active = false;
+        }
+        echo '<li' . ($category['depth'] == 1 ? ($active ? ' class="active"' : (($category['rgt']-$category['lft']) !== 1 ? ' class="cat-modal"' : '')) : '') . '>';
 	    $image = '';
-        if ($category['depth'] == 2) {
+        if ($category['depth'] == 2 && !$active && $active_cat < $category['rgt']) {
 	        $image = '<span title="' . $category['name'] . '" style="background:url(' . SiteHelper::resized_image($category['image'], 120, 100) . ') no-repeat;"></span><br />';
 	    }
         echo Html::a($image.$category['name'], ['catalog/page', 'alias' => $category['slug']], 

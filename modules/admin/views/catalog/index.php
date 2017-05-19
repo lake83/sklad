@@ -23,6 +23,7 @@ $this->title = 'Каталог';
 echo NestedTreeGrid::widget([
     'id' => 'catalog-tree',
     'dataProvider' => $dataProvider,
+    'lazyLoad' => false,
     'moveAction' => ['move'],
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
