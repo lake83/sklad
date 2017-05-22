@@ -47,7 +47,8 @@ echo ListView::widget([
      'id' => 'products_list',
      'dataProvider' => $dataProvider,
      'layout' => "{items}\n<div class='clearfix'></div>{pager}",
-     'itemView' => '_product_item'
+     'itemView' => '_product_item',
+     'emptyText' => 'Нет доступных товаров.'
 ]);
 
 Pjax::end();
