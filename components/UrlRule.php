@@ -5,6 +5,7 @@ use Yii;
 use yii\web\UrlRuleInterface;
 use yii\base\Object;
 use app\models\Catalog;
+use app\models\Products;
 use app\models\Materials;
  
 class UrlRule extends Object implements UrlRuleInterface
@@ -21,6 +22,11 @@ class UrlRule extends Object implements UrlRuleInterface
                 return $params['alias'] . '/';
             }
         }
+        if ($route === 'catalog/product') {
+            if (isset($params['alias'])) {
+                return $params['alias'] . '/';
+            }
+        }
         return false;
     }
 
@@ -33,6 +39,10 @@ class UrlRule extends Object implements UrlRuleInterface
             if (Catalog::find()->where(['slug' => $alias, 'is_active' => 1])->exists()) {
                 $params['alias'] = $alias;
                 return ['catalog/page', $params];
+            }
+            if (Products::find()->where(['slug' => $alias, 'is_active' => 1])->exists()) {
+                $params['alias'] = $alias;
+                return ['catalog/product', $params];
             }
         }
         if (strpos($pathInfo, '/') !== false && Materials::find()->where(['slug' => $pathInfo, 'is_active' => 1])->exists()) {

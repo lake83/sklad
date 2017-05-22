@@ -76,6 +76,49 @@ $config = [
             ]
 
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'basePath' => '@webroot/assets',
+            'baseUrl' => '@web/assets',
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => [
+                        YII_DEBUG ? 'jquery.js' : 'jquery.min.js'
+                    ]
+                ],
+                'yii\jui\JuiAsset' => [
+                    'js' => [
+                        YII_DEBUG ? 'jquery-ui.js' : 'jquery-ui.min.js'
+                    ],
+                    'css' => [
+                        YII_DEBUG ? 'themes/smoothness/jquery-ui.css' : 'themes/smoothness/jquery-ui.min.css'
+                    ]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [
+                        YII_DEBUG ? 'css/bootstrap.css' : 'css/bootstrap.min.css'
+                    ]
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => [
+                        YII_DEBUG ? 'js/bootstrap.js' : 'js/bootstrap.min.js'
+                    ]
+                ],
+                /*'app\assets\AppAsset' => [
+                    'css' => [
+                        YII_DEBUG ? 'css/site.css' : 'css/site.min.css'
+                    ]
+                ],
+                'app\assets\AdminAsset' => [
+                    'css' => [
+                        YII_DEBUG ? 'css/admin.css' : 'css/admin.min.css'
+                    ],
+                    'js' => [
+                        YII_DEBUG ? 'js/admin.js' : 'js/admin.min.js'
+                    ]
+                ]*/
+            ]
+        ],
         'formatter' => [
             'timeZone' => 'Europe/Moscow'
         ]     

@@ -856,3 +856,88 @@ a.requestbutton:hover, .catalog-list li a:hover {
     color: #000;
     font-size: 13px;
 }
+.product_item {
+    width: 33.33333%;
+    float: left;
+    padding: 0 15px;
+}
+.product_item .thumbnail {
+    border: 1px solid #c4c4c4;
+    width: 210px;
+    height: 325px;
+    float: left;
+    -webkit-box-shadow: 0 1px 7px 0 rgba(50,50,50,.32);
+    -moz-box-shadow: 0 1px 7px 0 rgba(50,50,50,.32);
+    box-shadow: 0 1px 7px 0 rgba(50,50,50,.32);
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    position:relative;
+}
+.product_item .thumbnail a {
+    color: #000;
+}
+.product_item .thumbnail span {
+    display: list-item;
+    list-style: none;
+    text-align: left;
+    color: #000;
+    font-size: 10px;
+    padding: 7px;
+    white-space: nowrap;
+    margin-left: -10px;
+    width: 208px;
+}
+.product_item .thumbnail span:nth-child(2n+1) {
+    background-color: #e7e7e7;
+}
+.product_item .thumbnail .prod-title {
+    height: 50px;
+    overflow: hidden;
+    line-height: 120%;
+    font-size: 13px;
+}
+.product_item .thumbnail img {
+    height: 140px !important;
+    margin-bottom: 10px;
+}
+.product_item .thumbnail p {
+    position:absolute;
+    bottom:0;
+    margin-bottom: 0;
+}
+.detail {
+    padding: 20px 0;
+}
+.detail .left {
+    float: left;
+    padding-right: 20px;
+    width: 230px;
+}
+.detail .main {
+    display: block;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    border: 1px solid #ccc;
+}
+a.formreqestitem {
+    margin: 10px 0;
+    width: 200px;
+    text-align: center;
+}
+.mcblock-flashmessage {
+    background: #4758a5;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    padding: 5px 0;
+    border-radius: 10px;
+    width: 200px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 200%;
+}

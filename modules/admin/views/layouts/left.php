@@ -14,6 +14,7 @@ app\assets\AdminAsset::register($this);
         ['label' => 'Пользователи', 'url' => ['/admin/user/index'], 'icon' => 'users'],
         ['label' => 'Регионы', 'url' => ['/admin/regions/index'], 'icon' => 'arrows-alt'],
         ['label' => 'Каталог', 'url' => ['/admin/catalog/index'], 'icon' => 'table'],
+        ['label' => 'Товары', 'url' => ['/admin/products/index'], 'icon' => 'shopping-basket'],
         ['label' => 'Производители', 'url' => ['/admin/manufacturers/index'], 'icon' => 'address-card-o'],
         ['label' => 'Материалы', 'icon' => 'book',
             'items' => [

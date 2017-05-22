@@ -106,7 +106,7 @@ $regions = Regions::getRegions();
             <div class="asideContacts">
                 <div class="asideEmail asideContacts__block">
                     <div class="asideContacts__block_heading">Электронная почта:</div>
-                    <a href="mailto:<?= $regions[Yii::$app->params['region']]['email'] ?>"><?= $regions[Yii::$app->params['region']]['email'] ?></a>
+                    <?= $mailto = Yii::$app->formatter->asEmail($regions[Yii::$app->params['region']]['email']) ?>
                 </div>
                 <div class="asidePhone asideContacts__block">
                     <div class="asideContacts__block_heading">Телефон:</div>
@@ -137,7 +137,7 @@ $regions = Regions::getRegions();
         </div>
         <div>
             Адрес: <?= $regions[Yii::$app->params['region']]['name'] ?>, <br/><?= $regions[Yii::$app->params['region']]['address'] ?><br/>
-            E-mail: <a href="mailto:<?= $regions[Yii::$app->params['region']]['email'] ?>"><?= $regions[Yii::$app->params['region']]['email'] ?></a>
+            E-mail: <?= $mailto ?></a>
         </div>
         <a href="<?=Url::to(['materials/page', 'alias' => 'karta_sayta'])?>" class="sitemap_link">Карта сайта</a>
         <div>

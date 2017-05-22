@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%manufacturers}}".
@@ -76,5 +77,15 @@ class Manufacturers extends \yii\db\ActiveRecord
             'description' => 'Description',
             'is_active' => 'Активно',
         ];
+    }
+    
+    /**
+     * Возвращает список производителей
+     * 
+     * @return array
+     */
+    public static function getAll()
+    {
+        return ArrayHelper::map(self::find()->select('id,brand')->where(['is_active' => 1])->asArray()->all(), 'id', 'brand');
     }
 }

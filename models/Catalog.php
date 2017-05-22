@@ -8,6 +8,7 @@ use app\components\CatalogQuery;
 use yii\behaviors\SluggableBehavior;
 use app\models\CatalogRegions;
 use yii\caching\TagDependency;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%catalog}}".
@@ -149,5 +150,44 @@ class Catalog extends \yii\db\ActiveRecord
             }
         }
         parent::afterFind();
-    }      
+    }
+    
+    /**
+     * Возвращает список категорий
+     * 
+     * @return array
+     */
+    public static function getAll()
+    {
+        $db = Yii::$app->db;
+        return $db->cache(function ($db) {
+            return ArrayHelper::map(self::find()->select('id,name,depth')->where(['is_active' => 1])->andWhere('depth>0')->OrderBy('lft ASC')->asArray()->all(),
+                'id', function($model) {
+                          return ($model['depth'] > 1 ? str_repeat('---', $model['depth']-1) : '') . $model['name'];
+                      }
+                );
+        }, 0, new TagDependency(['tags' => 'catalog']));
+    }
+    
+    /**
+     * Построение хлебных крошек
+     * 
+     * @param object $model модель для которой строятся хлебные крошки
+     */
+    public static function getBreadcrumbs($model)
+    {
+        $view = Yii::$app->controller->view;
+        if (!$parents = $model->parents()->localized()->asArray()->all()) {
+            $p = self::find()->select('name,slug')->where(['depth' => 0])->localized()->asArray()->one();
+            $view->params['breadcrumbs'][] = ['label' => $p['name'], 'url' => ['catalog/page', 'alias' => $p['slug']]];
+        } else {
+            $slug = '';
+            foreach ($parents as $parent) {
+                if ($parent['not_show_region'] == 0) {
+                    $slug.= $parent['slug'] . '/';
+                    $view->params['breadcrumbs'][] = ['label' => $parent['name'], 'url' => ['catalog/page', 'alias' => trim($slug, '/')]];
+                }
+            }
+        }
+    }  
 }

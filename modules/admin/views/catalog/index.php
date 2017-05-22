@@ -9,6 +9,8 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\CatalogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$this->registerCss('#catalog_items td span {padding-right:10px;}');
+
 $this->title = 'Каталог';
 ?>
 
@@ -34,8 +36,11 @@ echo NestedTreeGrid::widget([
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{add}{update}{delete}',
+                'template' => '{products}{add}{update}{delete}',
                 'buttons' => [
+                    'products' => function ($url, $model, $key) {
+                        return Html::a('<span class="fa fa-shopping-basket"></span>', ['/admin/products/index', 'catalog_id' => $model->id], ['title' => 'Товары категории']);
+                    },
                     'add' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, ['title' => 'Добавить']);
                     },
@@ -47,7 +52,7 @@ echo NestedTreeGrid::widget([
                         ]);
                     }
                 ],
-                'options' => ['width' => '70px']
+                'options' => ['width' => '120px']
             ]
         ]
 ]);

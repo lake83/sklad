@@ -3,9 +3,12 @@
 /* @var $this yii\web\View */
 /* @var $model app\models\Catalog */
 /* @var $leaves app\models\Catalog */
+/* @var $dataProvider app\models\Products */
 
 use yii\helpers\Html;
 use app\components\SiteHelper;
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $this->title = $model->title ? $model->title : $model->name;
 if ($model->keywords) {
@@ -37,5 +40,16 @@ if (count($children)): ?>
     endforeach; ?>
 </ul>
 <?php endif;
+
+Pjax::begin(['id' => 'products_items', 'timeout' => false]);
+
+echo ListView::widget([
+     'id' => 'products_list',
+     'dataProvider' => $dataProvider,
+     'layout' => "{items}\n<div class='clearfix'></div>{pager}",
+     'itemView' => '_product_item'
+]);
+
+Pjax::end();
 
 echo $model->full_text; ?>
