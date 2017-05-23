@@ -4,7 +4,11 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\models\Products;
+use app\models\CatalogOptions;
+use app\models\ProductsOptions;
 use yii\web\NotFoundHttpException;
+use yii\base\DynamicModel;
+use yii\helpers\ArrayHelper;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -88,6 +92,62 @@ class ProductsController extends AdminController
             Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
             return $this->redirect(['index'] + (($catalog_id = Yii::$app->request->get('catalog_id')) ? ['catalog_id' => $catalog_id] : []));
         }
-        return $this->render('_form', ['model' => $model]);
+        return $this->render('_main', ['model' => $model]);
+    }
+    
+    /**
+     * Опции спецификации товара
+     * 
+     * @param integer $id ID товара
+     * @return string
+     */
+    public function actionOptions($id)
+    {
+        if ($product = Products::findOne($id)) {
+            $parents = $product->catalog->parents()->andWhere(['is_active' => 1])->column();
+            $options = ArrayHelper::map(CatalogOptions::find()->select('id,name')->where(['catalog_id' => $product->catalog_id, 'is_active' => 1])->orWhere(['catalog_id' => $parents])->asArray()->all(), 'id', 'name');
+            $values = ArrayHelper::map(ProductsOptions::find()->select('option_id,value')->where(['product_id' => $id])->asArray()->all(), 'option_id', 'value');
+            
+            foreach ($options as $key => $option) {
+                $fields['field' . $key] = isset($values[$key]) ? $values[$key] : '';
+            }
+            $model = new DynamicModel($fields);
+            $model->addRule(array_keys($fields), 'string', ['max' => 255, 'message' => 'Значение должно содержать максимум 255 символов.']);
+        } else {
+            throw new NotFoundHttpException('Страница не найдена.');
+        }
+        if ($model->load(Yii::$app->request->post())) {
+            foreach ($model->attributes as $key => $attribute) {
+                $option_id = str_replace('field', '', $key);
+                if ($opt = ProductsOptions::findOne(['option_id' => $option_id, 'product_id' => $id])) {
+                    $opt->value = $attribute;
+                    $opt->save();
+                } else {
+                    $opt = new ProductsOptions;
+                    $opt->option_id = $option_id;
+                    $opt->product_id = $id;
+                    $opt->value = $attribute;
+                    $opt->save();
+                }
+            }
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+        return $this->renderPartial('_options', ['model' => $model, 'options' => $options]);
+    }
+    
+    /**
+     * Связанные товары
+     * 
+     * @param integer $id ID товара
+     * @return string
+     */
+    public function actionRelated($id)
+    {
+        if (Yii::$app->request->isAjax && isset($_POST['catalog_id'])) {
+            $data = ArrayHelper::map(Products::find()->select('id,name')->where(['catalog_id' => $_POST['catalog_id'], 'is_active' => 1])->all(), 'id', 'name');
+            return $this->renderAjax('_related', ['data' => $data]);
+        }
+        return $this->renderPartial('_related');
     }
 }

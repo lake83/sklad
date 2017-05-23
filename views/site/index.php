@@ -34,7 +34,7 @@ if ($news):
 
 <?php endif;
 
-echo $this->context->renderPartial('/materials/page', ['model' => $main]);
+echo $this->context->renderPartial('/materials/page', ['model' => $main, 'title' => false]);
 
 if ($slider) :
 foreach ($slider as $item) {

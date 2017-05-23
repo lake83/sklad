@@ -68,3 +68,9 @@ $('#menuitems-type').on('change', function() {
         $('#type-list').css('display', 'none').find('select').attr('disabled', true);
     }
 });
+
+// получение связанных товаров
+$('#catalog-related').on('change', function() {
+    $('#products_related').load($(this).parents('form').attr('action') + ' #products-related-inner', {catalog_id: $(this).val()});
+    $('#products-select').multiselect('refresh');
+});

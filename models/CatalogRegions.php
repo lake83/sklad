@@ -32,7 +32,7 @@ class CatalogRegions extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%catalogRegions}}';
+        return '{{%catalog_regions}}';
     }
 
     /**

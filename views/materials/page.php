@@ -9,8 +9,11 @@ if ($model->keywords) {
 }
 if ($model->description) {
     $this->registerMetaTag(['name' => 'description', 'content' => $model->description], 'description');
-} ?>
+}
+if (!isset($title) || $title === true): ?>
 
 <h1><?= $model->name ?></h1>
 
-<?= $model->full_text ?>
+<?php endif;
+
+echo $model->full_text ?>

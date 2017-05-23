@@ -27,6 +27,8 @@ use yii\helpers\ArrayHelper;
  * @property string $description
  * @property integer $not_show_region
  * @property integer $is_active
+ * 
+ * @property CatalogOptions[] $catalogOptions
  */
 class Catalog extends \yii\db\ActiveRecord
 {
@@ -99,6 +101,14 @@ class Catalog extends \yii\db\ActiveRecord
             'not_show_region' => 'Не выводить для региона',
             'is_active' => 'Активно'
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCatalogOptions()
+    {
+        return $this->hasMany(CatalogOptions::className(), ['catalog_id' => 'id'])->andWhere(['is_active' => 1]);
     }
     
     /**

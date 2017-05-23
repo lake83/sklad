@@ -941,3 +941,19 @@ a.formreqestitem {
     font-size: 12px;
     line-height: 200%;
 }
+.detail .tab-pane {
+    padding-top: 15px;
+}
+.detail table tr:nth-child(2n+1) td {
+    background-color: #ececec;
+}
+#product_details .active a, #product_details .active a:hover {
+    font-weight: 700;
+    color: #934b00;
+}
+#product_details li a {
+    color: #aaa;
+}
+#product_details li a:hover {
+    color: #f8af0d;
+}

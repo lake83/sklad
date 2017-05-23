@@ -2,9 +2,13 @@
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
+/* @var $shortData app\models\CatalogOptions */
+/* @var $optionsData app\models\CatalogOptions */
 
 use yii\helpers\Html;
 use app\components\SiteHelper;
+use yii\bootstrap\Tabs;
+use yii\grid\GridView;
 
 $this->title = $model->title ? $model->title : $model->name;
 if ($model->keywords) {
@@ -44,4 +48,34 @@ if ($model->description) {
     <div class="right">
         <?= $model->full_text; ?>
     </div>
+    <div class="clearfix"></div>
+    <?php if ($shortData) {
+        $columns = [
+            [
+                'attribute' => 'name',
+                'label' => false
+            ],
+            [
+                'attribute' => 'value',
+                'label' => false
+            ]
+        ];
+        $items[] = ['label' => 'Коротко', 'content' => GridView::widget([
+		    'dataProvider' => $shortData,
+            'headerRowOptions' => ['class' => 'hide'],
+            'summary' => false,
+            'columns' => $columns
+        ])];
+    }
+    if ($optionsData) {
+        $items[] = ['label' => 'Спецификация', 'content' => GridView::widget([
+		    'dataProvider' => $optionsData,
+            'headerRowOptions' => ['class' => 'hide'],
+            'summary' => false,
+            'columns' => $columns
+        ])];
+    }
+    $items[] = ['label' => 'Схема работы', 'content' => Html::img('/images/uploads/source/Pages/skhema-prodazh.jpg', ['alt' => 'Схема работы', 'title' => 'Схема работы', 'width' => '100%'])];
+    
+    echo Tabs::widget(['id' => 'product_details', 'items' => $items]); ?>
 </div>

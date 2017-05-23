@@ -30,7 +30,7 @@ class m170516_115013_catalog extends Migration
             'is_active' => $this->boolean()->defaultValue(1),
         ]);
         
-        $this->createTable('catalogRegions', [
+        $this->createTable('catalog_regions', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'catalog_id' => $this->integer()->notNull(),
@@ -45,8 +45,20 @@ class m170516_115013_catalog extends Migration
             'is_active' => $this->boolean()->defaultValue(1),
         ]);
         
-        $this->createIndex('idx-catalog_regions_id', 'catalogRegions', 'catalog_id');
-        $this->addForeignKey('catalog_regions_ibfk_1', 'catalogRegions', 'catalog_id', 'catalog', 'id', 'CASCADE');
+        $this->createIndex('idx-catalog_regions_id', 'catalog_regions', 'catalog_id');
+        $this->addForeignKey('catalog_regions_ibfk_1', 'catalog_regions', 'catalog_id', 'catalog', 'id', 'CASCADE');
+        
+        $this->createTable('catalog_options', [
+            'id' => $this->primaryKey(),
+            'catalog_id' => $this->integer()->notNull(),
+            'name' => $this->string()->notNull(),
+            'show_anons' => $this->boolean()->defaultValue(0),
+            'show_short' => $this->boolean()->defaultValue(0),
+            'is_active' => $this->boolean()->defaultValue(1)
+        ], $tableOptions);
+        
+        $this->createIndex('idx-catalog_options_id', 'catalog_options', 'catalog_id');
+        $this->addForeignKey('catalog_options_ibfk_1', 'catalog_options', 'catalog_id', 'catalog', 'id', 'CASCADE');
     }
 
     public function down()
@@ -54,7 +66,11 @@ class m170516_115013_catalog extends Migration
         $this->dropForeignKey('catalog_regions_ibfk_1', 'catalogRegions');
         $this->dropIndex('idx-catalog_regions_id', 'catalogRegions');
         
-        $this->dropTable('catalogRegions');
+        $this->dropForeignKey('catalog_options_ibfk_1', 'catalog_options');
+        $this->dropIndex('idx-catalog_options_id', 'catalog_options');
+        
+        $this->dropTable('catalog_options');
+        $this->dropTable('catalog_regions');
         $this->dropTable('catalog');
     }
 }

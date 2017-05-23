@@ -19,7 +19,6 @@ class ProductsSearch extends Products
     {
         return [
             [['id', 'catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'not_show_region', 'is_active'], 'integer'],
-            [['created_at', 'updated_at'], 'date', 'format' => 'd.m.Y'],
             [['name', 'slug', 'region', 'image', 'full_text', 'title', 'keywords', 'description'], 'safe'],
             [['price'], 'number'],
         ];
@@ -72,9 +71,7 @@ class ProductsSearch extends Products
             'not_show_price' => $this->not_show_price,
             'manufacturer_id' => $this->manufacturer_id,
             'not_show_region' => $this->not_show_region,
-            'is_active' => $this->is_active,
-            'FROM_UNIXTIME(created_at, "%d.%m.%Y")' => $this->created_at,
-            'FROM_UNIXTIME(updated_at, "%d.%m.%Y")' => $this->updated_at
+            'is_active' => $this->is_active
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

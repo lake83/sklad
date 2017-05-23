@@ -30,14 +30,32 @@ class m170520_082545_products extends Migration
             'keywords' => $this->string()->notNull(),
             'description' => $this->text()->notNull(),
             'not_show_region' => $this->boolean()->defaultValue(0),
-            'is_active' => $this->boolean()->defaultValue(1),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull()
+            'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
+        
+        $this->createTable('products_options', [
+            'id' => $this->primaryKey(),
+            'product_id' => $this->integer()->notNull(),
+            'option_id' => $this->integer()->notNull(),
+            'value' => $this->string()->notNull()
+        ], $tableOptions);
+        
+        $this->createIndex('idx-products_options_id', 'products_options', 'product_id');
+        $this->addForeignKey('products_options_ibfk_1', 'products_options', 'product_id', 'products', 'id', 'CASCADE');
+        
+        $this->createIndex('idx-catalog_options_id', 'products_options', 'option_id');
+        $this->addForeignKey('catalog_options_ibfk_2', 'products_options', 'option_id', 'catalog_options', 'id', 'CASCADE');
     }
 
     public function down()
     {
+        $this->dropForeignKey('products_options_ibfk_1', 'products_options');
+        $this->dropIndex('idx-products_options_id', 'products_options');
+        
+        $this->dropForeignKey('catalog_options_ibfk_2', 'products_options');
+        $this->dropIndex('idx-catalog_options_id', 'products_options');
+        
+        $this->dropTable('products_options');
         $this->dropTable('products');
     }
 }

@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use app\components\localizedActiveRecord;
 use yii\caching\TagDependency;
@@ -29,10 +28,9 @@ use yii\helpers\Url;
  * @property string $description
  * @property integer $not_show_region
  * @property integer $is_active
- * @property integer $created_at
- * @property integer $updated_at
  * 
  * @property Catalog $catalog
+ * @property CatalogOptions[] $anonsOptions
  */
 class Products extends localizedActiveRecord
 {
@@ -50,7 +48,6 @@ class Products extends localizedActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
             [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
@@ -67,7 +64,7 @@ class Products extends localizedActiveRecord
         return [
             [['price', 'manufacturer_id'], 'required'],
             [['catalog_id', 'name', 'currency'], 'required', 'on' => 'main'],
-            [['catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'not_show_region', 'is_active', 'created_at', 'updated_at'], 'integer'],
+            [['catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'not_show_region', 'is_active'], 'integer'],
             [['price'], 'number'],
             [['full_text', 'description'], 'string'],
             [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
@@ -100,9 +97,7 @@ class Products extends localizedActiveRecord
             'keywords' => 'Keywords',
             'description' => 'Description',
             'not_show_region' => 'Не выводить для региона',
-            'is_active' => 'Активно',
-            'created_at' => 'Создан',
-            'updated_at' => 'Обновлен',
+            'is_active' => 'Активно'
         ];
     }
     
@@ -112,6 +107,22 @@ class Products extends localizedActiveRecord
     public function getCatalog()
     {
         return $this->hasOne(Catalog::className(), ['id' => 'catalog_id']);
+    }
+    
+    /**
+     * Опции спецификации товара
+     * 
+     * @param boolean $anons опции для анонса
+     * @return array
+     */
+    public function getOptions($anons = false)
+    {
+        $parents = $this->catalog->parents()->andWhere(['is_active' => 1])->column();
+        return CatalogOptions::find()->select('name,value,show_short')
+            ->where(['catalog_id' => $this->catalog_id, 'is_active' => 1])
+            ->orWhere(['catalog_id' => $parents])
+            ->join('RIGHT JOIN', ProductsOptions::tableName(), 'option_id='.CatalogOptions::tableName().'.id' . ($anons ? ' AND show_anons=1' : '') . ' AND product_id='.$this->id)
+            ->asArray()->all();
     }
     
     /**

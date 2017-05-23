@@ -36,10 +36,13 @@ echo NestedTreeGrid::widget([
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{products}{add}{update}{delete}',
+                'template' => '{products}{options}{add}{update}{delete}',
                 'buttons' => [
                     'products' => function ($url, $model, $key) {
                         return Html::a('<span class="fa fa-shopping-basket"></span>', ['/admin/products/index', 'catalog_id' => $model->id], ['title' => 'Товары категории']);
+                    },
+                    'options' => function ($url, $model, $key) {
+                        return Html::a('<span class="fa fa-cogs"></span>', $url, ['title' => 'Спецификация']);
                     },
                     'add' => function ($url, $model, $key) {
                         return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, ['title' => 'Добавить']);
@@ -52,7 +55,7 @@ echo NestedTreeGrid::widget([
                         ]);
                     }
                 ],
-                'options' => ['width' => '120px']
+                'options' => ['width' => '150px']
             ]
         ]
 ]);

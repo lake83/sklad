@@ -11,6 +11,8 @@ use app\models\CatalogRegions;
  */
 class CatalogController extends AdminController
 {
+    use \app\modules\admin\controllers\actions\MultipleTraite;
+    
     public function actions()
     {
         return [
@@ -32,6 +34,13 @@ class CatalogController extends AdminController
                 'class' => \pheme\grid\actions\ToggleAction::className(),
                 'modelClass' => $this->modelPath.'Catalog',
                 'attribute' => 'is_active'
+            ],
+            'options' => [
+                'class' => $this->actionsPath.'UpdateMultiple',
+                'model' => $this->modelPath.'Catalog',
+                'models' => $this->modelPath.'CatalogOptions',
+                'owner' => 'catalog_id',
+                'view' => 'options'
             ]
         ];
     }
@@ -115,5 +124,5 @@ class CatalogController extends AdminController
             return $this->refresh();
         }
         return $this->render('_form', ['model' => $model]);
-    }       
+    }
 }
