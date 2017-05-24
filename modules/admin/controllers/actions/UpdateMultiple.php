@@ -19,6 +19,7 @@ class UpdateMultiple extends \yii\base\Action
     {
         $id = Yii::$app->request->getQueryParam('id');
         $model = $this->model;
+        $controller = $this->controller;
         
         if (!$model = $model::findOne($id)) {
             throw new NotFoundHttpException(Yii::t('app', 'Страница не найдена.'));
@@ -29,13 +30,14 @@ class UpdateMultiple extends \yii\base\Action
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save() && $this->multipleUpdate($model, $modelsClass, $models, $this->owner)) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
-                return $this->controller->redirect($this->redirect);
+                return $controller->redirect($this->redirect);
             }
         }
-        return $this->controller->render($this->view, [
+        $params = [
             'model' => $model,
             'models' => (empty($models)) ? [new $modelsClass] : $models
-        ]);
+        ];
+        return $this->partial ? $controller->renderPartial($this->view, $params) : $controller->render($this->view, $params);
     }
 } 
 ?>

@@ -44,6 +44,14 @@ if ($controller->action->id !== 'localization') {
             [
                 'label' => 'Связанные товары',
                 'content' => Yii::$app->runAction('/admin/products/related', ['id' => $model->id])
+            ],
+            [
+                'label' => 'Видео',
+                'content' => Yii::$app->runAction('/admin/products/video', ['id' => $model->id])
+            ],
+            [
+                'label' => 'Брошюра',
+                'content' => Yii::$app->runAction('/admin/products/brochures', ['id' => $model->id])
             ]
         ]
     ]);

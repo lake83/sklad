@@ -31,6 +31,8 @@ use yii\helpers\Url;
  * 
  * @property Catalog $catalog
  * @property CatalogOptions[] $anonsOptions
+ * @property ProductsRelated[] $productsRelated
+ * @property ProductsVideo[] $productsVideo
  */
 class Products extends localizedActiveRecord
 {
@@ -107,6 +109,22 @@ class Products extends localizedActiveRecord
     public function getCatalog()
     {
         return $this->hasOne(Catalog::className(), ['id' => 'catalog_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductsRelated()
+    {
+        return $this->hasMany(self::className(), ['id' => 'related_id'])->viaTable(ProductsRelated::tableName(), ['product_id' => 'id'])->localized();
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductsVideo()
+    {
+        return $this->hasMany(ProductsVideo::className(), ['product_id' => 'id'])->andWhere(['is_active' => 1]);
     }
     
     /**

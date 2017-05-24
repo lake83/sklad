@@ -71,6 +71,21 @@ $('#menuitems-type').on('change', function() {
 
 // получение связанных товаров
 $('#catalog-related').on('change', function() {
-    $('#products_related').load($(this).parents('form').attr('action') + ' #products-related-inner', {catalog_id: $(this).val()});
-    $('#products-select').multiselect('refresh');
+    $.ajax({
+       type: 'POST',
+       cache: false,
+       url: $(this).parents('form').attr('action'),
+       data: {catalog_id: $(this).val()},
+       success: function(data) {
+           if (jQuery.type(data) === "string") {
+               $('#products-related-inner').hide();
+               $('#no_products').html(data);
+           } else {
+               $('#no_products').html('');
+               $('#products-select').multiselect({nonSelectedText: 'Выберите товары', includeSelectAllOption: false});
+               $('#products-select').multiselect('dataprovider', data);
+               $('#products-related-inner').show();
+           }
+       }
+    });
 });

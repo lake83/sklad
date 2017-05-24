@@ -6,9 +6,11 @@ use Yii;
 use app\models\Products;
 use app\models\CatalogOptions;
 use app\models\ProductsOptions;
+use app\models\ProductsRelated;
 use yii\web\NotFoundHttpException;
 use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
+use yii\data\ActiveDataProvider;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -44,6 +46,24 @@ class ProductsController extends AdminController
                 'class' => \pheme\grid\actions\ToggleAction::className(),
                 'modelClass' => $this->modelPath.'Products',
                 'attribute' => 'is_active'
+            ],
+            'video' => [
+                'class' => $this->actionsPath.'UpdateMultiple',
+                'model' => $this->modelPath.'Products',
+                'models' => $this->modelPath.'ProductsVideo',
+                'owner' => 'product_id',
+                'view' => 'video',
+                'redirect' => Yii::$app->request->referrer,
+                'partial' => true
+            ],
+            'brochures' => [
+                'class' => $this->actionsPath.'UpdateMultiple',
+                'model' => $this->modelPath.'Products',
+                'models' => $this->modelPath.'ProductsBrochures',
+                'owner' => 'product_id',
+                'view' => 'brochures',
+                'redirect' => Yii::$app->request->referrer,
+                'partial' => true
             ]
         ];
     }
@@ -145,9 +165,50 @@ class ProductsController extends AdminController
     public function actionRelated($id)
     {
         if (Yii::$app->request->isAjax && isset($_POST['catalog_id'])) {
-            $data = ArrayHelper::map(Products::find()->select('id,name')->where(['catalog_id' => $_POST['catalog_id'], 'is_active' => 1])->all(), 'id', 'name');
-            return $this->renderAjax('_related', ['data' => $data]);
+            if ($products = Products::find()->select('id,name')->where(['catalog_id' => $_POST['catalog_id'], 'is_active' => 1])->andWhere('id!='.$id)->asArray()->all()) {
+                foreach ($products as $product) {
+                    $data[] = ['label' => $product['name'], 'title' => $product['name'], 'value' => $product['id']];
+                }
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return $data;
+            } else {
+                return 'Нет доступных товаров.';
+            }
         }
-        return $this->renderPartial('_related');
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['products-related'])) {
+                foreach ($_POST['products-related'] as $product) {
+                    if (!ProductsRelated::find()->where(['product_id' => $id, 'related_id' => $product])->exists()) {
+                        $model = new ProductsRelated;
+                        $model->product_id = $id;
+                        $model->related_id = $product;
+                        $model->save();
+                    }
+                }
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
+            }
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query' => ProductsRelated::find()->where(['product_id' => $id]),
+            'pagination' => [
+                'defaultPageSize' => 10
+            ]
+        ]);
+        return $this->renderPartial('_related', ['dataProvider' => $dataProvider]);
+    }
+    
+    /**
+     * Удаление связанного товара
+     * 
+     * @param integer $id ID товара
+     * @return string
+     */
+    public function actionDeleteRelated($id)
+    {
+        if (ProductsRelated::findOne($id)->delete()) {
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
+            return $this->redirect(Yii::$app->request->referrer);
+        }
     }
 }

@@ -953,7 +953,14 @@ a.formreqestitem {
 }
 #product_details li a {
     color: #aaa;
+    font-size: 13px;
 }
 #product_details li a:hover {
     color: #f8af0d;
+}
+#product_details li > a {
+    padding: 8px;
+}
+#video_list {
+    text-align: center;
 }

@@ -76,7 +76,7 @@ class SiteHelper
                 FileHelper::createDirectory($dir);
                 $original = Yii::getAlias('@webroot/images/uploads/source') . $dir_path . '/' . $file;
                 try {
-                    if (file_exists($original) && filesize($original) < 10000000) {
+                    if (file_exists($original) && filesize($original) < 10000000 && exif_imagetype($original)) {
                         Image::thumbnail($original, $width, $height)->save($img, ['quality' => 100]);
                     }
                     $url = true;

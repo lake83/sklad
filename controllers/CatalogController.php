@@ -74,7 +74,25 @@ class CatalogController extends Controller
                 'pagination' => false
             ]);
         }
-        return $this->render('product', ['model' => $model, 'shortData' => $shortData, 'optionsData' => $optionsData]);
+        if ($related = $model->productsRelated) {
+            $relatedData = new ArrayDataProvider([
+                'allModels' => $related,
+                'pagination' => false
+            ]);
+        }
+        if ($video = $model->productsVideo) {
+            $videoData = new ArrayDataProvider([
+                'allModels' => $video,
+                'pagination' => false
+            ]);
+        }
+        return $this->render('product', [
+            'model' => $model,
+            'shortData' => $shortData,
+            'optionsData' => $optionsData,
+            'relatedData' => $relatedData,
+            'videoData' => $videoData
+        ]);
     }
 }
 ?>
