@@ -43,12 +43,12 @@ class ProductsSearch extends Products
     public function search($params)
     {
         $query = Products::find();
-
-        $query->andWhere(['parent_id' => 0]);
         
         if ($catalog_id = Yii::$app->request->get('catalog_id')) {
             $query->andWhere(['catalog_id' => $catalog_id]);
         }
+        $query->andWhere(['parent_id' => 0]);
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

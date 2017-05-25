@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\behaviors\SluggableBehavior;
-use app\components\localizedActiveRecord;
+use app\components\LocalizedActiveRecord;
 use yii\caching\TagDependency;
 use yii\helpers\Url;
 
@@ -34,7 +34,7 @@ use yii\helpers\Url;
  * @property ProductsRelated[] $productsRelated
  * @property ProductsVideo[] $productsVideo
  */
-class Products extends localizedActiveRecord
+class Products extends LocalizedActiveRecord
 {
     /**
      * @inheritdoc
@@ -74,6 +74,7 @@ class Products extends localizedActiveRecord
             [['image'], 'string', 'max' => 100],
             ['not_show_region', \app\components\ShowRegionValidator::className()],
             ['slug', 'unique', 'on' => 'clone'],
+            ['currency', 'default', 'value' => 1],
         ];
     }
 

@@ -5,7 +5,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\web\NotFoundHttpException;
 
-class localizedActiveRecord extends ActiveRecord
+class LocalizedActiveRecord extends ActiveRecord
 {
     public static function find()
     {

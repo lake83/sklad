@@ -36,7 +36,6 @@ $listOptions = ['class' => 'form-control', 'prompt' => '- выбрать -'];
                 }
             ],
             'name',
-            'slug',
             [
                 'attribute' => 'catalog_id',
                 'filter' => Html::activeDropDownList($searchModel, 'catalog_id', Catalog::getAll(), $listOptions),

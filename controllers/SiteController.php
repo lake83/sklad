@@ -34,7 +34,7 @@ class SiteController extends Controller
             return Materials::find()->where(['slug' => 'main'])->localized()->one();
         }, 0, new TagDependency(['tags' => 'main']));
         $news = $db->cache(function ($db) {
-            return Materials::find()->where(['type' => 1, 'is_active' => 1, 'parent_id' => 0])->orderBy('created_at DESC')->limit(2)->localized()->asArray()->all();
+            return Materials::find()->where(['type' => 1, 'is_active' => 1])->orderBy('created_at DESC')->limit(2)->localized()->asArray()->all();
         }, 0, new TagDependency(['tags' => 'news']));
         
         return $this->render('index', ['main' => $main, 'slider' => Materials::getClients(), 'news' => $news]);

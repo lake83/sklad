@@ -7,7 +7,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 use yii\caching\TagDependency;
-use app\components\localizedActiveRecord;
+use app\components\LocalizedActiveRecord;
 
 /**
  * This is the model class for table "{{%materials}}".
@@ -29,7 +29,7 @@ use app\components\localizedActiveRecord;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Materials extends localizedActiveRecord
+class Materials extends LocalizedActiveRecord
 {
     /**
      * @inheritdoc
@@ -164,7 +164,7 @@ class Materials extends localizedActiveRecord
     {
         $db = Yii::$app->db;
         return $db->cache(function ($db) {
-            return self::find()->where(['type' => 4, 'is_active' => 1, 'parent_id' => 0])->localized()->asArray()->all();
+            return self::find()->where(['type' => 4, 'is_active' => 1])->localized()->asArray()->all();
         }, 0, new TagDependency(['tags' => 'clients']));
     }
 }

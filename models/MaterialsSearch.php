@@ -48,7 +48,7 @@ class MaterialsSearch extends Materials
             $query->andWhere(['type' => $type]);
         }
         $query->andWhere(['parent_id' => 0]);
-        
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

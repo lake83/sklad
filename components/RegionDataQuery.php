@@ -19,7 +19,7 @@ class RegionDataQuery extends \yii\db\ActiveQuery
         $region = is_null($region) ? Yii::$app->params['region'] : $region;
         $this->with(['location' => function ($query) use ($region) {
             $query->andWhere(['region' => $region]);
-        }]);
+        }])->andWhere(['parent_id' => 0]);
         return $this;
     }
     

@@ -59,15 +59,15 @@ class ProductsBrochures extends \yii\db\ActiveRecord
      */
     public function beforeSave($insert)
     {
-        $this->file = UploadedFile::getInstance($this, 'file');
-        if ($this->file) {
+        $file = UploadedFile::getInstance($this, 'file');
+        if ($file) {
             $path = Yii::getAlias('@webroot/files/');
         
             if (!file_exists($path)) {
                 mkdir($path);
             }
-            $fileName = $this->file->baseName . '.' . $this->file->extension;
-            $this->file->saveAs($path . $fileName);
+            $fileName = $file->baseName . '.' . $file->extension;
+            $file->saveAs($path . $fileName);
             $this->file = $fileName;
         }
         return parent::beforeSave($insert);
