@@ -25,7 +25,8 @@ app\assets\AdminAsset::register($this);
             ]
         ],
         ['label' => 'Меню', 'url' => ['/admin/menu/index'], 'icon' => 'bars'],
-        ['label' => 'Пункты меню', 'url' => ['/admin/menu-items/index'], 'icon' => 'list-ul']
+        ['label' => 'Пункты меню', 'url' => ['/admin/menu-items/index'], 'icon' => 'list-ul'],
+        ['label' => 'Акции', 'url' => ['/admin/banner/index'], 'icon' => 'window-restore'],
     ]
 ]);	
 ?>

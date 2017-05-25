@@ -11,6 +11,7 @@ use app\components\CatalogMenu;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\Regions;
+use app\models\Banner;
 
 AppAsset::register($this);
 
@@ -103,6 +104,7 @@ $regions = Regions::getRegions();
         </div>
         <div class="left-column">
             <?= CatalogMenu::widget() ?>
+            <?= Banner::renderPosition('bannerLeft');?>
             <div class="asideContacts">
                 <div class="asideEmail asideContacts__block">
                     <div class="asideContacts__block_heading">Электронная почта:</div>
@@ -116,6 +118,9 @@ $regions = Regions::getRegions();
             </div>
         </div>
         <div class="right-column">
+            <? if (Url::current() === Url::home()) {?>
+                <?= Banner::renderPosition('maintop');?>
+            <? } ?>
             <?= Breadcrumbs::widget([
             'homeLink' => [ 
                 'label' => 'Складская техника',
