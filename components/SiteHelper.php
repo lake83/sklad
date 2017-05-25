@@ -76,7 +76,10 @@ class SiteHelper
                 FileHelper::createDirectory($dir);
                 $original = Yii::getAlias('@webroot/images/uploads/source') . $dir_path . '/' . $file;
                 try {
-                    if (file_exists($original) && filesize($original) < 10000000 && exif_imagetype($original)) {
+                    if (file_exists($original) && filesize($original) < 10000000) {
+                        if (!exif_imagetype($original)) {
+                            unlink($original);
+                        }
                         Image::thumbnail($original, $width, $height)->save($img, ['quality' => 100]);
                     }
                     $url = true;
@@ -86,6 +89,25 @@ class SiteHelper
             }
         }
         return $url ? '/images/uploads/' . $width . 'x' . $height . $dir_path . '/' . $file : '/images/anonymous.png';
+    }
+    
+    /**
+     * Размеры изображения
+     * 
+     * @param string $image изображение
+     * @return array
+     */
+    public static function image_size($image)
+    {
+        $file = Yii::getAlias('@webroot/') . $image;
+        
+        if (file_exists($file)) {
+            list($width, $height, $type, $attr) = getimagesize($file);
+        } else {
+            $width = 100;
+            $height = 100;
+        }
+        return [$width, $height];
     }
     
     /**

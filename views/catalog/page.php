@@ -33,10 +33,10 @@ if (count($children)): ?>
     <?php foreach ($children as $one):
     if ($one['not_show_region'] == 0):
     $src = SiteHelper::resized_image($one['image'], 120, null);
-    list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src); ?>
+    $size = SiteHelper::image_size($src); ?>
     <li>
         <a class="catalog_preview" href="<?=Url::to([Yii::$app->request->pathInfo . $one['slug']])?>">
-            <div title="<?=$one['name']?>" style="background: url('<?=$src?>') no-repeat;<?=$one['image'] ? ($width>$height ? 'background-size:100% auto' : 'background-size:auto 100%') : ''?>"></div>
+            <div title="<?=$one['name']?>" style="background: url('<?=$src?>') no-repeat;<?=$one['image'] ? ($size[0]>$size[1] ? 'background-size:100% auto' : 'background-size:auto 100%') : ''?>"></div>
             <div class="caption"><?=$one['name']?></div>
         </a>        
     </li>
