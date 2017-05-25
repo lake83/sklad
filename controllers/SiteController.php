@@ -93,4 +93,11 @@ class SiteController extends Controller
             throw new NotFoundHttpException('Файл не найден.');
         }
     }
+
+    /**
+     * Раздел акции
+     */
+    public function actionAkcii() {
+        return $this->render('akcii');
+    }
 }

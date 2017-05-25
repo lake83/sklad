@@ -36,7 +36,7 @@ foreach($catalogItems as $category) {
             $active = false;
         }
         $src = SiteHelper::resized_image($category['image'], 120, null);
-        list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src);
+        list($width, $height, $type, $attr) = @getimagesize(Yii::getAlias('@webroot/').$src);
         
         echo '<li' . ($category['depth'] == 1 ? ($active ? ' class="active"' : (($category['rgt']-$category['lft']) !== 1 ? ' class="cat-modal"' : '')) : '') . '>';
 	    $image = '';

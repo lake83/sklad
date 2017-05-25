@@ -66,6 +66,7 @@ $config = [
                 '/about/nashi_postavchshiki' => 'materials/postavchshiki',
                 '/press-centr/news' => 'materials/news',
                 '/press-centr/stati' => 'materials/articles',
+                '/akcii' => 'site/akcii',
                 '/<alias>' => 'materials/page',
                 '/nashi_postavchshiki/<alias>' => 'materials/postavchshiki-view',
                 '/<_a:(stati|news|clients)>/<alias>' => 'materials/materials-view',
