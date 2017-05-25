@@ -4,6 +4,6 @@
 /** @var $this \yii\web\View */
 ?>
 <p>
-    <img src="<?=$image->image?>"  style="width:<?=$banner->width?>px; height:<?=$banner->height?>px;" alt="">
+    <img src="<?=$image->image?>"  style="<?=$style?>" alt="">
     <br>
 </p>

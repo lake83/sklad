@@ -40,7 +40,7 @@ class Banner extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'position', 'width', 'height'], 'required'],
+            [['name', 'position'], 'required'],
             [['is_active', 'width', 'height'], 'integer'],
             [['images'], 'file', 'maxFiles' => 0],
             [['name', 'link', 'position'], 'string', 'max' => 255],

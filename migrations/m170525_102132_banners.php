@@ -18,8 +18,8 @@ class m170525_102132_banners extends Migration
             'name' => $this->string()->notNull(),
             'link' => $this->string()->defaultValue(null),
             'position' => $this->string()->notNull(),
-            'width' => $this->integer()->notNull(),
-            'height' => $this->integer()->notNull(),
+            'width' => $this->integer()->defaultValue(null),
+            'height' => $this->integer()->defaultValue(null),
             'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
 
