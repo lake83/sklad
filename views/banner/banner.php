@@ -5,7 +5,7 @@
 ?>
 <p>
     <a href="<?=$banner->link?>">
-        <img style="<?=$style?>" src="<?=$image->image?> alt="">
+        <img style="<?=$style?>" src="<?=$image->image?>" alt="">
         <br>
     </a>
 </p>
