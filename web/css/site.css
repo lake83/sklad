@@ -837,7 +837,6 @@ a#download_now {
     font-weight: 700;
 }
 .cat-modal span, .catalog-list span {
-    background-size: cover;
     background-position: center center !important;
     width: 120px;
     display: inline-block;

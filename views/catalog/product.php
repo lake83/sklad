@@ -30,8 +30,10 @@ if ($model->description) {
             <?php if ($model->image): ?>
             <a class="fancyItem" href="/images/uploads/source/<?=$model->image?>" data-fancybox="true">
             <?= newerton\fancybox3\FancyBox::widget() ?>
-            <?php endif; ?>
-                <div title="<?=$model->name?>" style="background: url('<?=SiteHelper::resized_image($model->image, 170, null)?>') no-repeat;"></div>
+            <?php $src = SiteHelper::resized_image($model->image, 170, null);
+                  list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src);
+                  endif; ?>
+                <div title="<?=$model->name?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$width>$height ? '100% auto' : 'auto 100%'?>"></div>
             <?php if ($model->image): ?>
             </a>
             <?php endif; ?>

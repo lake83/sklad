@@ -31,10 +31,12 @@ if (count($children)): ?>
 
 <ul class="catalog-list row">
     <?php foreach ($children as $one):
-    if ($one['not_show_region'] == 0): ?>
+    if ($one['not_show_region'] == 0):
+    $src = SiteHelper::resized_image($one['image'], 120, null);
+    list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src); ?>
     <li>
         <a class="catalog_preview" href="<?=Url::to([Yii::$app->request->pathInfo . $one['slug']])?>">
-            <div title="<?=$one['name']?>" style="background: url('<?=SiteHelper::resized_image($one['image'], 120, null)?>') no-repeat;"></div>
+            <div title="<?=$one['name']?>" style="background: url('<?=$src?>') no-repeat;<?=$one['image'] ? ($width>$height ? 'background-size:100% auto' : 'background-size:auto 100%') : ''?>"></div>
             <div class="caption"><?=$one['name']?></div>
         </a>        
     </li>

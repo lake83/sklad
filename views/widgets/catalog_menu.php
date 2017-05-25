@@ -35,10 +35,13 @@ foreach($catalogItems as $category) {
         } else {
             $active = false;
         }
+        $src = SiteHelper::resized_image($category['image'], 120, null);
+        list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src);
+        
         echo '<li' . ($category['depth'] == 1 ? ($active ? ' class="active"' : (($category['rgt']-$category['lft']) !== 1 ? ' class="cat-modal"' : '')) : '') . '>';
 	    $image = '';
         if ($category['depth'] == 2 && !$active && $active_cat < $category['rgt']) {
-	        $image = '<span title="' . $category['name'] . '" style="background:url(' . SiteHelper::resized_image($category['image'], 120, null) . ') no-repeat;"></span><br />';
+	        $image = '<span title="' . $category['name'] . '" style="background:url(' . $src . ') no-repeat;background-size:' . ($width>$height ? '100% auto' : 'auto 100%') . '"></span><br />';
 	    }
         echo Html::a($image.$category['name'], ['catalog/page', 'alias' => $category['slug']], 
                  $category['depth'] == 0 ? ['class' => 'catalogtitle'] : ($category['depth'] == 1 ? ['class' => 'octo'] : [])
