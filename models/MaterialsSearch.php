@@ -18,7 +18,7 @@ class MaterialsSearch extends Materials
     public function rules()
     {
         return [
-            [['id', 'parent_id', 'type', 'not_show_region', 'is_active'], 'integer'],
+            [['id', 'parent_id', 'type', 'in_slider', 'not_show_region', 'is_active'], 'integer'],
             [['created_at', 'updated_at'], 'date', 'format' => 'd.m.Y'],
             [['name', 'slug', 'region', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
         ];
@@ -69,6 +69,7 @@ class MaterialsSearch extends Materials
             'id' => $this->id,
             'parent_id' => $this->parent_id,
             'type' => $this->type,
+            'in_slider' => $this->in_slider,
             'not_show_region' => $this->not_show_region,
             'is_active' => $this->is_active,
             'FROM_UNIXTIME(created_at, "%d.%m.%Y")' => $this->created_at,

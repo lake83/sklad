@@ -26,6 +26,7 @@ class m170506_124205_materials extends Migration
             'keywords' => $this->string()->notNull(),
             'description' => $this->text()->notNull(),
             'type' => $this->boolean()->defaultValue(1)->comment('1-Новость,2-Статья,3-Страница,4-Клиент'),
+            'in_slider' => $this->boolean()->defaultValue(0),
             'not_show_region' => $this->boolean()->defaultValue(0),
             'is_active' => $this->boolean()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
