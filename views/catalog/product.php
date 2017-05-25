@@ -6,6 +6,7 @@
 /* @var $shortData app\models\CatalogOptions */
 /* @var $optionsData app\models\CatalogOptions */
 /* @var $videoData app\models\ProductsVideo */
+/* @var $brochuresData app\models\ProductsBrochures */
 
 use yii\helpers\Html;
 use app\components\SiteHelper;
@@ -29,8 +30,10 @@ if ($model->description) {
             <?php if ($model->image): ?>
             <a class="fancyItem" href="/images/uploads/source/<?=$model->image?>" data-fancybox="true">
             <?= newerton\fancybox3\FancyBox::widget() ?>
-            <?php endif; ?>
-                <img src="<?=SiteHelper::resized_image($model->image, 170, 140)?>" alt="<?=$model->name?>" title="<?=$model->name?>"/>
+            <?php $src = SiteHelper::resized_image($model->image, 170, null);
+                  list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src);
+                  endif; ?>
+                <div title="<?=$model->name?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$width>$height ? '100% auto' : 'auto 100%'?>"></div>
             <?php if ($model->image): ?>
             </a>
             <?php endif; ?>
@@ -92,6 +95,14 @@ if ($model->description) {
             'dataProvider' => $videoData,
             'layout' => "{items}",
             'itemView' => '_video_item'
+        ])];
+    }
+    if ($brochuresData) {
+        $items[] = ['label' => 'Брошюра', 'content' => ListView::widget([
+            'id' => 'brochures_list',
+            'dataProvider' => $brochuresData,
+            'layout' => "{items}",
+            'itemView' => '_brochures_item'
         ])];
     }
     $items[] = ['label' => 'Схема работы', 'content' => Html::img('/images/uploads/source/Pages/skhema-prodazh.jpg', ['alt' => 'Схема работы', 'title' => 'Схема работы', 'width' => '100%'])];

@@ -9,8 +9,8 @@ use app\components\SiteHelper;
 <div class="glossary_item">
     <div class="glossary_head">
         <a class="glossary_headl" href="/nashi_postavchshiki/<?=$model->slug?>/"><?=$model->name?></a>
-    </div> 
-    <img src="<?=SiteHelper::resized_image($model->image, 100, 100)?>" alt="<?=$model->brand?>" title="<?=$model->name?>" class="glossary_img"/>
+    </div>
+    <div class="glossary_img" title="<?=$model->brand?>" style="background: url('<?=SiteHelper::resized_image($model->image, 100, null)?>') no-repeat;"></div>
     <div class="glossary_txt">
         <p><?=$model->intro_text?></p>
     </div>

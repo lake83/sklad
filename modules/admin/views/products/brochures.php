@@ -42,7 +42,6 @@ $form = ActiveForm::begin(['id' => 'dynamic-form-brochures', 'action' => ['produ
                 // necessary for update action.
                 if (!$one->isNewRecord) {
                     echo Html::activeHiddenInput($one, "[{$i}]id");
-                    echo Html::activeHiddenInput($one, "[{$i}]file");
                 }
             ?>
                 <div class="row">
@@ -55,7 +54,7 @@ $form = ActiveForm::begin(['id' => 'dynamic-form-brochures', 'action' => ['produ
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2"><b><?= $models[0]->getAttributeLabel('file') ?></b></div>
+                    <div class="col-sm-2 file-name" data-file="<?=$one->file?>"><b><?= $models[0]->getAttributeLabel('file') ?></b></div>
                     <div class="col-sm-8">
                         <?= $form->field($one, "[{$i}]file", ['template' => "{input}\n{error}"])->fileInput() ?>
                     </div>

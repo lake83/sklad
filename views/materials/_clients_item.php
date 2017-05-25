@@ -9,7 +9,7 @@ if ($model['not_show_region'] == 0): ?>
   
 <div class="clients-logo">
     <a href="/clients/<?=$model['slug']?>">
-        <img src="<?=SiteHelper::resized_image($model['image'], 200, 200)?>" alt="<?=$model['name']?>" title="<?=$model['name']?>"/>
+        <div title="<?=$model['name']?>" style="background: url('<?=SiteHelper::resized_image($model['image'], 200, null)?>') no-repeat;"></div>
     </a>
 </div>
 

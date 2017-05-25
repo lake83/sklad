@@ -18,7 +18,7 @@ if ($news):
         <?php if ($n['not_show_region'] == 0): ?>
         <div class="ZnewsItem">
             <div class="ZnewsItem__imgbox">
-                <img src="<?=SiteHelper::resized_image($n['image'], 100, 100)?>" alt="<?=$n['name']?>"/>
+                <div class="glossary_img" title="<?=$n['name']?>" style="background: url('<?=SiteHelper::resized_image($n['image'], 100, null)?>') no-repeat;"></div>
             </div>
             <div class="ZnewsItem__txtbox">
                 <a href="<?=Url::to(['/news/' . $n['slug']])?>" class="ZnewsItem__head"><?=$n['name']?></a>
@@ -39,7 +39,7 @@ echo $this->context->renderPartial('/materials/page', ['model' => $main, 'title'
 if ($slider) :
 foreach ($slider as $item) {
     if ($item['not_show_region'] == 0) {
-        $items[] = Html::a(Html::img(SiteHelper::resized_image($item['image'], 200, 200), ['alt' => $item['name'], 'title' => $item['name']]), Url::to(['/clients/' . $item['slug']]));
+        $items[] = Html::a('<div class="slider_img" title="' . $item['name'] . '" style="background: url(\'' . SiteHelper::resized_image($item['image'], 130, null) . '\') no-repeat;"></div>', ['/clients/' . $item['slug']]);
     }
 } ?>
 

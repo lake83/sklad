@@ -11,7 +11,7 @@ if ($model->not_show_region == 0): ?>
   
 <div class="art-block">
     <div class="ab1">
-        <img src="<?=SiteHelper::resized_image($model->image, 100, 100)?>" alt="<?=$model->name?>"/>
+        <div class="glossary_img" title="<?=$model->name?>" style="background: url('<?=SiteHelper::resized_image($model->image, 100, null)?>') no-repeat;"></div>
     </div>
     <div class="ab2">
         <a class="newsa" href="<?=$type . $model->slug?>/"><?=$model->name?></a>

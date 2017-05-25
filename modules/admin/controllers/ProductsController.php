@@ -7,6 +7,7 @@ use app\models\Products;
 use app\models\CatalogOptions;
 use app\models\ProductsOptions;
 use app\models\ProductsRelated;
+use app\models\ProductsBrochures;
 use yii\web\NotFoundHttpException;
 use yii\base\DynamicModel;
 use yii\helpers\ArrayHelper;
@@ -17,6 +18,8 @@ use yii\data\ActiveDataProvider;
  */
 class ProductsController extends AdminController
 {
+    use actions\MultipleTraite;
+    
     public function actions()
     {
         $category = ($catalog_id = Yii::$app->request->get('catalog_id')) ? ['catalog_id' => $catalog_id] : [];
@@ -53,15 +56,6 @@ class ProductsController extends AdminController
                 'models' => $this->modelPath.'ProductsVideo',
                 'owner' => 'product_id',
                 'view' => 'video',
-                'redirect' => Yii::$app->request->referrer,
-                'partial' => true
-            ],
-            'brochures' => [
-                'class' => $this->actionsPath.'UpdateMultiple',
-                'model' => $this->modelPath.'Products',
-                'models' => $this->modelPath.'ProductsBrochures',
-                'owner' => 'product_id',
-                'view' => 'brochures',
                 'redirect' => Yii::$app->request->referrer,
                 'partial' => true
             ]
@@ -140,8 +134,12 @@ class ProductsController extends AdminController
             foreach ($model->attributes as $key => $attribute) {
                 $option_id = str_replace('field', '', $key);
                 if ($opt = ProductsOptions::findOne(['option_id' => $option_id, 'product_id' => $id])) {
-                    $opt->value = $attribute;
-                    $opt->save();
+                    if (!empty($attribute)) {
+                        $opt->value = $attribute;
+                        $opt->save();
+                    } else {
+                        $opt->delete();
+                    }
                 } else {
                     $opt = new ProductsOptions;
                     $opt->option_id = $option_id;
@@ -210,5 +208,46 @@ class ProductsController extends AdminController
             Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
             return $this->redirect(Yii::$app->request->referrer);
         }
+    }
+    
+    /**
+     * Брошюры
+     * 
+     * @param integer $id ID товара
+     * @return string
+     */
+    public function actionBrochures($id)
+    {
+        if (!$model = Products::findOne($id)) {
+            throw new NotFoundHttpException(Yii::t('app', 'Страница не найдена.'));
+        }
+        $models = ProductsBrochures::find()->where(['product_id' => $id])->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($brochures = $this->multipleUpdate($model, ProductsBrochures::className(), $models, 'product_id')) {
+                $path = Yii::getAlias('@webroot/files/');
+                if (!file_exists($path)) {
+                    mkdir($path);
+                }
+                foreach ($brochures as $key => $one) {
+                    if ($name = $_FILES['ProductsBrochures']['name'][$key]['file']) {
+                        $temp = $_FILES['ProductsBrochures']['tmp_name'][$key]['file'];
+                        if (move_uploaded_file($temp, $path . $name)) {
+                            if ($one->file !== $name && is_file($path . $one->file)) {
+                                unlink($path . $one->file);
+                            }
+                            $one->file = $name;
+                            $one->save();     
+                        }
+                    }
+                }
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
+                return $this->redirect(Yii::$app->request->referrer);
+            }
+        }
+        return $this->renderPartial('brochures', [
+            'model' => $model,
+            'models' => (empty($models)) ? [new ProductsBrochures] : $models
+        ]);
     }
 }

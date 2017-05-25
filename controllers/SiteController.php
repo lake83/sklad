@@ -77,4 +77,20 @@ class SiteController extends Controller
         }
         return $this->render('@app/modules/admin/views/admin/login', ['model' => $model]);
     }
+    
+    /**
+     * Скачать брошюру.
+     * 
+     * @param string $file название файла
+     * @throws NotFoundHttpException файла нет
+     */
+    public function actionDownload($file)
+    {
+        $path = Yii::getAlias('@webroot/files') . DIRECTORY_SEPARATOR . $file;
+        if (file_exists($path)) {
+            Yii::$app->response->sendFile($path);
+        } else {
+            throw new NotFoundHttpException('Файл не найден.');
+        }
+    }
 }

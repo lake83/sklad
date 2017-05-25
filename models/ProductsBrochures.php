@@ -35,7 +35,6 @@ class ProductsBrochures extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['product_id', 'is_active'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['file'], 'file'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
@@ -52,25 +51,6 @@ class ProductsBrochures extends \yii\db\ActiveRecord
             'file' => 'Файл',
             'is_active' => 'Активно',
         ];
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    public function beforeSave($insert)
-    {
-        $file = UploadedFile::getInstance($this, 'file');
-        if ($file) {
-            $path = Yii::getAlias('@webroot/files/');
-        
-            if (!file_exists($path)) {
-                mkdir($path);
-            }
-            $fileName = $file->baseName . '.' . $file->extension;
-            $file->saveAs($path . $fileName);
-            $this->file = $fileName;
-        }
-        return parent::beforeSave($insert);
     }
     
     /**

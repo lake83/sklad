@@ -12,7 +12,7 @@ trait MultipleTraite
      * @param object $model модель
      * @param array $models модели для сохранения
      * @param string $owner атрибут для связи с родительской записью
-     * @return boolean
+     * @return boolean|object
      */
     protected function multipleCreate($model, $models, $owner)
     {
@@ -32,7 +32,7 @@ trait MultipleTraite
                 }
                 if ($flag) {
                     $transaction->commit();
-                    return true;
+                    return $models;
                 }
             } catch (Exception $e) {
                 $transaction->rollBack();
@@ -47,7 +47,7 @@ trait MultipleTraite
      * @param string $modelsClass класс моделей
      * @param array $models модели для сохранения
      * @param string $owner атрибут для связи с родительской записью
-     * @return boolean
+     * @return boolean|object
      */
     protected function multipleUpdate($model, $modelsClass, $models, $owner)
     {
@@ -72,7 +72,7 @@ trait MultipleTraite
                 }
                 if ($flag) {
                     $transaction->commit();
-                    return true;
+                    return $models;
                 }
             } catch (Exception $e) {
                 $transaction->rollBack();
