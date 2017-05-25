@@ -12,7 +12,7 @@ if ($model->not_show_region == 0): ?>
     <div class="thumbnail">
         <a href="<?= $model->getUrl() ?>">
             <div class="prod-title"><?= $model->name ?></div>
-            <img src="<?=SiteHelper::resized_image($model->image, 170, 140)?>" alt="<?=$model->name?>" title="<?=$model->name?>"/>
+            <div class="product_img" title="<?=$model->name?>" style="background: url('<?=SiteHelper::resized_image($model->image, 170, null)?>') no-repeat;"></div>
         </a>
         <p>
             <?php if ($model->not_show_price == 0 && $model->price > 0): ?>

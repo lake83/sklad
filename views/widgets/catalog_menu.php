@@ -38,7 +38,7 @@ foreach($catalogItems as $category) {
         echo '<li' . ($category['depth'] == 1 ? ($active ? ' class="active"' : (($category['rgt']-$category['lft']) !== 1 ? ' class="cat-modal"' : '')) : '') . '>';
 	    $image = '';
         if ($category['depth'] == 2 && !$active && $active_cat < $category['rgt']) {
-	        $image = '<span title="' . $category['name'] . '" style="background:url(' . SiteHelper::resized_image($category['image'], 120, 100) . ') no-repeat;"></span><br />';
+	        $image = '<span title="' . $category['name'] . '" style="background:url(' . SiteHelper::resized_image($category['image'], 120, null) . ') no-repeat;"></span><br />';
 	    }
         echo Html::a($image.$category['name'], ['catalog/page', 'alias' => $category['slug']], 
                  $category['depth'] == 0 ? ['class' => 'catalogtitle'] : ($category['depth'] == 1 ? ['class' => 'octo'] : [])

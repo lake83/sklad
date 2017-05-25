@@ -6,6 +6,7 @@
 /* @var $dataProvider app\models\Products */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\components\SiteHelper;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
@@ -32,9 +33,10 @@ if (count($children)): ?>
     <?php foreach ($children as $one):
     if ($one['not_show_region'] == 0): ?>
     <li>
-        <?= Html::a(Html::img(SiteHelper::resized_image($one['image'], 120, 100), ['title' => $one['name']]) .
-            '<div class="caption">' . $one['name'] . '</div>', [Yii::$app->request->pathInfo . $one['slug']])
-        ?>
+        <a class="catalog_preview" href="<?=Url::to([Yii::$app->request->pathInfo . $one['slug']])?>">
+            <div title="<?=$one['name']?>" style="background: url('<?=SiteHelper::resized_image($one['image'], 120, null)?>') no-repeat;"></div>
+            <div class="caption"><?=$one['name']?></div>
+        </a>        
     </li>
     <?php endif;
     endforeach; ?>

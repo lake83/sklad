@@ -31,7 +31,7 @@ if ($model->description) {
             <a class="fancyItem" href="/images/uploads/source/<?=$model->image?>" data-fancybox="true">
             <?= newerton\fancybox3\FancyBox::widget() ?>
             <?php endif; ?>
-                <img src="<?=SiteHelper::resized_image($model->image, 170, 140)?>" alt="<?=$model->name?>" title="<?=$model->name?>"/>
+                <div title="<?=$model->name?>" style="background: url('<?=SiteHelper::resized_image($model->image, 170, null)?>') no-repeat;"></div>
             <?php if ($model->image): ?>
             </a>
             <?php endif; ?>

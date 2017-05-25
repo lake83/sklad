@@ -141,8 +141,8 @@ $regions = Regions::getRegions();
         </div>
         <a href="<?=Url::to(['materials/page', 'alias' => 'karta_sayta'])?>" class="sitemap_link">Карта сайта</a>
         <div>
-            <a style="text-decoration-line: none;" href="http://astonia.ru/" target="_blank" rel="nofollow" title="Разработка сайта">>Разработка сайта</a>
-            <a style="text-decoration-line: none;" href="http://www.astoni.ru/" target="_blank" rel="nofollow" title="Продвижение сайтов">>Поддержка сайтов</a>  
+            <a style="text-decoration-line: none;" href="http://astonia.ru/" target="_blank" rel="nofollow" title="Разработка сайта">Разработка сайта</a>
+            <a style="text-decoration-line: none;" href="http://www.astoni.ru/" target="_blank" rel="nofollow" title="Продвижение сайтов">Поддержка сайтов</a>  
         </div>
         <div>
             <a href="http://www.cool-reklama.ru" target="_blank"><img src="/images/astonia.png" alt="реклама в интернете"/></a>
