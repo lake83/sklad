@@ -86,12 +86,19 @@ class CatalogController extends Controller
                 'pagination' => false
             ]);
         }
+        if ($brochures = $model->productsBrochures) {
+            $brochuresData = new ArrayDataProvider([
+                'allModels' => $brochures,
+                'pagination' => false
+            ]);
+        }
         return $this->render('product', [
             'model' => $model,
             'shortData' => $shortData,
             'optionsData' => $optionsData,
             'relatedData' => $relatedData,
-            'videoData' => $videoData
+            'videoData' => $videoData,
+            'brochuresData' => $brochuresData
         ]);
     }
 }

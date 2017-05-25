@@ -6,6 +6,7 @@
 /* @var $shortData app\models\CatalogOptions */
 /* @var $optionsData app\models\CatalogOptions */
 /* @var $videoData app\models\ProductsVideo */
+/* @var $brochuresData app\models\ProductsBrochures */
 
 use yii\helpers\Html;
 use app\components\SiteHelper;
@@ -92,6 +93,14 @@ if ($model->description) {
             'dataProvider' => $videoData,
             'layout' => "{items}",
             'itemView' => '_video_item'
+        ])];
+    }
+    if ($brochuresData) {
+        $items[] = ['label' => 'Брошюра', 'content' => ListView::widget([
+            'id' => 'brochures_list',
+            'dataProvider' => $brochuresData,
+            'layout' => "{items}",
+            'itemView' => '_brochures_item'
         ])];
     }
     $items[] = ['label' => 'Схема работы', 'content' => Html::img('/images/uploads/source/Pages/skhema-prodazh.jpg', ['alt' => 'Схема работы', 'title' => 'Схема работы', 'width' => '100%'])];
