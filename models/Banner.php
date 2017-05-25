@@ -11,6 +11,7 @@ use Yii;
  * @property string $name
  * @property string $link
  * @property string $position
+ * @property string $not_show_in_regions
  * @property integer $width
  * @property integer $height
  *
@@ -44,6 +45,7 @@ class Banner extends \yii\db\ActiveRecord
             [['is_active', 'width', 'height'], 'integer'],
             [['images'], 'file', 'maxFiles' => 0],
             [['name', 'link', 'position'], 'string', 'max' => 255],
+            ['not_show_in_regions', 'safe']
         ];
     }
 
@@ -61,6 +63,7 @@ class Banner extends \yii\db\ActiveRecord
             'images' => 'Изображения',
             'width' => 'Ширина',
             'height' => 'Высота',
+            'not_show_in_regions' => 'Не показывать в городах',
         ];
     }
 
@@ -72,10 +75,10 @@ class Banner extends \yii\db\ActiveRecord
         return $this->hasMany(ImageToBanner::className(), ['banner_id' => 'id']);
     }
 
-    public static function renderPosition($position = '') {
+    public static function renderPosition($position = '', $not_slide = false) {
         $banners = self::find()->where(['position' => $position, 'is_active' => 1]);
         if ($banners->count()) {
-            return Yii::$app->view->renderPhpFile(Yii::getAlias('@app'). '/views/banner/position.php', ['banners' => $banners->all(), 'position' => $position]);
+            return Yii::$app->view->renderPhpFile(Yii::getAlias('@app'). '/views/banner/position.php', ['banners' => $banners->all(), 'position' => $position, 'not_slide' => $not_slide]);
         } else {
             return '';
         }

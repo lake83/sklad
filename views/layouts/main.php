@@ -39,7 +39,7 @@ $regions = Regions::getRegions();
                 Выходные: суббота, воскресенье.
             </span>
             <a class="akcii_top_button" href="<?=Url::to(['/akcii'])?>">акции</a>
-            <a class="requestcall" href="<?=Url::to(['#' => 'formcallback'])?>">заказать звонок</a>
+            <a class="requestcall" href="javascript:void(0)" data-toggle="modal" data-target="#recall_form">заказать звонок</a>
             <?= Html::mailto('Отправить письмо', 'zapros@maxi-sklad.ru', ['class' => 'sendletter']) ?>
             <div class="ZTleft">
                 <div class="Zlogo">
@@ -102,6 +102,9 @@ $regions = Regions::getRegions();
                 </div>
             </div>
         </div>
+        <? if (Url::current() === Url::home()) {?>
+            <?= Banner::renderPosition('maintop');?>
+        <? } ?>
         <div class="left-column">
             <?= CatalogMenu::widget() ?>
             <?= Banner::renderPosition('bannerLeft');?>
@@ -118,9 +121,6 @@ $regions = Regions::getRegions();
             </div>
         </div>
         <div class="right-column">
-            <? if (Url::current() === Url::home()) {?>
-                <?= Banner::renderPosition('maintop');?>
-            <? } ?>
             <?= Breadcrumbs::widget([
             'homeLink' => [ 
                 'label' => 'Складская техника',
@@ -154,7 +154,7 @@ $regions = Regions::getRegions();
         </div>
     </footer>
 </div>
-
+<?=$this->render('forms/recall', ['model' => new \app\models\RecallForm()])?>
 <?php $this->endBody() ?>
 </body>
 </html>

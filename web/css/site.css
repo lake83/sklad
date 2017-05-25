@@ -1001,3 +1001,19 @@ a.formreqestitem {
 #video_list {
     text-align: center;
 }
+
+.fader {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.fader img {
+    position: absolute;
+    background-color: #f3f4ef; border: 1px solid #dedede; padding: 5px;
+    top: 0;
+    left: 0;
+    max-width: 100%;
+    height: auto;
+}

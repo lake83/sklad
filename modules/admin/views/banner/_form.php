@@ -6,6 +6,8 @@ use app\models\Banner;
 use kartik\file\FileInput;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\widgets\Select2;
+use yii\helpers\ArrayHelper;
+use app\models\Materials;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Banner */
@@ -42,7 +44,13 @@ use kartik\widgets\Select2;
         <?php endif ?>
     </div>
 
-    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'link')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(Materials::find()->select(['*', 'concat("/news/", `slug`) as slug'])->where(['type' => 1, 'is_active' => 1])->all(), 'slug', 'name'),
+        'options' => ['placeholder' => 'Введите свою ссылку или выберите из списка...', 'multiple' => false],
+    ]) ?>
+
+
+
     <?= $form->field($model, 'width')->textInput(['type' => 'number']) ?>
     <?= $form->field($model, 'height')->textInput(['type' => 'number']) ?>
 
@@ -51,6 +59,15 @@ use kartik\widgets\Select2;
         'options' => ['placeholder' => 'Выберите позицию для выввода акции ...', 'multiple' => false],
         'pluginOptions' => [
             'tags' => true,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
+        ],
+    ]) ?>
+
+    <?= $form->field($model, 'not_show_in_regions')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(\app\models\Regions::find()->all(), 'id', 'name'),
+        'options' => ['placeholder' => 'Выберите города ...', 'multiple' => true],
+        'pluginOptions' => [
             'tokenSeparators' => [',', ' '],
             'maximumInputLength' => 10
         ],
