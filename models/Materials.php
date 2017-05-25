@@ -24,6 +24,7 @@ use app\components\LocalizedActiveRecord;
  * @property string $keywords
  * @property string $description
  * @property integer $type
+ * @property integer $in_slider
  * @property integer $not_show_region
  * @property integer $is_active
  * @property integer $created_at
@@ -62,7 +63,7 @@ class Materials extends LocalizedActiveRecord
         return [
             [['name', 'full_text', 'type'], 'required', 'on' => 'main'],
             [['intro_text', 'full_text', 'description'], 'string'],
-            [['parent_id', 'type', 'is_active', 'not_show_region', 'created_at', 'updated_at'], 'integer'],
+            [['parent_id', 'type', 'in_slider', 'is_active', 'not_show_region', 'created_at', 'updated_at'], 'integer'],
             ['region', 'string', 'max' => 50],
             ['image', 'string', 'max' => 100],
             [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
@@ -88,6 +89,7 @@ class Materials extends LocalizedActiveRecord
             'keywords' => 'Keywords',
             'description' => 'Description',
             'type' => 'Тип',
+            'in_slider' => 'Показовать в слайдере "Нам доверяют"',
             'not_show_region' => 'Не выводить для региона',
             'is_active' => 'Активно',
             'created_at' => 'Создан',
@@ -158,13 +160,18 @@ class Materials extends LocalizedActiveRecord
     /**
      * Список Клиентов
      * 
+     * @param boolean $in_slider данные для слайдера "Нам доверяют"
      * @return array
      */
-    public static function getClients()
+    public static function getClients($in_slider = false)
     {
         $db = Yii::$app->db;
-        return $db->cache(function ($db) {
-            return self::find()->where(['type' => 4, 'is_active' => 1])->localized()->asArray()->all();
+        return $db->cache(function ($db) use ($in_slider) {
+            $query = self::find()->where(['type' => 4, 'is_active' => 1]);
+            if ($in_slider) {
+                $query->andWhere(['in_slider' => 1]);
+            }
+            return $query->localized()->asArray()->all();
         }, 0, new TagDependency(['tags' => 'clients']));
     }
 }

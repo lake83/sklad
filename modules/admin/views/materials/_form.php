@@ -44,6 +44,8 @@ $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
         
         if ((int)$type !== 4) {
             echo $form->field($model, 'intro_text')->widget(RedactorTinymce::className());
+        } else {
+            echo $form->field($model, 'in_slider')->checkbox();
         }
     } ?>
 
