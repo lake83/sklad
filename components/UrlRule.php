@@ -19,7 +19,13 @@ class UrlRule extends Object implements UrlRuleInterface
         }
         if ($route === 'catalog/page') {
             if (isset($params['alias'])) {
-                return $params['alias'] . '/';
+                $alias = $params['alias'];
+                unset($params['alias']);
+                if ($params) {
+                    return Yii::$app->request->pathInfo . '?' . http_build_query($params);
+                } else {
+                    return $alias . '/';
+                }
             }
         }
         if ($route === 'catalog/product') {
