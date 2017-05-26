@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\PriceGetForm;
 use Yii;
 use yii\web\Controller;
 use app\models\RecallForm;
@@ -20,6 +21,15 @@ class FormController extends Controller {
 
     public function actionRecall() {
         $model = new RecallForm();
+        if ($model->load(Yii::$app->request->post()) and $model->validate()) {
+            $model->sendEmail($this->sendEmail);
+        }
+        return [
+            'message' => 'Ваша заявка принята. Ожидайте ответа'
+        ];
+    }
+    public function actionGetprice() {
+        $model = new PriceGetForm();
         if ($model->load(Yii::$app->request->post()) and $model->validate()) {
             $model->sendEmail($this->sendEmail);
         }
