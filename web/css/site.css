@@ -708,7 +708,7 @@ a#download_now {
     text-align: center;
 }
 .asideContacts {
-    padding: 32px 27px 60px 13px;
+    padding: 30px 10px 60px 10px;
 }
 .asideEmail {
     border-bottom: 1px solid #e3e3e3;
@@ -737,8 +737,11 @@ a#download_now {
 }
 .asideContacts__block_heading {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     padding: 0 0 3px;
+}
+.asideContacts__block a {
+    font-size: 12px;
 }
 .links_tree {
     padding: 0;

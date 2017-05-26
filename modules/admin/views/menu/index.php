@@ -23,7 +23,6 @@ $this->title = 'Меню';
         ['class' => 'yii\grid\SerialColumn'],
 
             'name',
-            'slug',
             SiteHelper::is_active($searchModel),
 
             [

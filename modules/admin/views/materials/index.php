@@ -25,7 +25,6 @@ $this->title = Materials::getTypes($type);
         ['class' => 'yii\grid\SerialColumn'],
 
             'name',
-            'slug',
             SiteHelper::is_active($searchModel),
             SiteHelper::created_at($searchModel),
 
