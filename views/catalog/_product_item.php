@@ -8,7 +8,7 @@ use app\components\SiteHelper;
 
 if ($model->not_show_region == 0):
     $src = SiteHelper::resized_image($model->image, 170, null);
-    list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src); ?>
+    list($width, $height, $type, $attr) = @getimagesize(Yii::getAlias('@webroot/').$src); ?>
   
 <div class="product_item">
     <div class="thumbnail">

@@ -27,13 +27,13 @@ echo $model->intro_text;
 if (count($children)): ?>
 <strong>Каталог техники:</strong>
 
-<a href="#" class="requestbutton pull-right">Запросить прайс-лист</a>
+<a href="javascript:void(0)" data-toggle="modal" data-target="#get_pricelist" class="requestbutton pull-right">Запросить прайс-лист</a>
 
 <ul class="catalog-list row">
     <?php foreach ($children as $one):
     if ($one['not_show_region'] == 0):
     $src = SiteHelper::resized_image($one['image'], 120, null);
-    list($width, $height, $type, $attr) = getimagesize(Yii::getAlias('@webroot/').$src); ?>
+    list($width, $height, $type, $attr) = @getimagesize(Yii::getAlias('@webroot/').$src); ?>
     <li>
         <a class="catalog_preview" href="<?=Url::to([Yii::$app->request->pathInfo . $one['slug']])?>">
             <div title="<?=$one['name']?>" style="background: url('<?=$src?>') no-repeat;<?=$one['image'] ? ($width>$height ? 'background-size:100% auto' : 'background-size:auto 100%') : ''?>"></div>

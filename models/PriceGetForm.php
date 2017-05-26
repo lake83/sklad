@@ -1,0 +1,50 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+use yii\base\Model;
+
+/**
+ * ContactForm is the model behind the contact form.
+ */
+class PriceGetForm extends Model
+{
+    public $fio;
+    public $phone;
+    public $email;
+    public $city;
+    public $catalog_id;
+    public $organization;
+    public $how_did_you_know;
+    public $comment;
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['email', 'city', 'organization', 'comment'], 'required', 'message' => 'Поле обязательно для заполнения'],
+            [['fio', 'phone', 'city', 'organization', 'how_did_you_know', 'comment'], 'string'],
+            [['email'], 'email'],
+            [['catalog_id'], 'integer'],
+        ];
+    }
+
+    /**
+     * Sends an email to the specified email address using the information collected by this model.
+     *
+     * @param  string  $email the target email address
+     * @return boolean whether the email was sent
+     */
+    public function sendEmail($to)
+    {
+        return Yii::$app->mailer->compose()
+            ->setTo($to)
+            ->setFrom(Yii::$app->params['adminEmail'])
+            ->setSubject('Заказ прайса')
+            ->setTextBody('Фио: '.$this->fio.' Телефон: '.$this->phone . ' Каталог: ' . Catalog::findOne($this->catalog_id)->name)
+            ->send();
+    }
+}
