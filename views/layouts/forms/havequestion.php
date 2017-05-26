@@ -32,13 +32,13 @@ Modal::end();
                {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'ФИО']) ?>
         <?= $form->field($model, 'phone', ['template'=>"{label}\n<div class=\"input-group\">\n
             <span class=\"input-group-addon\" id=\"basic-addon1\"><span class='glyphicon glyphicon-phone'></span></span>
-               {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Телефон', "required" => true]) ?>
+               {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Телефон']) ?>
 
         <?= $form->field($model, 'email', ['template'=>"{label}\n<div class=\"input-group\">\n
             <span class=\"input-group-addon\" id=\"basic-addon1\"></span>
                {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Email']) ?>
 
-        <?= $form->field($model, 'question')->textarea(['placeholder' => 'Ваш вопрос *', "required" => true])->label(false) ?>
+        <?= $form->field($model, 'question')->textarea(['placeholder' => 'Ваш вопрос *'])->label(false) ?>
 
         <?= $form->field($model, 'catalog_id')->hiddenInput()->label(false) ?>
 
@@ -54,11 +54,17 @@ Modal::end();
 
 $this->registerJs(<<<JAVASCRIPT
 $('#have_question-form').on('submit', function () {
-    $.post("/form/havequestion/", $(this).serialize(), function (resp) {
-        $('#have_question .modal-body').html(resp.message)
-        $('#have_question').modal();
-        $('#have_question-form')[0].reset();
-    }, 'json');
+    var form = this;
+    setTimeout(function() {
+        if ($(form).find('.has-error').length) {
+            return false;
+        }
+        $.post("/form/havequestion/", $(form).serialize(), function (resp) {
+            $('#have_question .modal-body').html(resp.message)
+            $('#have_question').modal();
+            $('#have_question-form')[0].reset();
+        }, 'json');
+    }, 300);
     return false;
 });
 JAVASCRIPT

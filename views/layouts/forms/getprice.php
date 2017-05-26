@@ -32,9 +32,9 @@ Modal::begin([
                    {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Город']) ?>
 
 
-        <?= $form->field($model, 'catalog_id')
-                ->label(false)
-                ->dropDownList(\yii\helpers\ArrayHelper::map(Catalog::find()->select('id,name,depth')->where(['is_active' => 1, 'depth' => 1])->orderBy('lft')->all(), 'id', 'name')) ?>
+        <?= $form->field($model, 'catalog_id')->label(false)->hiddenInput() ?>
+        <?= $form->field($model, 'product_id')->label(false)->hiddenInput() ?>
+        <?= $form->field($model, 'type')->label(false)->hiddenInput() ?>
 
         <?= $form->field($model, 'organization', ['template'=>"{label}\n<div class=\"input-group\">\n
                 <span class=\"input-group-addon\" id=\"basic-addon1\"></span>
@@ -55,10 +55,16 @@ Modal::end();
 
 $this->registerJs(<<<JAVASCRIPT
 $('#get_pricelist-form').on('submit', function () {
-    $.post("/form/getprice/", $(this).serialize(), function (resp) {
-        $('#get_pricelist .modal-body').html(resp.message)
-    }, 'json');
+    var form = this;
+    setTimeout(function() {
+        if ($(form).find('.has-error').length) {
+            return false;
+        }
+        $.post("/form/getprice/", $(form).serialize(), function (resp) {
+            $('#get_pricelist .modal-body').html(resp.message)
+        }, 'json');
+    }, 300);
     return false;
 });
 JAVASCRIPT
-);
+, \yii\web\View::POS_READY);

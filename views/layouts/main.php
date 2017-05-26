@@ -155,7 +155,6 @@ $regions = Regions::getRegions();
     </footer>
 </div>
 <?=$this->render('forms/recall', ['model' => new \app\models\RecallForm()])?>
-<?=$this->render('forms/getprice', ['model' => new \app\models\PriceGetForm()])?>
 <?php $this->endBody() ?>
 </body>
 </html>

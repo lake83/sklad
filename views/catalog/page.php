@@ -64,3 +64,7 @@ echo $model->full_text;
 $form = new app\models\HaveQuestionForm();
 $form->catalog_id = $model->id;
 echo $this->render('@app/views/layouts/forms/havequestion.php', ['model' => $form]);
+
+$form2 = new app\models\PriceGetForm();
+$form2->catalog_id = $model->id;
+echo $this->render('@app/views/layouts/forms/getprice', ['model' => $form2]);

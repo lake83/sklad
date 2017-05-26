@@ -33,9 +33,15 @@ Modal::end();
 
 $this->registerJs(<<<JAVASCRIPT
 $('#recall-form').on('submit', function () {
-    $.post("/form/recall/", $(this).serialize(), function (resp) {
-        $('#recall_form .modal-body').html(resp.message)
-    }, 'json');
+    var form = this;
+    setTimeout(function() {
+        if ($(form).find('.has-error').length) {
+            return false;
+        }
+        $.post("/form/recall/", $(form).serialize(), function (resp) {
+            $('#recall_form .modal-body').html(resp.message)
+        }, 'json');
+    }, 300);
     return false;
 });
 JAVASCRIPT
