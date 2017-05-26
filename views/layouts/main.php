@@ -12,6 +12,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\Regions;
 use app\models\Banner;
+use yii\jui\AutoComplete;
 
 AppAsset::register($this);
 
@@ -57,33 +58,18 @@ $regions = Regions::getRegions();
             </div>
             <div class="ZTmiddle">
                 <div class="top-search">
-                    <form id="top-search" name="top-search" action="<?=Url::to(['/search'])?>">
-                        <span style = "display: inline-block;">
-                        <?/*= Typeahead::widget([
+                    <form id="top-search" name="top-search" action="<?=Url::to(['site/search'])?>">
+                        <?= AutoComplete::widget([
                             'name' => 'q',
-                            'options' => [
-                                'placeholder' => 'Поиск по каталогу',
-                                'data-placeholder' => 'Поиск по каталогу',
-                                'class' => 'search-val',
-                                'style' => 'display:inline-block;'
+                            'clientOptions' => [
+                            'source' => Url::to(['site/autocomplete']),
+                                'minLength'=>'3',
                             ],
-                            'pluginOptions' => ['highlight'=>true],
-                            'dataset' => [
-                                [
-                                    'local' => $product,
-                                    'limit' => 10
-                                ]
+                            'options' => [
+                                'class' => 'search-val'
                             ]
-                        ]);*/ ?>
-                        </span>
+                        ]); ?>
                         <input type="submit" id="submit-search-button" class="submitsearch"/>
-                        <?php /*$catId = 0;
-                        if (Yii::$app->controller->id == 'catalog') {
-                            $catId = $this->model->id;
-                        } elseif (Yii::$app->controller->id=='search') {
-                            $catId = $cat_id;
-                        }*/ ?>
-                        <input type="hidden" name="cat_id" value="<?= $catId ?>"/>
                     </form>
                 </div>
                 <div class="z-right">

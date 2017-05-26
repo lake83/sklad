@@ -213,7 +213,7 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 #top-search input.search-val {
     border: solid 1px #bec5cf;
-    width: 193px;
+    width: 200px;
     height: 25px;
     -webkit-border-top-left-radius: 7px;
     -webkit-border-bottom-left-radius: 7px;
@@ -222,17 +222,9 @@ a, a:hover, a:active, a:visited, a:focus {
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     padding-left: 14px;
-    font-size: 11px;
-    color: #a5abb5;
+    font-size: 12px;
     border-width: 1px 0px 1px 1px;
-    float:left;
     color: black;
-    font-size: 15px;
-    padding: 0px !important;
-    padding-left:5px !important;
-    box-sizing:border-box;
-    border-radius-top-right: 0px !important;
-    border-radius-bottom-right: 0px !important;
 }
 #top-search input.submitsearch {
     background-image: url(/images/search.png), -webkit-linear-gradient(bottom, #393185 47%, #5669bc 52%, #5669bc);
@@ -240,8 +232,8 @@ a, a:hover, a:active, a:visited, a:focus {
     background-image: url(/images/search.png),-o-linear-gradient(bottom, #393185 47%, #5669bc 52%, #5669bc);
     background-image: url(/images/search.png),-ms-linear-gradient(bottom, #393185 47%, #5669bc 52%, #5669bc);
     background-image: url(/images/search.png), linear-gradient(to top, #393185 47%, #5669bc 52%, #5669bc);
-    width: 16px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     -webkit-border-top-right-radius: 7px;
     -webkit-border-bottom-right-radius: 7px;
     -moz-border-radius-topright: 7px;
@@ -250,12 +242,7 @@ a, a:hover, a:active, a:visited, a:focus {
     border-bottom-right-radius: 7px;
     border: solid 1px #bec5cf;
     border-width: 1px 1px 1px 0px;
-
     background-repeat: no-repeat;
-    background-position: center;
-    padding-top: 4px;
-    padding-bottom: 0px;
-    padding-right: 3px;
     background-position: center;
     display: inline-block;
     margin-left: -4px;
@@ -274,7 +261,11 @@ a, a:hover, a:active, a:visited, a:focus {
     background-position: center;
 }
 .top-search {
-   margin: 13px 52px 0 68px;
+    margin: 0 0 5px 40px;
+}
+.ui-autocomplete {
+    width: 200px;
+    font-size: 12px !important;
 }
 .top-menu {
     text-transform:uppercase;

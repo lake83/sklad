@@ -6,7 +6,10 @@ use Yii;
 use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\Materials;
+use app\models\Products;
+use yii\data\ActiveDataProvider;
 use yii\caching\TagDependency;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -93,11 +96,42 @@ class SiteController extends Controller
             throw new NotFoundHttpException('Файл не найден.');
         }
     }
+    
+    /**
+     * Автокомплит для поиска по товарам
+     * 
+     * @param string $term строка для поиска
+     * @return string
+     */
+    public function actionAutocomplete($term)
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        return Products::find()->select('name')->andFilterWhere(['like', 'name', $term])->limit(10)->column();
+    }
+    
+    /**
+     * Страница результатов поиска по товарам
+     * 
+     * @param string $q строка для поиска
+     * @return string
+     */
+    public function actionSearch($q)
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Products::find()->where(['is_active' => 1])->andFilterWhere(['like', 'name', $q])->localized(),
+            'pagination' => [
+                'defaultPageSize' => 12
+            ]
+        ]);
+        return $this->render('search', ['dataProvider' => $dataProvider]);
+    }
 
     /**
      * Раздел акции
      */
-    public function actionAkcii() {
+    public function actionAkcii()
+    {
         return $this->render('akcii');
     }
 }
