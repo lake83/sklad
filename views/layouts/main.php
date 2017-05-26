@@ -69,7 +69,7 @@ $regions = Regions::getRegions();
                                 'class' => 'search-val'
                             ]
                         ]); ?>
-                        <input type="submit" id="submit-search-button" class="submitsearch"/>
+                        <input type="submit" id="submit-search-button" class="submitsearch" value=""/>
                     </form>
                 </div>
                 <div class="z-right">
