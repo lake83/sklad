@@ -244,11 +244,8 @@ a, a:hover, a:active, a:visited, a:focus {
     border-width: 1px 1px 1px 0px;
     background-repeat: no-repeat;
     background-position: center;
-    display: inline-block;
-    margin-left: -4px;
-    margin-top: -38px;
+    position: absolute;
 }
-
 #top-search input.submitsearch:hover {
     background: #5669bc;
     background: url(/images/search.png),-moz-linear-gradient(top, #393185 0%,#393185 50%,#5669bc 50%,#5669bc 100%);
