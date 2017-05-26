@@ -39,7 +39,7 @@ if ($model->description) {
             <?php endif; ?>
         </div>
         <a class="formreqestitem requestbutton" data-toggle="modal" data-target="#get_pricelist" href="javascript:void(0)">
-            <?php if ($model->not_show_price == 1): ?>
+            <?php if ($model->not_show_price == 1 || $model->price == 0): ?>
                 Уточнить стоимость
             <?php else: ?>
                 Цена: <?= Yii::$app->formatter->asDecimal($model->price) . ' ' . $model->getСurrency($model->currency) ?>
