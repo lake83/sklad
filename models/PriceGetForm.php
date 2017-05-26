@@ -44,7 +44,16 @@ class PriceGetForm extends Model
             ->setTo($to)
             ->setFrom(Yii::$app->params['adminEmail'])
             ->setSubject('Заказ прайса')
-            ->setTextBody('Фио: '.$this->fio.' Телефон: '.$this->phone . ' Каталог: ' . Catalog::findOne($this->catalog_id)->name)
+            ->setTextBody("
+                ФИО: {$this->fio}
+                Телефон: {$this->phone}
+                Каталог: " . Catalog::findOne($this->catalog_id)->name . "
+                Email: {$this->email}
+                Город: {$this->city}
+                Организация: {$this->organization}
+                Откуда вы узнали о нас: {$this->how_did_you_know}
+                Комментарий: {$this->comment}
+            ")
             ->send();
     }
 }

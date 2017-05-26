@@ -56,7 +56,7 @@ Modal::end();
 $this->registerJs(<<<JAVASCRIPT
 $('#get_pricelist-form').on('submit', function () {
     $.post("/form/getprice/", $(this).serialize(), function (resp) {
-        $('#get_pricelist-form .modal-body').html(resp.message)
+        $('#get_pricelist .modal-body').html(resp.message)
     }, 'json');
     return false;
 });
