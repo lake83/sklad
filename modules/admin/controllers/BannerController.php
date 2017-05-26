@@ -92,7 +92,7 @@ class BannerController extends Controller
      * @return mixed
      */
     private function loadImages($model) {
-        $path = Yii::getAlias('@webroot').'/upload/actions/';
+        $path = Yii::getAlias('@webroot').'/images/actions/';
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -105,7 +105,7 @@ class BannerController extends Controller
         $images = UploadedFile::getInstances($model, 'images');
 
         foreach ($images as $key => $image) {
-            $image_path = '/upload/actions/'.$model->id.'/'.time().'_'.$key.'.'. $image->extension;
+            $image_path = '/images/actions/'.$model->id.'/'.time().'_'.$key.'.'. $image->extension;
             if ($image->saveAs(Yii::getAlias('@webroot') . $image_path)) {
                 $banner_image = new ImageToBanner();
                 $banner_image->banner_id = $model->id;
