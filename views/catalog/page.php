@@ -59,4 +59,8 @@ echo ListView::widget([
 
 Pjax::end();
 
-echo $model->full_text; ?>
+echo $model->full_text;
+
+$form = new app\models\HaveQuestionForm();
+$form->catalog_id = $model->id;
+echo $this->render('@app/views/layouts/forms/havequestion.php', ['model' => $form]);

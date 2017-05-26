@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\HaveQuestionForm;
 use app\models\PriceGetForm;
 use Yii;
 use yii\web\Controller;
@@ -30,6 +31,15 @@ class FormController extends Controller {
     }
     public function actionGetprice() {
         $model = new PriceGetForm();
+        if ($model->load(Yii::$app->request->post()) and $model->validate()) {
+            $model->sendEmail($this->sendEmail);
+        }
+        return [
+            'message' => 'Ваша заявка принята. Ожидайте ответа'
+        ];
+    }
+    public function actionHavequestion() {
+        $model = new HaveQuestionForm();
         if ($model->load(Yii::$app->request->post()) and $model->validate()) {
             $model->sendEmail($this->sendEmail);
         }

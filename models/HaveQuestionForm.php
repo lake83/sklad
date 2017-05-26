@@ -8,16 +8,13 @@ use yii\base\Model;
 /**
  * ContactForm is the model behind the contact form.
  */
-class PriceGetForm extends Model
+class HaveQuestionForm extends Model
 {
     public $fio;
-    public $phone;
     public $email;
-    public $city;
+    public $phone;
     public $catalog_id;
-    public $organization;
-    public $how_did_you_know;
-    public $comment;
+    public $question;
 
     /**
      * @inheritdoc
@@ -25,10 +22,20 @@ class PriceGetForm extends Model
     public function rules()
     {
         return [
-            [['email', 'city', 'organization', 'comment'], 'required', 'message' => 'Поле обязательно для заполнения'],
-            [['fio', 'phone', 'city', 'organization', 'how_did_you_know', 'comment'], 'string'],
-            [['email'], 'email'],
+            [['question', 'phone'], 'required', 'message' => 'Поле обязательно для заполнения'],
+            [['fio', 'phone', 'question'], 'string'],
             [['catalog_id'], 'integer'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'fio' => 'ФИО',
+            'phone' => 'Телефон',
         ];
     }
 
@@ -43,16 +50,13 @@ class PriceGetForm extends Model
         return Yii::$app->mailer->compose()
             ->setTo($to)
             ->setFrom(Yii::$app->params['adminEmail'])
-            ->setSubject('Заказ прайса')
+            ->setSubject('Запрос с формы - У Вас есть вопрос?')
             ->setTextBody("
                 ФИО: {$this->fio}
                 Телефон: {$this->phone}
                 Каталог: " . Catalog::findOne($this->catalog_id)->name . "
                 Email: {$this->email}
-                Город: {$this->city}
-                Организация: {$this->organization}
-                Откуда вы узнали о нас: {$this->how_did_you_know}
-                Комментарий: {$this->comment}
+                Вопрос: {$this->question}
             ")
             ->send();
     }
