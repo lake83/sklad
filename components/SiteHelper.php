@@ -79,8 +79,10 @@ class SiteHelper
                     if (file_exists($original) && filesize($original) < 10000000) {
                         if (!exif_imagetype($original)) {
                             unlink($original);
+                            $url = false;
+                        } else {
+                            Image::thumbnail($original, $width, $height)->save($img, ['quality' => 100]);
                         }
-                        Image::thumbnail($original, $width, $height)->save($img, ['quality' => 100]);
                     }
                     $url = true;
                 } catch (ErrorException $e) {
