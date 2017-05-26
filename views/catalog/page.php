@@ -19,7 +19,7 @@ if ($model->description) {
     $this->registerMetaTag(['name' => 'description', 'content' => $model->description], 'description');
 } ?>
 
-<h1><?= $model->name ?></h1>
+<h1><?= $model->article_name ? $model->article_name : $model->name ?></h1>
 
 <?php
 echo $model->intro_text;

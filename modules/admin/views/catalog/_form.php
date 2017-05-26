@@ -38,6 +38,8 @@ $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
         echo Html::activeHiddenInput($model, 'slug');
     }  ?>
     
+    <?= $form->field($model, 'article_name')->textInput(['maxlength' => true]) ?>
+    
     <?= $form->field($model, 'image')->widget(\app\components\FilemanagerInput::className()) ?>
     
     <?= $form->field($model, 'intro_text')->widget(RedactorTinymce::className()) ?>

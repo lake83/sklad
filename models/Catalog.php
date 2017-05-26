@@ -18,6 +18,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $rgt
  * @property integer $depth
  * @property string $name
+ * @property string $article_name
  * @property string $slug
  * @property string $image
  * @property string $intro_text
@@ -78,7 +79,7 @@ class Catalog extends \yii\db\ActiveRecord
             [['intro_text', 'full_text', 'description'], 'string'],
             [['lft', 'is_active', 'not_show_region', 'rgt', 'depth'], 'integer'],
             ['image', 'string', 'max' => 100],
-            [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
+            [['name', 'article_name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
             ['not_show_region', \app\components\ShowRegionValidator::className()],
         ];
     }
@@ -91,6 +92,7 @@ class Catalog extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'article_name' => 'Заголовок',
             'slug' => 'Алиас',
             'image' => 'Изображение',
             'intro_text' => 'Короткий текст',
@@ -128,7 +130,7 @@ class Catalog extends \yii\db\ActiveRecord
     {
         TagDependency::invalidate(Yii::$app->cache, 'catalog');
         
-        CatalogRegions::deleteAll(['name' => '', 'image' => '', 'intro_text' => '', 'full_text' => '', 'title' => '', 'keywords' => '', 'description' => '', 'not_show_region' => 0]);
+        CatalogRegions::deleteAll(['name' => '', 'article_name' => '', 'image' => '', 'intro_text' => '', 'full_text' => '', 'title' => '', 'keywords' => '', 'description' => '', 'not_show_region' => 0]);
         
         parent::afterDelete();
     }

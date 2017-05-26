@@ -19,7 +19,7 @@ class CatalogSearch extends Catalog
     {
         return [
             [['id', 'lft', 'rgt', 'depth', 'not_show_region', 'is_active'], 'integer'],
-            [['name', 'slug', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
+            [['name', 'article_name', 'slug', 'intro_text', 'full_text', 'title', 'keywords', 'description'], 'safe'],
         ];
     }
 
@@ -67,6 +67,7 @@ class CatalogSearch extends Catalog
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'article_name', $this->article_name])
             ->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'intro_text', $this->intro_text])
             ->andFilterWhere(['like', 'full_text', $this->full_text])

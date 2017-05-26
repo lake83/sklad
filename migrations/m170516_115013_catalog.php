@@ -19,6 +19,7 @@ class m170516_115013_catalog extends Migration
             'rgt' => $this->integer()->notNull(),
             'depth' => $this->integer()->notNull(),
             'name' => $this->string()->notNull(),
+            'article_name' => $this->string()->notNull(),
             'slug' => $this->string()->notNull(),
             'image' => $this->string(100)->notNull(),
             'intro_text' => $this->text()->notNull(),
@@ -33,6 +34,7 @@ class m170516_115013_catalog extends Migration
         $this->createTable('catalog_regions', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
+            'article_name' => $this->string()->notNull(),
             'catalog_id' => $this->integer()->notNull(),
             'region' => $this->string(50)->notNull(),
             'image' => $this->string(100)->notNull(),

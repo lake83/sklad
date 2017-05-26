@@ -10,6 +10,7 @@ use yii\caching\TagDependency;
  *
  * @property integer $id
  * @property string $name
+ * @property string $article_name
  * @property integer $catalog_id
  * @property string $region
  * @property string $image
@@ -43,7 +44,7 @@ class CatalogRegions extends \yii\db\ActiveRecord
         return [
             [['catalog_id', 'not_show_region', 'is_active'], 'integer'],
             [['intro_text', 'full_text', 'description'], 'string'],
-            [['name', 'title', 'keywords'], 'string', 'max' => 255],
+            [['name', 'article_name', 'title', 'keywords'], 'string', 'max' => 255],
             [['region'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 100],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::className(), 'targetAttribute' => ['catalog_id' => 'id']],
@@ -58,6 +59,7 @@ class CatalogRegions extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
+            'article_name' => 'Заголовок',
             'slug' => 'Алиас',
             'image' => 'Изображение',
             'intro_text' => 'Короткий текст',
