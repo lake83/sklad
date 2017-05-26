@@ -9,11 +9,11 @@ class RedactorTinymce extends Tinymce
         'plugins' => [
             'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code contextmenu table responsivefilemanager'
         ],
-        'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+        'toolbar' => 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code | removeformat',
         'language' => 'ru',
         'filemanager_title' => 'Файловый менеджер',
         'menubar' => false,
-        'width' => 700,
+        'width' => 730,
         'height' => 250
     ];
     public $fileManagerOptions = [

@@ -150,7 +150,7 @@ class Products extends LocalizedActiveRecord
             ->where(['catalog_id' => $this->catalog_id, 'is_active' => 1])
             ->orWhere(['catalog_id' => $parents])
             ->join('RIGHT JOIN', ProductsOptions::tableName(), 'option_id='.CatalogOptions::tableName().'.id' . ($anons ? ' AND show_anons=1' : '') . ' AND product_id='.$this->id)
-            ->asArray()->all();
+            ->orderBy('position ASC')->asArray()->all();
     }
     
     /**

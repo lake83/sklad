@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
+use app\models\Catalog;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Catalog */
@@ -56,6 +57,18 @@ $form = ActiveForm::begin(['id' => 'dynamic-form', 'layout' => 'horizontal']); ?
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="remove-item btn btn-danger" title="Удалить"><i class="glyphicon glyphicon-minus"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3"><?= $models[0]->getAttributeLabel('change_category') ?></label>
+                    <div class="col-sm-7">
+                        <?= $form->field($one, "[{$i}]change_category", ['template' => "{input}\n{error}"])->dropDownList(Catalog::getAll(), ['prompt' => '- выбрать -']) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3"><?= $models[0]->getAttributeLabel('position') ?></label>
+                    <div class="col-sm-7">
+                        <?= $form->field($one, "[{$i}]position", ['template' => "{input}\n{error}"])->textInput() ?>
                     </div>
                 </div>
                 <div class="row">

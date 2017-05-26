@@ -5,13 +5,14 @@ namespace app\modules\admin\controllers;
 use Yii;
 use app\models\Catalog;
 use app\models\CatalogRegions;
+use app\models\CatalogOptions;
 
 /**
  * CatalogController implements the CRUD actions for Catalog model.
  */
 class CatalogController extends AdminController
 {
-    use \app\modules\admin\controllers\actions\MultipleTraite;
+    use actions\MultipleTraite;
     
     public function actions()
     {
@@ -34,13 +35,6 @@ class CatalogController extends AdminController
                 'class' => \pheme\grid\actions\ToggleAction::className(),
                 'modelClass' => $this->modelPath.'Catalog',
                 'attribute' => 'is_active'
-            ],
-            'options' => [
-                'class' => $this->actionsPath.'UpdateMultiple',
-                'model' => $this->modelPath.'Catalog',
-                'models' => $this->modelPath.'CatalogOptions',
-                'owner' => 'catalog_id',
-                'view' => 'options'
             ]
         ];
     }
@@ -124,5 +118,36 @@ class CatalogController extends AdminController
             return $this->refresh();
         }
         return $this->render('_form', ['model' => $model]);
+    }
+    
+    /**
+     * Опции каталога
+     * 
+     * @param integer $id ID категории каталога
+     * @return string
+     */
+    public function actionOptions($id)
+    {
+        if (!$model = Catalog::findOne($id)) {
+            throw new NotFoundHttpException(Yii::t('app', 'Страница не найдена.'));
+        }
+        $models = CatalogOptions::find()->where(['catalog_id' => $id])->all();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($options = $this->multipleUpdate($model, CatalogOptions::className(), $models, 'catalog_id')) {
+                foreach ($options as $key => $one) {
+                    if (!empty($_POST['CatalogOptions'][$key]['change_category'])) {
+                        $one->catalog_id = $_POST['CatalogOptions'][$key]['change_category'];
+                        $one->save();     
+                    }
+                }
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
+                return $this->redirect(['index']);
+            }
+        }
+        return $this->render('options', [
+            'model' => $model,
+            'models' => (empty($models)) ? [new CatalogOptions] : $models
+        ]);
     }
 }

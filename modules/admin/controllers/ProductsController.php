@@ -119,7 +119,7 @@ class ProductsController extends AdminController
     {
         if ($product = Products::findOne($id)) {
             $parents = $product->catalog->parents()->andWhere(['is_active' => 1])->column();
-            $options = ArrayHelper::map(CatalogOptions::find()->select('id,name')->where(['catalog_id' => $product->catalog_id, 'is_active' => 1])->orWhere(['catalog_id' => $parents])->asArray()->all(), 'id', 'name');
+            $options = ArrayHelper::map(CatalogOptions::find()->select('id,name')->where(['catalog_id' => $product->catalog_id, 'is_active' => 1])->orWhere(['catalog_id' => $parents])->orderBy('position ASC')->asArray()->all(), 'id', 'name');
             $values = ArrayHelper::map(ProductsOptions::find()->select('option_id,value')->where(['product_id' => $id])->asArray()->all(), 'option_id', 'value');
             
             foreach ($options as $key => $option) {

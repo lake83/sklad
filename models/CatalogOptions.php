@@ -12,12 +12,18 @@ use Yii;
  * @property string $name
  * @property integer $show_anons
  * @property integer $show_short
+ * @property integer $position
  * @property integer $is_active
  *
  * @property Catalog $catalog
  */
 class CatalogOptions extends \yii\db\ActiveRecord
 {
+    /**
+     * @var integer используется при смене категории опции
+     */
+    public $change_category;
+    
     /**
      * @inheritdoc
      */
@@ -33,7 +39,7 @@ class CatalogOptions extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['catalog_id', 'show_anons', 'show_short', 'is_active'], 'integer'],
+            [['catalog_id', 'show_anons', 'show_short', 'position', 'is_active'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::className(), 'targetAttribute' => ['catalog_id' => 'id']],
         ];
@@ -50,7 +56,9 @@ class CatalogOptions extends \yii\db\ActiveRecord
             'name' => 'Название',
             'show_anons' => 'Показовать в анонсе',
             'show_short' => 'Показовать в Коротко',
+            'position' => 'Позиция',
             'is_active' => 'Активно',
+            'change_category' => 'Сменить категорию'
         ];
     }
 
