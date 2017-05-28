@@ -7,6 +7,7 @@ use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\Materials;
 use app\models\Products;
+use app\models\Banners;
 use yii\data\ActiveDataProvider;
 use yii\caching\TagDependency;
 use yii\web\NotFoundHttpException;
@@ -132,6 +133,6 @@ class SiteController extends Controller
      */
     public function actionAkcii()
     {
-        return $this->render('akcii');
+        return $this->render('akcii', ['baners' => Banners::getBanners(1)]);
     }
 }
