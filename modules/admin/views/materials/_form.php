@@ -62,6 +62,18 @@ $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
     <?=  Html::activeHiddenInput($model, 'parent_id', ['value' => $request->get('parent_id') ? $request->get('parent_id') : 0]) ?>
     
     <?=  Html::activeHiddenInput($model, 'region', ['value' => $request->get('region') ? $request->get('region') : '']) ?>
+    
+    <?php if ($this->context->action->id !== 'localization') {
+        echo $form->field($model, 'created_at')->widget(\yii\jui\DatePicker::className() , [
+            'language' => 'ru',
+            'dateFormat' => 'dd.MM.yyyy',
+            'options' => ['class' => 'form-control', 'autocomplete' => 'off'],
+            'clientOptions' => [
+                'changeMonth' => true,
+                'changeYear' => true
+            ]
+        ]);
+    } ?>
 
     <?= $form->field($model, 'not_show_region')->checkbox() ?>
     

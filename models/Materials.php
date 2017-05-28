@@ -63,11 +63,12 @@ class Materials extends LocalizedActiveRecord
         return [
             [['name', 'full_text', 'type'], 'required', 'on' => 'main'],
             [['intro_text', 'full_text', 'description'], 'string'],
-            [['parent_id', 'type', 'in_slider', 'is_active', 'not_show_region', 'created_at', 'updated_at'], 'integer'],
+            [['parent_id', 'type', 'in_slider', 'is_active', 'not_show_region', 'updated_at'], 'integer'],
             ['region', 'string', 'max' => 50],
             ['image', 'string', 'max' => 100],
             [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
             ['not_show_region', \app\components\ShowRegionValidator::className()],
+            ['created_at', 'date', 'format' => 'php:d.m.Y', 'timestampAttribute' => 'created_at'],
         ];
     }
 
