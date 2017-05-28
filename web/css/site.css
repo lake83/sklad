@@ -457,7 +457,8 @@ a.artmore {
     text-decoration:underline;
 }
 .Znews {
-    width: 495px;
+    width: 480px;
+    float: left;
 }
 .Znews__inner,
 .whyNtk__inner {
@@ -1007,4 +1008,18 @@ a.formreqestitem {
     left: 0;
     max-width: 100%;
     height: auto;
+}
+.actions {
+    display: block;
+    float: right;
+    width: 225px;
+}
+.actions a.actions__header {
+    font-size: 12px;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.top-banners {
+    margin-bottom: 40px;
 }

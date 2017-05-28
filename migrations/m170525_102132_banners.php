@@ -16,30 +16,19 @@ class m170525_102132_banners extends Migration
         $this->createTable('banners', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'link' => $this->string()->defaultValue(null),
-            'position' => $this->string()->notNull(),
-            'width' => $this->integer()->defaultValue(null),
-            'height' => $this->integer()->defaultValue(null),
+            'parent_id' => $this->integer()->notNull(),
+            'region' => $this->string(50)->notNull(),
+            'image' => $this->string(100)->notNull(),
+            'link' => $this->string()->notNull(),
+            'position' => $this->boolean()->defaultValue(1)->comment('1-Вверху,2-Справа,3-Слева'),
+            'not_show_region' => $this->boolean()->defaultValue(0),
             'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
 
-        $this->createTable('image_to_banner', [
-            'id' => $this->primaryKey(),
-            'image' => $this->string()->notNull(),
-            'banner_id' => $this->integer()->notNull(),
-        ], $tableOptions);
-
-        $this->createIndex('idx-image_to_banner', 'image_to_banner', 'banner_id');
-        $this->addForeignKey('banners_ibfk_1', 'image_to_banner', 'banner_id', 'banners', 'id', 'CASCADE');
-
     }
 
-    public function down() {
-        $this->dropForeignKey('banners_ibfk_1', 'image_to_banner');
-
-        $this->dropTable('image_to_banner');
+    public function down()
+    {
         $this->dropTable('banners');
-
-        return false;
     }
 }

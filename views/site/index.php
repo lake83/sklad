@@ -7,6 +7,8 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\SiteHelper;
+use yii2mod\bxslider\BxSlider;
+use app\models\Banners;
 
 if ($news):
 ?>
@@ -34,19 +36,48 @@ if ($news):
 
 <?php endif;
 
+if ($baners = Banners::getBanners(2)): ?>
+   <div class="actions"> 
+   <?php echo Html::a('Акции', ['site/akcii'], ['class' => 'actions__header']);
+   foreach ($baners as $baner) {
+        if ($baner['not_show_region'] == 0) {
+            $img = Html::img('/images/uploads/source/' . $baner['image'], ['alt' => $baner['name'], 'title' => $baner['name']]);
+            if ($baner['link']) {
+                $items_actions[] = Html::a($img, $baner['link']);
+            } else {
+                $items_actions[] = $img;
+            }
+        }
+    }
+    echo BxSlider::widget([
+        'id' => 'actions',
+        'pluginOptions' => [
+            'auto' => true,
+            'slideWidth' => 225,
+            'minSlides' => 1,
+            'maxSlides' => 1,
+            'controls' => false,
+            'pager' => false
+        ],
+        'items' => $items_actions
+    ]); ?>
+    </div>
+<?php endif;
+
 echo $this->context->renderPartial('/materials/page', ['model' => $main, 'title' => false]);
 
 if ($slider) :
 foreach ($slider as $item) {
     if ($item['not_show_region'] == 0) {
-        $items[] = Html::a('<div class="slider_img" title="' . $item['name'] . '" style="background: url(\'' . SiteHelper::resized_image($item['image'], 130, null) . '\') no-repeat;"></div>', ['/clients/' . $item['slug']]);
+        $items_clients[] = Html::a('<div class="slider_img" title="' . $item['name'] . '" style="background: url(\'' . SiteHelper::resized_image($item['image'], 130, null) . '\') no-repeat;"></div>', ['/clients/' . $item['slug']]);
     }
 } ?>
 
 <div class="clearfix"></div>
 <div class="partnersSlider">
     <div class="partnersSlider__header">Нам доверяют:</div>
-    <?= yii2mod\bxslider\BxSlider::widget([
+    <?= BxSlider::widget([
+        'id' => 'clients',
         'pluginOptions' => [
             'slideWidth' => 130,
             'slideMargin' => 21,
@@ -54,7 +85,7 @@ foreach ($slider as $item) {
             'maxSlides' => 6,
             'pager' => false
         ],
-        'items' => $items 
+        'items' => $items_clients 
     ]) ?>
 </div>
 <?php endif; ?>

@@ -11,22 +11,22 @@ app\assets\AdminAsset::register($this);
     'options' => ['class' => 'sidebar-menu'],
     'encodeLabels' => false,
     'items' => [
-        ['label' => 'Пользователи', 'url' => ['/admin/user/index'], 'icon' => 'users'],
-        ['label' => 'Регионы', 'url' => ['/admin/regions/index'], 'icon' => 'arrows-alt'],
-        ['label' => 'Каталог', 'url' => ['/admin/catalog/index'], 'icon' => 'table'],
         ['label' => 'Товары', 'url' => ['/admin/products/index'], 'icon' => 'shopping-basket'],
+        ['label' => 'Структура каталога', 'url' => ['/admin/catalog/index'], 'icon' => 'table'],
         ['label' => 'Производители', 'url' => ['/admin/manufacturers/index'], 'icon' => 'address-card-o'],
-        ['label' => 'Материалы', 'icon' => 'book',
+        ['label' => 'Контент', 'icon' => 'book',
             'items' => [
-                ['label' => 'Новости', 'url' => ['/admin/materials/index', 'type' => 1], 'icon' => 'caret-right'],
-                ['label' => 'Статьи', 'url' => ['/admin/materials/index', 'type' => 2], 'icon' => 'caret-right'],
                 ['label' => 'Страницы', 'url' => ['/admin/materials/index', 'type' => 3], 'icon' => 'caret-right'],
-                ['label' => 'Клиенты', 'url' => ['/admin/materials/index', 'type' => 4], 'icon' => 'caret-right']
+                ['label' => 'Новости', 'url' => ['/admin/materials/index', 'type' => 1], 'icon' => 'caret-right'],
+                ['label' => 'Акции/Баннеры', 'url' => ['/admin/banners/index'], 'icon' => 'caret-right'],
+                ['label' => 'Клиенты', 'url' => ['/admin/materials/index', 'type' => 4], 'icon' => 'caret-right'],
+                ['label' => 'Статьи', 'url' => ['/admin/materials/index', 'type' => 2], 'icon' => 'caret-right']
             ]
         ],
-        ['label' => 'Меню', 'url' => ['/admin/menu/index'], 'icon' => 'bars'],
         ['label' => 'Пункты меню', 'url' => ['/admin/menu-items/index'], 'icon' => 'list-ul'],
-        ['label' => 'Акции', 'url' => ['/admin/banner/index'], 'icon' => 'window-restore'],
+        ['label' => 'Расположение меню', 'url' => ['/admin/menu/index'], 'icon' => 'bars'],
+        ['label' => 'Регионы', 'url' => ['/admin/regions/index'], 'icon' => 'arrows-alt'],
+        ['label' => 'Пользователи', 'url' => ['/admin/user/index'], 'icon' => 'users']
     ]
 ]);	
 ?>

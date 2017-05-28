@@ -11,7 +11,8 @@ use app\components\CatalogMenu;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\models\Regions;
-use app\models\Banner;
+use app\models\Banners;
+use yii2mod\bxslider\BxSlider;
 use yii\jui\AutoComplete;
 
 AppAsset::register($this);
@@ -88,12 +89,46 @@ $regions = Regions::getRegions();
                 </div>
             </div>
         </div>
-        <? if (Url::current() === Url::home()) {?>
-            <?= Banner::renderPosition('maintop');?>
-        <? } ?>
+        <?php if (Url::current() == Url::home() && ($baners = Banners::getBanners(1))): ?>
+        <div class="top-banners">
+           <?php foreach ($baners as $baner) {
+                if ($baner['not_show_region'] == 0) {
+                    $img = Html::img('/images/uploads/source/' . $baner['image'], ['alt' => $baner['name'], 'title' => $baner['name']]);
+                    if ($baner['link']) {
+                        $items[] = Html::a($img, $baner['link']);
+                    } else {
+                        $items[] = $img;
+                    }
+                }
+            }
+            echo BxSlider::widget([
+                'id' => 'banners',
+                'pluginOptions' => [
+                    'auto' => true,
+                    'slideWidth' => 1000,
+                    'minSlides' => 1,
+                    'maxSlides' => 1,
+                    'controls' => false,
+                    'pager' => true
+                ],
+                'items' => $items
+            ]); ?>
+        </div>
+        <?php endif; ?>
         <div class="left-column">
             <?= CatalogMenu::widget() ?>
-            <?= Banner::renderPosition('bannerLeft');?>
+            <?php if ($baners = Banners::getBanners(3)) {
+                foreach ($baners as $baner) {
+                    if ($baner['not_show_region'] == 0) {
+                        $img = Html::img('/images/uploads/source/' . $baner['image'], ['alt' => $baner['name'], 'title' => $baner['name'], 'style' => 'margin:15px 0']);
+                        if ($baner['link']) {
+                            echo Html::a($img, $baner['link']);
+                        } else {
+                            echo $img;
+                        }
+                    }
+                }
+            } ?>
             <div class="asideContacts">
                 <div class="asideEmail asideContacts__block">
                     <div class="asideContacts__block_heading">Электронная почта:</div>

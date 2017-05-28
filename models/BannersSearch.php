@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Banner;
+use app\models\Banners;
 
 /**
- * BannerSearch represents the model behind the search form about `app\models\Banner`.
+ * BannersSearch represents the model behind the search form about `app\models\Banners`.
  */
-class BannerSearch extends Banner
+class BannersSearch extends Banners
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class BannerSearch extends Banner
     public function rules()
     {
         return [
-            [['id', 'is_active'], 'integer'],
-            [['name', 'link', 'position'], 'safe'],
+            [['id', 'parent_id', 'position', 'not_show_region', 'is_active'], 'integer'],
+            [['name', 'region', 'image', 'link'], 'safe'],
         ];
     }
 
@@ -41,13 +41,14 @@ class BannerSearch extends Banner
      */
     public function search($params)
     {
-        $query = Banner::find();
+        $query = Banners::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $query->andWhere(['parent_id' => 0]);
 
         $this->load($params);
 
@@ -60,12 +61,16 @@ class BannerSearch extends Banner
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
+            'position' => $this->position,
+            'not_show_region' => $this->not_show_region,
             'is_active' => $this->is_active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'link', $this->link])
-            ->andFilterWhere(['like', 'position', $this->position]);
+            ->andFilterWhere(['like', 'region', $this->region])
+            ->andFilterWhere(['like', 'image', $this->image])
+            ->andFilterWhere(['like', 'link', $this->link]);
 
         return $dataProvider;
     }
