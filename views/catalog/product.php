@@ -38,7 +38,7 @@ if ($model->description) {
             </a>
             <?php endif; ?>
         </div>
-        <a class="formreqestitem requestbutton" data-toggle="modal" data-target="#get_pricelist" href="javascript:void(0)">
+        <a class="formreqestitem requestbutton" data-toggle="modal" data-target="#get-pricelist-modal" href="javascript:void(0)">
             <?php if ($model->not_show_price == 1 || $model->price == 0): ?>
                 Уточнить стоимость
             <?php else: ?>
@@ -110,10 +110,10 @@ if ($model->description) {
     echo Tabs::widget(['id' => 'product_details', 'items' => $items]); ?>
 </div>
 
-<?
-$form2 = new app\models\PriceGetForm();
-$form2->catalog_id = $model->catalog_id;
-$form2->product_id = $model->id;
-
-$form2->type = 'clarifyprice';
-echo $this->render('@app/views/layouts/forms/getprice', ['model' => $form2]);
+<?php
+$form = new app\models\PriceGetForm();
+$form->catalog_id = $model->catalog_id;
+$form->product_id = $model->id;
+$form->type = 'clarifyprice';
+echo $this->render('/forms/getprice', ['model' => $form]);
+?>

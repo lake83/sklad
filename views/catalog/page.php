@@ -27,7 +27,7 @@ echo $model->intro_text;
 if (count($children)): ?>
 <strong>Каталог техники:</strong>
 
-<a href="javascript:void(0)" data-toggle="modal" data-target="#get_pricelist" class="requestbutton pull-right">Запросить прайс-лист</a>
+<a href="javascript:void(0)" data-toggle="modal" data-target="#get-pricelist-modal" class="requestbutton pull-right">Запросить прайс-лист</a>
 
 <ul class="catalog-list row">
     <?php foreach ($children as $one):
@@ -63,8 +63,9 @@ echo $model->full_text;
 
 $form = new app\models\HaveQuestionForm();
 $form->catalog_id = $model->id;
-echo $this->render('@app/views/layouts/forms/havequestion.php', ['model' => $form]);
+echo $this->render('/forms/havequestion.php', ['model' => $form]);
 
 $form2 = new app\models\PriceGetForm();
 $form2->catalog_id = $model->id;
-echo $this->render('@app/views/layouts/forms/getprice', ['model' => $form2]);
+echo $this->render('/forms/getprice', ['model' => $form2]);
+?>

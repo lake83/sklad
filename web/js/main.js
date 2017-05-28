@@ -28,4 +28,26 @@ jQuery(document).ready(function () {
              $(this).find('ul:first').removeClass('cat-preview').toggle();
          }
     );
+    
+    // работа с формами
+    $('#recall-form, #get-pricelist, #have-question').on('beforeSubmit', function(e) {
+        var form = $(this), formData = form.serialize(), modal = $('#' + form.attr('id') + '-modal .modal-body');
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: formData,
+            success: function (data) {
+                form[0].reset();
+                if (form.attr('id') == 'have-question') {
+                    $('#have-question-modal').modal();
+                }
+                modal.html(data.message);
+            },
+            error: function () {
+                modal.html('Не удалось отправить сообщение.');
+            }
+        });
+    }).on('submit', function(e){
+        e.preventDefault();
+    });
 });

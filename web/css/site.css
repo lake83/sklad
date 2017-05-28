@@ -1023,3 +1023,12 @@ a.formreqestitem {
 .top-banners {
     margin-bottom: 40px;
 }
+.question-left {
+    width: 33.33333333%;
+    float: left;
+}
+.question-right {
+    width: 41.66666667%;
+    float: left;
+    margin: 20px 0 0 30px;
+}

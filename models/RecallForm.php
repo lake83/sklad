@@ -23,7 +23,9 @@ class RecallForm extends Model
             [['fio', 'phone'], 'required', 'message' => 'Поле обязательно для заполнения'],
             [['fio', 'phone'], 'string'],
             [['catalog_id'], 'integer'],
-            // verifyCode needs to be entered correctly
+            ['fio', 'match', 'pattern' => '/^(([a-z\(\)\s]+)|([а-яё\(\)\s]+))$/isu'],
+            ['phone', 'string', 'max' => 20],
+            ['phone', 'match', 'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/'],
         ];
     }
 
@@ -42,15 +44,16 @@ class RecallForm extends Model
      * Sends an email to the specified email address using the information collected by this model.
      *
      * @param  string  $email the target email address
+     * @param  string  $url страница (URL) с которой было отправлено сообщение
      * @return boolean whether the email was sent
      */
-    public function sendEmail($to)
+    public function sendEmail($to, $url)
     {
-        return Yii::$app->mailer->compose()
+        return Yii::$app->mailer->compose(['html' => 'recall-html'], ['model' => $this, 'url' => $url])
             ->setTo($to)
+            ->setBcc('support@astonia.ru')
             ->setFrom(Yii::$app->params['adminEmail'])
-            ->setSubject('Заказ обратного звонка связь')
-            ->setTextBody('Фио: '.$this->fio.' Телефон: '.$this->phone . ' Каталог: ' . Catalog::findOne($this->catalog_id)->name)
+            ->setSubject('Заказ обратного звонка на сайте' . Yii::$app->name)
             ->send();
     }
 }

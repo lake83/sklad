@@ -50,6 +50,7 @@ class UrlRule extends Object implements UrlRuleInterface
                 $params['alias'] = $alias;
                 return ['catalog/product', $params];
             }
+            return false;
         }
         if (strpos($pathInfo, '/') !== false && Materials::find()->where(['slug' => $pathInfo, 'is_active' => 1])->exists()) {
             $params['alias'] = $pathInfo;

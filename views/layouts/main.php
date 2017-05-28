@@ -27,7 +27,7 @@ $regions = Regions::getRegions();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <title><?= Html::encode($this->title) ?> | «МаксиСклад» г. <?= $regions[Yii::$app->params['region']]['name'] ?></title>
+    <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -41,7 +41,7 @@ $regions = Regions::getRegions();
                 Выходные: суббота, воскресенье.
             </span>
             <a class="akcii_top_button" href="<?=Url::to(['/akcii'])?>">акции</a>
-            <a class="requestcall" href="javascript:void(0)" data-toggle="modal" data-target="#recall_form">заказать звонок</a>
+            <a class="requestcall" href="javascript:void(0)" data-toggle="modal" data-target="#recall-form-modal">заказать звонок</a>
             <?= Html::mailto('Отправить письмо', 'zapros@maxi-sklad.ru', ['class' => 'sendletter']) ?>
             <div class="ZTleft">
                 <div class="Zlogo">
@@ -175,7 +175,7 @@ $regions = Regions::getRegions();
         </div>
     </footer>
 </div>
-<?=$this->render('forms/recall', ['model' => new \app\models\RecallForm()])?>
+<?=$this->render('/forms/recall', ['model' => new \app\models\RecallForm()])?>
 <?php $this->endBody() ?>
 </body>
 </html>
