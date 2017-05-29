@@ -31,7 +31,7 @@ jQuery(document).ready(function () {
     
     // работа с формами
     $('#recall-form, #get-pricelist, #have-question').on('beforeSubmit', function(e) {
-        var form = $(this), formData = form.serialize(), modal = $('#' + form.attr('id') + '-modal .modal-body');
+        var form = $(this), formData = form.serialize(), modal = $('#' + form.attr('id') + '-modal .modal-body'), ga_event = form.attr('data-ga');
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
@@ -42,6 +42,9 @@ jQuery(document).ready(function () {
                     $('#have-question-modal').modal();
                 }
                 modal.html(data.message);
+                if (ga_event) {
+                    ga('send', 'event', ga_event, 'send');
+                }
             },
             error: function () {
                 modal.html('Не удалось отправить сообщение.');

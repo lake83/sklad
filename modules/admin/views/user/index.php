@@ -15,11 +15,15 @@ $this->title = 'Пользователи';
 <p><?= Html::a('Создать пользователя', ['create'], ['class' => 'btn btn-success']) ?></p>
 
 <?= GridView::widget([
-    'layout' => '{items}{pager}',
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
+    'panel' => [
+        'type' => GridView::TYPE_ACTIVE,
+        'after' => false
+    ],
+    'resizableColumns' => true,
     'pjax' => true,
     'export' => false,
+    'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 

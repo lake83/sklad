@@ -42,7 +42,7 @@ Modal::end();
                {input}</div>\n{hint}\n{error}"])->widget(\yii\widgets\MaskedInput::className(), ['mask' => Yii::$app->params['phone_mask']])->label(false)->textInput(['placeholder' => 'Телефон']) ?>
 
     <?= $form->field($model, 'email', ['template'=>"{label}\n<div class=\"input-group\">\n
-        <span class=\"input-group-addon\" id=\"basic-addon1\"></span>
+        <span class=\"input-group-addon\" id=\"basic-addon1\"><span class='glyphicon glyphicon-envelope'></span></span>
                {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Email']) ?>
 
     <?= $form->field($model, 'question')->textarea(['placeholder' => 'Ваш вопрос *'])->label(false) ?>

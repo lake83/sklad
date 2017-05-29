@@ -16,8 +16,12 @@ $this->title = Materials::getTypes($type);
 <p><?= Html::a('Создать ' . Materials::getTypes($type, false), ['create', 'type' => $type], ['class' => 'btn btn-success']) ?></p>
 
 <?=  GridView::widget([
-    'layout' => '{items}{pager}',
     'dataProvider' => $dataProvider,
+    'panel' => [
+        'type' => GridView::TYPE_ACTIVE,
+        'after' => false
+    ],
+    'resizableColumns' => true,
     'pjax' => true,
     'export' => false,
     'filterModel' => $searchModel,

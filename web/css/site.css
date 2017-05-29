@@ -906,7 +906,6 @@ a.requestbutton:hover, .catalog-list li a:hover {
     color: #000;
     font-size: 10px;
     padding: 7px;
-    white-space: nowrap;
     margin-left: -10px;
     width: 208px;
 }

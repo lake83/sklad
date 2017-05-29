@@ -19,8 +19,12 @@ $listOptions = ['class' => 'form-control', 'prompt' => '- выбрать -'];
 <p><?= Html::a('Создать товар', ['create'] + (($catalog_id = Yii::$app->request->get('catalog_id')) ? ['create', 'catalog_id' => $catalog_id] : []), ['class' => 'btn btn-success']) ?></p>
 
 <?=  GridView::widget([
-    'layout' => '{items}{pager}',
     'dataProvider' => $dataProvider,
+    'panel' => [
+        'type' => GridView::TYPE_ACTIVE,
+        'after' => false
+    ],
+    'resizableColumns' => true,
     'pjax' => true,
     'export' => false,
     'filterModel' => $searchModel,

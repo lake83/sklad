@@ -14,7 +14,8 @@ Modal::begin([
 
 $form = ActiveForm::begin([
         'id' => 'recall-form',
-        'action' => ['form/recall']
+        'action' => ['form/recall'],
+        'options' => ['data-ga' => 'form_call']
     ]); ?>
 
         <?= $form->field($model, 'fio', ['template'=>"{label}\n<div class=\"input-group\">\n

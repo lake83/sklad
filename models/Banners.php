@@ -55,7 +55,7 @@ class Banners extends LocalizedActiveRecord
             'parent_id' => 'Родитель',
             'region' => 'Регион',
             'image' => 'Изображение',
-            'link' => 'Ссилка',
+            'link' => 'Ссылка',
             'position' => 'Позиция',
             'not_show_region' => 'Не выводить для региона',
             'is_active' => 'Активно',

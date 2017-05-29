@@ -8,13 +8,14 @@ use app\models\Catalog;
 use yii\helpers\Html;
 
 Modal::begin([
-    'header' => 'ЗАПРОСИТЬ ПРАЙС-ЛИСТ',
+    'header' => ($model->type == 'clarifyprice' ? 'УТОЧНИТЬ СТОИМОСТЬ' : 'ЗАПРОСИТЬ ПРАЙС-ЛИСТ'),
     'id' => 'get-pricelist-modal',
 ]);
 
 $form = ActiveForm::begin([
         'id' => 'get-pricelist',
-        'action' => ['form/getprice']
+        'action' => ['form/getprice'],
+        'options' => ['data-ga' => ($model->type == 'clarifyprice' ? 'ask_price' : 'price_list')]
     ]); ?>
 
         <?= $form->field($model, 'fio', ['template'=>"{label}\n<div class=\"input-group\">\n

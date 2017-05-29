@@ -14,8 +14,12 @@ $this->title = 'Регионы';
 <p><?= Html::a('Создать регион', ['create'], ['class' => 'btn btn-success']) ?></p>
 
 <?=  GridView::widget([
-    'layout' => '{items}{pager}',
     'dataProvider' => $dataProvider,
+    'panel' => [
+        'type' => GridView::TYPE_ACTIVE,
+        'after' => false
+    ],
+    'resizableColumns' => true,
     'pjax' => true,
     'export' => false,
     'filterModel' => $searchModel,
