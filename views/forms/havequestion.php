@@ -6,6 +6,9 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\ActiveForm;
 use app\models\Catalog;
 use yii\helpers\Html;
+use app\models\Regions;
+
+$regions = Regions::getRegions();
 
 Modal::begin([
     'header' => 'Ваш запрос обработан',
@@ -16,11 +19,13 @@ Modal::end();
 
 <div class="question-left">
     <h3>Консультация</h3>
-    по телефонам:<br />
-    +7 (495) 646-8227<br />
+    по телефону:<br />
+    <?php if ($phone = $regions[Yii::$app->params['region']]['phone']): ?>
+    <?=$phone?><br />
+    <?php endif; ?>
     +7 (800) 555-5393<br /><br />
     или по e-mail:<br />
-    zapros@maxi-sklad.ru
+    <?=$regions[Yii::$app->params['region']]['email']?>
 </div>
 <div class="question-right">
     <?php $form = ActiveForm::begin([
