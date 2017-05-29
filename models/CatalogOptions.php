@@ -54,8 +54,8 @@ class CatalogOptions extends \yii\db\ActiveRecord
             'id' => 'ID',
             'catalog_id' => 'Категория',
             'name' => 'Название',
-            'show_anons' => 'Показовать в анонсе',
-            'show_short' => 'Показовать в Коротко',
+            'show_anons' => 'Анонс',
+            'show_short' => 'Коротко',
             'position' => 'Позиция',
             'is_active' => 'Активно',
             'change_category' => 'Сменить категорию'

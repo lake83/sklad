@@ -16,9 +16,7 @@ $labelOptions = ['labelOptions' => ['style' => 'margin-right:30px']];
 
 $form = ActiveForm::begin(['id' => 'dynamic-form', 'layout' => 'horizontal']); ?>
     
-<div class="form-group">
-    <label class="control-label col-sm-3">Опции</label>
-    <div class="col-sm-6">
+    <div class="col-sm-12">
              
     <?php DynamicFormWidget::begin([
           'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -42,6 +40,16 @@ $form = ActiveForm::begin(['id' => 'dynamic-form', 'layout' => 'horizontal']); ?
             <button type="button" class="add-item btn btn-default" style="margin: 0 0 30px -15px;"><i class="glyphicon glyphicon-plus"></i> Добавить</button>
             <div class="clearfix"></div>
             
+            <div class="row">
+                <div class="col-sm-3"><b><?= $models[0]->getAttributeLabel('name') ?></b></div>
+                <div class="col-sm-3"><b><?= $models[0]->getAttributeLabel('change_category') ?></b></div>
+                <div class="col-sm-2"><b><?= $models[0]->getAttributeLabel('position') ?></b></div>
+                <div class="col-sm-1"><b><?= $models[0]->getAttributeLabel('show_anons') ?></b></div>
+                <div class="col-sm-1"><b><?= $models[0]->getAttributeLabel('show_short') ?></b></div>
+                <div class="col-sm-1"><b><?= $models[0]->getAttributeLabel('is_active') ?></b></div>
+            </div>
+            <hr />
+            
             <?php foreach ($models as $i => $one): ?>
             <div class="item">
             <?php
@@ -51,40 +59,38 @@ $form = ActiveForm::begin(['id' => 'dynamic-form', 'layout' => 'horizontal']); ?
                 }
             ?>
                 <div class="row">
-                    <div class="col-sm-3"><b><?= $models[0]->getAttributeLabel('name') ?></b></div>
-                    <div class="col-sm-7">
-                        <?= $form->field($one, "[{$i}]name", ['template' => "{input}\n{error}"])->textInput(['maxlength' => true]) ?>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="button" class="remove-item btn btn-danger" title="Удалить"><i class="glyphicon glyphicon-minus"></i></button>
-                    </div>
+                <div class="col-sm-3" style="padding: 0 25px;">
+                    <?= $form->field($one, "[{$i}]name", ['template' => "{input}\n{error}"])->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="row">
-                    <label class="col-sm-3"><?= $models[0]->getAttributeLabel('change_category') ?></label>
-                    <div class="col-sm-7">
-                        <?= $form->field($one, "[{$i}]change_category", ['template' => "{input}\n{error}"])->dropDownList(Catalog::getAll(), ['prompt' => '- выбрать -']) ?>
-                    </div>
+                
+                <div class="col-sm-3" style="padding: 0 25px;">
+                    <?= $form->field($one, "[{$i}]change_category", ['template' => "{input}\n{error}"])->dropDownList(Catalog::getAll(), ['prompt' => '- выбрать -']) ?>
                 </div>
-                <div class="row">
-                    <label class="col-sm-3"><?= $models[0]->getAttributeLabel('position') ?></label>
-                    <div class="col-sm-7">
-                        <?= $form->field($one, "[{$i}]position", ['template' => "{input}\n{error}"])->textInput() ?>
-                    </div>
+                
+                <div class="col-sm-2" style="padding: 0 25px;">
+                    <?= $form->field($one, "[{$i}]position", ['template' => "{input}\n{error}"])->textInput() ?>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <?= Html::activeCheckbox($one, "[{$i}]show_anons", $labelOptions) ?>
-                        <?= Html::activeCheckbox($one, "[{$i}]show_short", $labelOptions) ?>
-                        <?= Html::activeCheckbox($one, "[{$i}]is_active") ?>
-                    </div>
+                
+                <div class="col-sm-1">
+                    <?= $form->field($one, "[{$i}]show_anons")->checkbox()->label(false) ?>
                 </div>
-                <hr />
+                
+                <div class="col-sm-1">
+                    <?= $form->field($one, "[{$i}]show_short")->checkbox()->label(false) ?>
+                </div>
+                
+                <div class="col-sm-1">
+                    <?= $form->field($one, "[{$i}]is_active")->checkbox()->label(false) ?>
+                </div>
+                
+                <button type="button" class="remove-item btn btn-danger" title="Удалить"><i class="glyphicon glyphicon-minus"></i></button>
+                
+                </div>
             </div>
             <?php endforeach; ?>
         </div>
         <?php DynamicFormWidget::end(); ?>
     </div>
-</div>
 
     <div class="box-footer">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

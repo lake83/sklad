@@ -131,7 +131,7 @@ class CatalogController extends AdminController
         if (!$model = Catalog::findOne($id)) {
             throw new NotFoundHttpException(Yii::t('app', 'Страница не найдена.'));
         }
-        $models = CatalogOptions::find()->where(['catalog_id' => $id])->all();
+        $models = CatalogOptions::find()->where(['catalog_id' => $id])->orderBy('ISNULL(position), position ASC')->all();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($options = $this->multipleUpdate($model, CatalogOptions::className(), $models, 'catalog_id')) {

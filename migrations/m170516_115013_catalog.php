@@ -56,7 +56,7 @@ class m170516_115013_catalog extends Migration
             'name' => $this->string()->notNull(),
             'show_anons' => $this->boolean()->defaultValue(0),
             'show_short' => $this->boolean()->defaultValue(0),
-            'position' => $this->integer()->notNull(),
+            'position' => $this->integer()->defaultValue(null),
             'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
         
