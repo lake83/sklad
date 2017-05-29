@@ -22,12 +22,15 @@ if ($model->description) {
 <h1><?= $model->article_name ? $model->article_name : $model->name ?></h1>
 
 <?php
-echo $model->intro_text;
+echo $model->intro_text; ?>
 
-if (count($children)): ?>
-<strong>Каталог техники:</strong>
+<strong><?=count($children) ? 'Каталог' : 'Каталог продукции'?>:</strong>
 
 <a href="javascript:void(0)" data-toggle="modal" data-target="#get-pricelist-modal" class="requestbutton pull-right">Запросить прайс-лист</a>
+
+<div class="clearfix" style="margin-bottom: 30px;"></div>
+
+<?php if (count($children)): ?>
 
 <ul class="catalog-list row">
     <?php foreach ($children as $one):
