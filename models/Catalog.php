@@ -9,6 +9,7 @@ use yii\behaviors\SluggableBehavior;
 use app\models\CatalogRegions;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "{{%catalog}}".
@@ -201,5 +202,25 @@ class Catalog extends \yii\db\ActiveRecord
                 }
             }
         }
-    }  
+    }
+    
+    /**
+     * Создание url каталога
+     * 
+     * @return string
+     */
+    public function getUrl()
+    {
+        $db = Yii::$app->db;
+        return $db->cache(function ($db) {
+            $parents = self::findOne($this->id)->parents()->asArray()->all();
+            $slug = '';
+            foreach ($parents as $parent) {
+                if ($parent['not_show_region'] == 0) {
+                    $slug.= $parent['slug'] . '/';
+                }
+            }
+            return Url::to(['catalog/page', 'alias' => $slug . $this->slug]);
+        }, 0, new TagDependency(['tags' => 'catalog']));
+    } 
 }

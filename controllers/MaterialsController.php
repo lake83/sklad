@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Materials;
+use app\models\Products;
+use app\models\Catalog;
 use app\models\Manufacturers;
 use app\models\ManufacturersSearch;
 use app\models\MaterialsSearch;
@@ -68,7 +70,10 @@ class MaterialsController extends Controller
         if (!$model = Manufacturers::findOne(['slug' => $alias, 'is_active' => 1])) {
             throw new NotFoundHttpException('Страница не найдена.');
         }
-        return $this->render('postavchshiki-view', ['model' => $model]);
+        $products = Products::find()->select('catalog_id')->distinct()->where(['manufacturer_id' => $model->id, 'is_active' => 1])->column();
+        $categories = Catalog::find()->where(['id' => $products, 'is_active' => 1])->localized()->all();
+        
+        return $this->render('postavchshiki-view', ['model' => $model, 'categories' => $categories]);
     }
     
     /**
@@ -80,7 +85,7 @@ class MaterialsController extends Controller
     public function actionNews($type = 1)
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Materials::find()->where(['type' => $type, 'is_active' => 1])->localized(),
+            'query' => Materials::find()->where(['type' => $type, 'is_active' => 1])->orderBy('created_at DESC')->localized(),
             'pagination' => [
                 'defaultPageSize' => 10
             ]

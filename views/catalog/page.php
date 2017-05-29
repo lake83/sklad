@@ -36,7 +36,6 @@ echo $model->intro_text; ?>
     <?php foreach ($children as $one):
     if ($one['not_show_region'] == 0):
     $src = SiteHelper::resized_image($one['image'], 120, null);
-
     $size = SiteHelper::image_size($src); ?>
 
     <li>
