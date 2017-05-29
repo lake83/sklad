@@ -15,6 +15,14 @@ class CatalogSearch extends Catalog
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [];
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

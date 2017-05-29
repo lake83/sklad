@@ -15,6 +15,14 @@ class MaterialsSearch extends Materials
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [];
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -78,7 +86,7 @@ class MaterialsSearch extends Materials
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->slug])
-            ->andFilterWhere(['like', 'region', $this->slug])
+            ->andFilterWhere(['like', 'region', $this->region])
             ->andFilterWhere(['like', 'intro_text', $this->intro_text])
             ->andFilterWhere(['like', 'full_text', $this->full_text])
             ->andFilterWhere(['like', 'title', $this->title])

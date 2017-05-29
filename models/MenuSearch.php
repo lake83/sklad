@@ -15,6 +15,14 @@ class MenuSearch extends Menu
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [];
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

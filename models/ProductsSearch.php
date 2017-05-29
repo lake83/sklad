@@ -15,6 +15,14 @@ class ProductsSearch extends Products
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [];
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

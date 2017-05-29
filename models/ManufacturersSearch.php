@@ -15,6 +15,14 @@ class ManufacturersSearch extends Manufacturers
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [];
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
