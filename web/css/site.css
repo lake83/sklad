@@ -861,11 +861,8 @@ a.requestbutton:hover, .catalog-list li a:hover {
     list-style: none;
     text-align: center;
     width: 25%;
-    height: 150px;
+    height: 180px;
     float: left;
-    border: none;
-    display: table-cell;
-    vertical-align: middle;
 }
 .catalog_preview div {
     display: block;
