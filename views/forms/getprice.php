@@ -24,7 +24,7 @@ $form = ActiveForm::begin([
         
         <?= $form->field($model, 'phone', ['template'=>"{label}\n<div class=\"input-group\">\n
                 <span class=\"input-group-addon\" id=\"basic-addon1\"><span class='glyphicon glyphicon-phone'></span></span>
-                   {input}</div>\n{hint}\n{error}"])->widget(\yii\widgets\MaskedInput::className(), ['mask' => Yii::$app->params['phone_mask']])->label(false)->textInput(['placeholder' => 'Телефон']) ?>
+                   {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Телефон']) ?>
 
         <?= $form->field($model, 'email', ['template'=>"{label}\n<div class=\"input-group\">\n
                 <span class=\"input-group-addon\" id=\"basic-addon1\"><span class='glyphicon glyphicon-envelope'></span></span>

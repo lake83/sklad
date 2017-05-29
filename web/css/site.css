@@ -1028,7 +1028,7 @@ a.formreqestitem {
     float: left;
 }
 .question-right {
-    width: 41.66666667%;
+    width: 50%;
     float: left;
-    margin: 20px 0 0 30px;
+    margin: 20px 0;
 }
