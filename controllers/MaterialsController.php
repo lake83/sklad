@@ -79,20 +79,19 @@ class MaterialsController extends Controller
     /**
      * Вывод страницы Новости.
      *
-     * @param string $type тип материалов
      * @return string
      */
-    public function actionNews($type = 1)
+    public function actionNews()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Materials::find()->where(['type' => $type, 'is_active' => 1])->orderBy('created_at DESC')->localized(),
+            'query' => Materials::find()->where(['type' => 1, 'is_active' => 1])->orderBy('created_at DESC')->localized(),
             'pagination' => [
                 'defaultPageSize' => 10,
-                'route' => ($type = 1 ? 'materials/news' : 'materials/articles'),
+                'route' => 'materials/news',
                 'pageSizeParam' => false                
             ]
         ]);
-        return $this->render('materials', ['dataProvider' => $dataProvider, 'type' => $type]);
+        return $this->render('news', ['dataProvider' => $dataProvider]);
     }
     
     /**
@@ -102,7 +101,15 @@ class MaterialsController extends Controller
      */
     public function actionArticles()
     {
-        return Yii::$app->runAction('materials/news', ['type' => 2]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Materials::find()->where(['type' => 2, 'is_active' => 1])->orderBy('created_at DESC')->localized(),
+            'pagination' => [
+                'defaultPageSize' => 10,
+                'route' => 'materials/articles',
+                'pageSizeParam' => false                
+            ]
+        ]);
+        return $this->render('articles', ['dataProvider' => $dataProvider]);
     }
     
     /**

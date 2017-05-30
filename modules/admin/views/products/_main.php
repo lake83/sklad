@@ -54,7 +54,7 @@ $form = ActiveForm::begin(['layout' => 'horizontal']);
 
 <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-<?= $form->field($model, 'not_show_region')->checkbox() ?>
+<?= $form->field($model, 'not_show_region', ['enableAjaxValidation' => true])->checkbox() ?>
 
 <?php if ($controller->action->id !== 'localization') {
     echo $form->field($model, 'is_active')->checkbox();

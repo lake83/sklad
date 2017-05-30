@@ -28,8 +28,9 @@ if (!$model->isNewRecord || $controller->action->id == 'localization') {
     }
     echo Tabs::widget(['items' => $items]) . '<br />';
 }
-
-if ($controller->action->id !== 'localization') {
+if ($model->isNewRecord || (!$model->isNewRecord && $controller->action->id == 'localization')) {
+    echo $controller->renderPartial('_main', ['model'=>$model]);
+} else if ($controller->action->id !== 'localization') {
     echo Collapse::widget([
         'items' => [
             [
@@ -55,6 +56,4 @@ if ($controller->action->id !== 'localization') {
             ]
         ]
     ]);
-} else {
-    echo $controller->renderPartial('_main', ['model'=>$model]);
 } ?>

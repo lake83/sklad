@@ -51,7 +51,7 @@ echo NestedTreeGrid::widget([
                         return $model->slug == 'catalog' ? '' : Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                             'title' => 'Удалить',
                             'data-method' => 'POST',
-                            'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?'
+                            'data-confirm' => 'Вы уверены, что хотите удалить категорию "' . $model->name . '"?'
                         ]);
                     }
                 ],

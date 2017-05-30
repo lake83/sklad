@@ -5,4 +5,4 @@
 
 $this->title = 'Создание товара';
 
-echo $this->render('_form', ['model' => $model ]) ?>
+echo $this->render('_form', ['model' => $model]) ?>

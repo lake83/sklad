@@ -8,11 +8,13 @@ use yii\helpers\Url;
 
 $type = $model->type == 1 ? 'news/' : 'stati/';
 
-if ($model->not_show_region == 0): ?>
+if ($model->not_show_region == 0):
+    $src = SiteHelper::resized_image($model->image, 100, null);
+    $size = SiteHelper::image_size($src); ?>
   
 <div class="art-block">
     <div class="ab1">
-        <div class="glossary_img" title="<?=$model->name?>" style="background: url('<?=SiteHelper::resized_image($model->image, 100, null)?>') no-repeat;"></div>
+        <div class="glossary_img" title="<?=$model->name?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$size[0]>$size[1] ? '100% auto' : 'auto 100%'?>"></div>
     </div>
     <div class="ab2">
         <a class="newsa" href="<?=Url::to([$type . $model->slug])?>"><?=$model->name?></a>

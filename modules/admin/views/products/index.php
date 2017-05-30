@@ -81,7 +81,7 @@ $listOptions = ['class' => 'form-control', 'prompt' => '- выбрать -'];
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['/admin/products/delete', 'id' => $model->id] + (($catalog_id = Yii::$app->request->get('catalog_id')) ? ['catalog_id' => $catalog_id] : []), [
                             'title' => 'Удалить',
                             'data-method' => 'POST',
-                            'data-confirm' => 'Вы уверены, что хотите удалить этот элемент?'
+                            'data-confirm' => 'Вы уверены, что хотите удалить товар "' . $model->name . '"?'
                         ]);
                     }
                 ],

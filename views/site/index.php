@@ -17,10 +17,12 @@ if ($news):
     <p class="Znews__header"><span class="Znews__headerInner">Новости</span></p>
     <div class="Znews__inner">
         <?php foreach ($news as $n): ?>
-        <?php if ($n['not_show_region'] == 0): ?>
+        <?php if ($n['not_show_region'] == 0):
+        $src = SiteHelper::resized_image($n['image'], 100, null);
+        $size = SiteHelper::image_size($src); ?>
         <div class="ZnewsItem">
             <div class="ZnewsItem__imgbox">
-                <div class="glossary_img" title="<?=$n['name']?>" style="background: url('<?=SiteHelper::resized_image($n['image'], 100, null)?>') no-repeat;"></div>
+                <div class="glossary_img" title="<?=$n['name']?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$size[0]>$size[1] ? '100% auto' : 'auto 100%'?>"></div>
             </div>
             <div class="ZnewsItem__txtbox">
                 <a href="<?=Url::to(['/news/' . $n['slug']])?>" class="ZnewsItem__head"><?=$n['name']?></a>

@@ -1,24 +1,23 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $type integer */
 /* @var $dataProvider app\models\Materials */
 
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
-$this->title = $type == 1 ? 'Новости' : 'Статьи';
-$this->registerMetaTag(['name' => 'keywords', 'content' => $type == 1 ? '' : '']);
-$this->registerMetaTag(['name' => 'description', 'content' => $type == 1 ? '' : '']);
+$this->title = 'Статьи';
+$this->registerMetaTag(['name' => 'keywords', 'content' => '']);
+$this->registerMetaTag(['name' => 'description', 'content' => '']);
 $this->params['breadcrumbs'][] = ['label' => 'Пресс-центр', 'url' => ['/press-centr']];
 ?>
 
 <h1><?= $this->title ?></h1>
 
-<?php Pjax::begin(['id' => ($type == 1 ? 'news' : 'articles') . '_items']);
+<?php Pjax::begin(['id' => 'articles_items', 'timeout' => false]);
 
 echo ListView::widget([
-     'id' => ($type == 1 ? 'news' : 'articles') . '_list',
+     'id' => 'articles_list',
      'dataProvider' => $dataProvider,
      'layout' => "{items}\n{pager}",
      'itemView' => '_materials_item'
