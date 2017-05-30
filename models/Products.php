@@ -23,6 +23,7 @@ use yii\helpers\Url;
  * @property integer $not_show_price
  * @property integer $manufacturer_id
  * @property string $full_text
+ * @property integer $position
  * @property string $title
  * @property string $keywords
  * @property string $description
@@ -67,7 +68,7 @@ class Products extends LocalizedActiveRecord
         return [
             [['price', 'manufacturer_id'], 'required'],
             [['catalog_id', 'name', 'currency'], 'required', 'on' => 'main'],
-            [['catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'not_show_region', 'is_active'], 'integer'],
+            [['catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'position', 'not_show_region', 'is_active'], 'integer'],
             [['price'], 'number'],
             [['full_text', 'description'], 'string'],
             [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
@@ -97,6 +98,7 @@ class Products extends LocalizedActiveRecord
             'not_show_price' => 'Не показовать цену',
             'manufacturer_id' => 'Производитель',
             'full_text' => 'Полный текст',
+            'position' => 'Позиция',
             'title' => 'Title',
             'keywords' => 'Keywords',
             'description' => 'Description',
@@ -183,7 +185,7 @@ class Products extends LocalizedActiveRecord
         TagDependency::invalidate(Yii::$app->cache, 'product');
         
         self::deleteAll(['parent_id' => $this->id]);
-        self::deleteAll(['name' => '', 'image' => '', 'currency' => '', 'not_show_price' => '', 'full_text' => '', 'title' => '', 'keywords' => '', 'description' => '', 'not_show_region' => 0]);
+        self::deleteAll(['name' => '', 'image' => '', 'currency' => '', 'not_show_price' => '', 'full_text' => '', 'position' => '', 'title' => '', 'keywords' => '', 'description' => '', 'not_show_region' => 0]);
         
         parent::afterDelete();
     }

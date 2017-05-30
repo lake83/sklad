@@ -48,6 +48,8 @@ $form = ActiveForm::begin(['layout' => 'horizontal']);
 
 <?= $form->field($model, 'full_text')->widget(RedactorTinymce::className()) ?>
 
+<?= $form->field($model, 'position')->textInput() ?>
+
 <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
 <?= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>

@@ -26,7 +26,7 @@ class ProductsSearch extends Products
     public function rules()
     {
         return [
-            [['id', 'catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'not_show_region', 'is_active'], 'integer'],
+            [['id', 'catalog_id', 'parent_id', 'currency', 'not_show_price', 'manufacturer_id', 'position', 'not_show_region', 'is_active'], 'integer'],
             [['name', 'slug', 'region', 'image', 'full_text', 'title', 'keywords', 'description'], 'safe'],
             [['price'], 'number'],
         ];
@@ -55,7 +55,7 @@ class ProductsSearch extends Products
         if ($catalog_id = Yii::$app->request->get('catalog_id')) {
             $query->andWhere(['catalog_id' => $catalog_id]);
         }
-        $query->andWhere(['parent_id' => 0]);
+        $query->andWhere(['parent_id' => 0])->orderBy('ISNULL(position), position ASC');
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -78,6 +78,7 @@ class ProductsSearch extends Products
             'currency' => $this->currency,
             'not_show_price' => $this->not_show_price,
             'manufacturer_id' => $this->manufacturer_id,
+            'position' => $this->position,
             'not_show_region' => $this->not_show_region,
             'is_active' => $this->is_active
         ]);

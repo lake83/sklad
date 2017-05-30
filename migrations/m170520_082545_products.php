@@ -26,6 +26,7 @@ class m170520_082545_products extends Migration
             'not_show_price' => $this->boolean()->defaultValue(0),
             'manufacturer_id' => $this->integer()->notNull(),
             'full_text' => $this->text()->notNull(),
+            'position' => $this->integer()->defaultValue(null),
             'title' => $this->string()->notNull(),
             'keywords' => $this->string()->notNull(),
             'description' => $this->text()->notNull(),

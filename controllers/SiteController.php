@@ -108,7 +108,7 @@ class SiteController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
-        return Products::find()->select('name')->where(['is_active' => 1])->andFilterWhere(['like', 'name', $term])->limit(10)->column();
+        return Products::find()->select('name')->where(['is_active' => 1])->andFilterWhere(['like', 'name', $term])->limit(10)->orderBy('ISNULL(position), position ASC')->column();
     }
     
     /**
@@ -120,7 +120,7 @@ class SiteController extends Controller
     public function actionSearch($q)
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Products::find()->where(['is_active' => 1])->andFilterWhere(['like', 'name', $q])->localized(),
+            'query' => Products::find()->where(['is_active' => 1])->andFilterWhere(['like', 'name', $q])->orderBy('ISNULL(position), position ASC')->localized(),
             'pagination' => [
                 'defaultPageSize' => 12
             ]
