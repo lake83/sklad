@@ -32,9 +32,10 @@ class ProductsBrochures extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name', 'file'], 'required'],
             [['product_id', 'is_active'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            ['file', 'string', 'max' => 100],
+            ['name', 'string', 'max' => 255],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
@@ -51,18 +52,6 @@ class ProductsBrochures extends \yii\db\ActiveRecord
             'file' => 'Файл',
             'is_active' => 'Активно',
         ];
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    public function afterDelete()
-    {
-        $filePath = Yii::getAlias('@webroot/files/') . $this->file;
-        if (is_file($filePath)) {
-            unlink($filePath);
-        }
-        return parent::afterDelete();
     }
 
     /**

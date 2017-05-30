@@ -89,8 +89,3 @@ $('#catalog-related').on('change', function() {
        }
     });
 });
-
-// вывод названия брошюр
-$('.container-items-brochures .file-name').each(function() {
-    $(this).html('<b>' + $(this).text() + '</b><br />' + $(this).data('file')); 
-});

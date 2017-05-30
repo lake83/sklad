@@ -3,11 +3,18 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\FileHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProductsGallery */
 /* @var $form yii\bootstrap\ActiveForm */
 
+$files = [];
+if ($dir = FileHelper::findFiles(Yii::getAlias('@webroot/images/uploads/source/files'))) {
+    foreach (array_map(function($path){return basename($path);}, $dir, ['recursive' => false]) as $file) {
+        $files[$file] = $file;
+    }
+}
 $labelOptions = ['labelOptions' => ['style' => 'margin-right:30px']];
 
 $form = ActiveForm::begin(['id' => 'dynamic-form-brochures', 'action' => ['products/brochures', 'id' => Yii::$app->request->get('id')], 'options' => ['enctype' => 'multipart/form-data'], 'layout' => 'horizontal']); ?>
@@ -54,9 +61,9 @@ $form = ActiveForm::begin(['id' => 'dynamic-form-brochures', 'action' => ['produ
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-2 file-name" data-file="<?=$one->file?>"><b><?= $models[0]->getAttributeLabel('file') ?></b></div>
+                    <div class="col-sm-2"><b><?= $models[0]->getAttributeLabel('file') ?></b></div>
                     <div class="col-sm-8">
-                        <?= $form->field($one, "[{$i}]file", ['template' => "{input}\n{error}"])->fileInput() ?>
+                        <?= $form->field($one, "[{$i}]file", ['template' => "{input}\n{error}"])->dropDownList($files, ['prompt' => '- выбрать -']) ?>
                     </div>
                     <div class="col-sm-2">
                         <?= $form->field($one, "[{$i}]is_active")->checkbox() ?>

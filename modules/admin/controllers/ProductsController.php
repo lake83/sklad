@@ -58,6 +58,15 @@ class ProductsController extends AdminController
                 'view' => 'video',
                 'redirect' => Yii::$app->request->referrer,
                 'partial' => true
+            ],
+            'brochures' => [
+                'class' => $this->actionsPath.'UpdateMultiple',
+                'model' => $this->modelPath.'Products',
+                'models' => $this->modelPath.'ProductsBrochures',
+                'owner' => 'product_id',
+                'view' => 'brochures',
+                'redirect' => Yii::$app->request->referrer,
+                'partial' => true
             ]
         ];
     }
@@ -209,46 +218,5 @@ class ProductsController extends AdminController
             Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
             return $this->redirect(Yii::$app->request->referrer);
         }
-    }
-    
-    /**
-     * Брошюры
-     * 
-     * @param integer $id ID товара
-     * @return string
-     */
-    public function actionBrochures($id)
-    {
-        if (!$model = Products::findOne($id)) {
-            throw new NotFoundHttpException(Yii::t('app', 'Страница не найдена.'));
-        }
-        $models = ProductsBrochures::find()->where(['product_id' => $id])->all();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($brochures = $this->multipleUpdate($model, ProductsBrochures::className(), $models, 'product_id')) {
-                $path = Yii::getAlias('@webroot/files/');
-                if (!file_exists($path)) {
-                    mkdir($path);
-                }
-                foreach ($brochures as $key => $one) {
-                    if ($name = $_FILES['ProductsBrochures']['name'][$key]['file']) {
-                        $temp = $_FILES['ProductsBrochures']['tmp_name'][$key]['file'];
-                        if (move_uploaded_file($temp, $path . $name)) {
-                            if ($one->file !== $name && is_file($path . $one->file)) {
-                                unlink($path . $one->file);
-                            }
-                            $one->file = $name;
-                            $one->save();     
-                        }
-                    }
-                }
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Изменения сохранены.'));
-                return $this->redirect(Yii::$app->request->referrer);
-            }
-        }
-        return $this->renderPartial('brochures', [
-            'model' => $model,
-            'models' => (empty($models)) ? [new ProductsBrochures] : $models
-        ]);
     }
 }

@@ -59,7 +59,7 @@ class m170520_082545_products extends Migration
             'id' => $this->primaryKey(),
             'product_id' => $this->integer()->notNull(),
             'name' => $this->string()->notNull(),
-            'link' => $this->string(100)->notNull(),
+            'link' => $this->string()->notNull(),
             'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
         

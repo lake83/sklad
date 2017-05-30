@@ -90,7 +90,7 @@ class SiteController extends Controller
      */
     public function actionDownload($file)
     {
-        $path = Yii::getAlias('@webroot/files') . DIRECTORY_SEPARATOR . $file;
+        $path = Yii::getAlias('@webroot/images/uploads/source/files/') . $file;
         if (file_exists($path)) {
             Yii::$app->response->sendFile($path);
         } else {
@@ -108,7 +108,7 @@ class SiteController extends Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         
-        return Products::find()->select('name')->andFilterWhere(['like', 'name', $term])->limit(10)->column();
+        return Products::find()->select('name')->where(['is_active' => 1])->andFilterWhere(['like', 'name', $term])->limit(10)->column();
     }
     
     /**
