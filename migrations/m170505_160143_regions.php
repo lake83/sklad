@@ -36,13 +36,22 @@ class m170505_160143_regions extends Migration
                 'email' => 'zapros@maxi-sklad.ru'
             ],
             [
-                'name' => 'Ростов',
-                'subdomain' => 'rostov',
-                'lng' => '47.2313',
-                'lat' => '39.7232',
+                'name' => 'Санкт-Петербург',
+                'subdomain' => 'spb',
+                'lng' => '30.3141',
+                'lat' => '59.9386',
                 'phone' => '',
-                'address' => 'ул. Суворова, 93',
-                'email' => 'rostov@maxi-sklad.ru'
+                'address' => 'ул. Воронежская, 5',
+                'email' => 'spb@maxi-sklad.ru'
+            ],
+            [
+                'name' => 'Волгоград',
+                'subdomain' => 'volgograd',
+                'lng' => '44.5018',
+                'lat' => '48.7193',
+                'phone' => '',
+                'address' => 'ул. им. Ткачева, 20Б',
+                'email' => 'volgograd@maxi-sklad.ru'
             ],
             [
                 'name' => 'Екатеринбург',
@@ -63,6 +72,15 @@ class m170505_160143_regions extends Migration
                 'email' => 'novgorod@maxi-sklad.ru'
             ],
             [
+                'name' => 'Ростов',
+                'subdomain' => 'rostov',
+                'lng' => '47.2313',
+                'lat' => '39.7232',
+                'phone' => '',
+                'address' => 'ул. Суворова, 93',
+                'email' => 'rostov@maxi-sklad.ru'
+            ],
+            [
                 'name' => 'Самара',
                 'subdomain' => 'samara',
                 'lng' => '53.2000',
@@ -70,24 +88,6 @@ class m170505_160143_regions extends Migration
                 'phone' => '',
                 'address' => 'ул. Мичурина, 78',
                 'email' => 'samara@maxi-sklad.ru'
-            ],
-            [
-                'name' => 'Санкт-Петербург',
-                'subdomain' => 'spb',
-                'lng' => '30.3141',
-                'lat' => '59.9386',
-                'phone' => '',
-                'address' => 'ул. Воронежская, 5',
-                'email' => 'spb@maxi-sklad.ru'
-            ],
-            [
-                'name' => 'Волгоград',
-                'subdomain' => 'volgograd',
-                'lng' => '44.5018',
-                'lat' => '48.7193',
-                'phone' => '',
-                'address' => 'ул. им. Ткачева, 20Б',
-                'email' => 'volgograd@maxi-sklad.ru'
             ]
         ];
         Yii::$app->db->createCommand()->batchInsert('regions', array_keys($regions[0]), $regions)->execute();
