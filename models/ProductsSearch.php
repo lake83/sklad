@@ -55,7 +55,7 @@ class ProductsSearch extends Products
         if ($catalog_id = Yii::$app->request->get('catalog_id')) {
             $query->andWhere(['catalog_id' => $catalog_id]);
         }
-        $query->andWhere(['parent_id' => 0])->orderBy('ISNULL(position), position ASC');
+        $query->andWhere(['parent_id' => 0])->orderBy('ISNULL(position), position ASC, catalog_id ASC');
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
