@@ -87,7 +87,9 @@ class MaterialsController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => Materials::find()->where(['type' => $type, 'is_active' => 1])->orderBy('created_at DESC')->localized(),
             'pagination' => [
-                'defaultPageSize' => 10
+                'defaultPageSize' => 10,
+                'route' => ($type = 1 ? 'materials/news' : 'materials/articles'),
+                'pageSizeParam' => false                
             ]
         ]);
         return $this->render('materials', ['dataProvider' => $dataProvider, 'type' => $type]);

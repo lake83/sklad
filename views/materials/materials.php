@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Пресс-центр', 'url' => [
 
 <h1><?= $this->title ?></h1>
 
-<?php Pjax::begin(['id' => 'materials_items', 'timeout' => false]);
+<?php Pjax::begin(['id' => ($type == 1 ? 'news' : 'articles') . '_items']);
 
 echo ListView::widget([
-     'id' => 'materials_list',
+     'id' => ($type == 1 ? 'news' : 'articles') . '_list',
      'dataProvider' => $dataProvider,
      'layout' => "{items}\n{pager}",
      'itemView' => '_materials_item'
