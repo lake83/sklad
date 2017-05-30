@@ -33,8 +33,7 @@ class ProductsVideo extends \yii\db\ActiveRecord
         return [
             [['link'], 'required'],
             [['product_id', 'is_active'], 'integer'],
-            [['name'], 'string', 'max' => 255],
-            [['link'], 'string', 'max' => 100],
+            [['name', 'link'], 'string', 'max' => 255],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Products::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
     }
@@ -48,7 +47,7 @@ class ProductsVideo extends \yii\db\ActiveRecord
             'id' => 'ID',
             'product_id' => 'Товар',
             'name' => 'Название',
-            'link' => 'Ссылка Youtube',
+            'link' => 'Вставка Youtube',
             'is_active' => 'Активно',
         ];
     }

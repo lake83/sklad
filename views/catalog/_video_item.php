@@ -7,5 +7,5 @@
     <?php if ($model->name): ?>
     <h4><?=$model->name?></h4>
     <?php endif; ?>
-    <iframe class="embed-responsive-item" width="560" height="315" src="<?=$model->link?>" frameborder="0" allowfullscreen></iframe>
+    <?=$model->link?>
 </div>
