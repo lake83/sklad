@@ -59,6 +59,7 @@ $listOptions = ['class' => 'form-control', 'prompt' => '- выбрать -'];
                 'value' => function ($model, $index, $widget) {
                     return Manufacturers::getAll()[$model->manufacturer_id];}
             ],
+            'position',
             SiteHelper::is_active($searchModel),
 
             [
