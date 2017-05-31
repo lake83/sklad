@@ -18,14 +18,14 @@ Modal::end();
 ?>
 
 <div class="question-left">
-    <h3>Консультация</h3>
+    <noindex><h3>Консультация</h3>
     по телефону:<br />
     <?php if ($phone = $regions[Yii::$app->params['region']]['phone']): ?>
     <?=$phone?><br />
     <?php endif; ?>
     +7 (800) 555-5393<br /><br />
     или по e-mail:<br />
-    <?=$regions[Yii::$app->params['region']]['email']?>
+    <?=$regions[Yii::$app->params['region']]['email']?></noindex>
 </div>
 <div class="question-right well">
     <?php $form = ActiveForm::begin([

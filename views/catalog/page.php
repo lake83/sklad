@@ -16,7 +16,8 @@ if ($model->keywords) {
     $this->registerMetaTag(['name' => 'keywords', 'content' => $model->keywords], 'keywords');
 }
 if ($model->description) {
-    $this->registerMetaTag(['name' => 'description', 'content' => $model->description], 'description');
+    $regions = \app\models\Regions::getRegions();
+    $this->registerMetaTag(['name' => 'description', 'content' => str_replace('##CITY##', $regions[Yii::$app->params['region']]['name'], $model->description)], 'description');
 } ?>
 
 <h1><?= $model->article_name ? $model->article_name : $model->name ?></h1>

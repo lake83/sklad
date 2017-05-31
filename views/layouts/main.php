@@ -27,7 +27,7 @@ $regions = Regions::getRegions();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode(str_replace('##CITY##', $regions[Yii::$app->params['region']]['name'], $this->title)) ?></title>
     <?php $this->head() ?>
 </head>
 <body>

@@ -13,14 +13,16 @@ use app\components\SiteHelper;
 use yii\bootstrap\Tabs;
 use yii\grid\GridView;
 use yii\widgets\ListView;
+use app\models\Regions;
 
-$this->title = $model->title ? $model->title : $model->name;
+$regions = Regions::getRegions();
+
+$this->title = $model->title ? $model->title : $model->name . ' | Купить в «МаксиСклад» г. ' . $regions[Yii::$app->params['region']]['name'];
 if ($model->keywords) {
     $this->registerMetaTag(['name' => 'keywords', 'content' => $model->keywords], 'keywords');
 }
-if ($model->description) {
-    $this->registerMetaTag(['name' => 'description', 'content' => $model->description], 'description');
-} ?>
+$this->registerMetaTag(['name' => 'description', 'content' => ($model->description ? str_replace('##CITY##', $regions[Yii::$app->params['region']]['name'], $model->description) :
+    $model->name . ' : купить в «МаксиСклад» г. ' . $regions[Yii::$app->params['region']]['name'] . '. Доступные цены на ' . $model->catalog->name . '. Описание, характеристики, брошюры, схема работы представлены на сайте ' . DOMAIN)], 'description'); ?>
 
 <h1><?= $model->name ?></h1>
 
