@@ -206,7 +206,7 @@ class Products extends LocalizedActiveRecord
                     $slug.= $parent['slug'] . '/';
                 }
             }
-            return Url::to(['catalog/product', 'alias' => $slug . $this->slug]);
+            return Url::to(['catalog/product', 'alias' => $slug . $this->catalog->slug . '/' . $this->slug]);
         }, 0, new TagDependency(['tags' => 'product']));
     }
 }
