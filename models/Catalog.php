@@ -201,6 +201,9 @@ class Catalog extends \yii\db\ActiveRecord
                     $view->params['breadcrumbs'][] = ['label' => $parent['name'], 'url' => ['catalog/page', 'alias' => trim($slug, '/')]];
                 }
             }
+            if (Yii::$app->controller->action->id == 'product') {
+                $view->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['catalog/page', 'alias' => $slug . $model->slug]]; 
+            }          
         }
     }
     
