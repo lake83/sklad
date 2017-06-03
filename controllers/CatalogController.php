@@ -9,6 +9,7 @@ use app\models\Products;
 use yii\web\NotFoundHttpException;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\helpers\Url;
 
 class CatalogController extends Controller
 {
@@ -100,6 +101,24 @@ class CatalogController extends Controller
             'videoData' => $videoData,
             'brochuresData' => $brochuresData
         ]);
+    }
+    
+    /**
+     * Редирект с удаленных продукт на категорию.
+     *
+     * @param string $alias алиас категории
+     * @return string
+     */
+    public function actionDeleted($alias)
+    {
+        $parents = Catalog::findOne(['slug' => $alias])->parents()->asArray()->all();
+        $slug = '';
+        foreach ($parents as $parent) {
+            if ($parent['not_show_region'] == 0) {
+                $slug.= $parent['slug'] . '/';
+            }
+        }
+        return $this->redirect(Url::to(['catalog/page', 'alias' => $slug . $alias]), 301);
     }
 }
 ?>

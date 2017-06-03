@@ -10,14 +10,29 @@ use yii\helpers\Url;
 use app\components\SiteHelper;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use app\models\Regions;
+
+$regions = Regions::getRegions();
 
 $this->title = $model->title ? $model->title : $model->name;
 if ($model->keywords) {
     $this->registerMetaTag(['name' => 'keywords', 'content' => $model->keywords], 'keywords');
 }
 if ($model->description) {
-    $regions = \app\models\Regions::getRegions();
     $this->registerMetaTag(['name' => 'description', 'content' => str_replace('##CITY##', $regions[Yii::$app->params['region']]['name'], $model->description)], 'description');
+} else {
+    if ($model->depth == 1) {
+        $description = $model->name . ': купить по доступной цене в «Макси Склад» г. ' . $regions[Yii::$app->params['region']]['name'] . '. Мы являемся официальными дилерами. Гарантируем высокое качество, сервис и ремонт, обслуживание спецтехники.';
+    } else {
+        $section = $this->params['breadcrumbs'];
+        array_shift($section);
+        $section_list = $model->name . ' / ';
+        foreach (array_reverse($section) as $one) {
+            $section_list.= $one['label'] . ' / ';
+        }
+        $description = rtrim($section_list, ' / ') . ': купить по доступной цене в «Макси Склад» г. ' . $regions[Yii::$app->params['region']]['name'] . '. Широкий ассортимент (в каталоге представлено более ' . (\app\models\Products::find()->where(['is_active' => 1])->count()) . ' моделей). Гарантия. Сервис и ремонт. Мы являемся официальным дилером';
+    }
+    $this->registerMetaTag(['name' => 'description', 'content' => $description], 'description');
 } ?>
 
 <h1><?= $model->article_name ? $model->article_name : $model->name ?></h1>

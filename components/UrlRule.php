@@ -6,6 +6,7 @@ use yii\web\UrlRuleInterface;
 use yii\base\Object;
 use app\models\Catalog;
 use app\models\Products;
+use app\models\ProductsDeleted;
 use app\models\Materials;
  
 class UrlRule extends Object implements UrlRuleInterface
@@ -49,6 +50,8 @@ class UrlRule extends Object implements UrlRuleInterface
             if (Products::find()->where(['slug' => $alias, 'is_active' => 1])->exists()) {
                 $params['alias'] = $alias;
                 return ['catalog/product', $params];
+            } elseif ($deleted = ProductsDeleted::find()->where(['product_slug' => $alias])->asArray()->one()) {
+                return ['catalog/deleted', ['alias' => $deleted['catalog_slug']]];
             }
             return false;
         }

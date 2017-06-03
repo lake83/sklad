@@ -72,6 +72,12 @@ class m170520_082545_products extends Migration
             'is_active' => $this->boolean()->defaultValue(1)
         ], $tableOptions);
         
+        $this->createTable('products_deleted', [
+            'id' => $this->primaryKey(),
+            'product_slug' => $this->string()->notNull(),
+            'catalog_slug' => $this->string()->notNull()
+        ], $tableOptions);
+        
         $this->createIndex('idx-products_options_id', 'products_options', 'product_id');
         $this->addForeignKey('products_options_ibfk_1', 'products_options', 'product_id', 'products', 'id', 'CASCADE');
         

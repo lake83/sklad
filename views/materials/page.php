@@ -9,6 +9,8 @@ if ($model->keywords) {
 }
 if ($model->description) {
     $this->registerMetaTag(['name' => 'description', 'content' => $model->description], 'description');
+} else {
+    $this->registerMetaTag(['name' => 'description', 'content' => $model->name . ': информация о компании на сайте ' . Yii::$app->request->hostName], 'description');
 }
 if (!isset($title) || $title === true): ?>
 

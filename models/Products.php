@@ -187,6 +187,11 @@ class Products extends LocalizedActiveRecord
         self::deleteAll(['parent_id' => $this->id]);
         self::deleteAll(['name' => '', 'image' => '', 'currency' => '', 'not_show_price' => '', 'full_text' => '', 'position' => '', 'title' => '', 'keywords' => '', 'description' => '', 'not_show_region' => 0]);
         
+        $deleted = new ProductsDeleted;
+        $deleted->product_slug = $this->slug;
+        $deleted->catalog_slug = $this->catalog->slug;
+        $deleted->save();
+        
         parent::afterDelete();
     }
     

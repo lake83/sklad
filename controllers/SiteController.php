@@ -50,7 +50,7 @@ class SiteController extends Controller
      * @param string|null $subdomain субдомен региона
      * @return string
      */
-    public function actionRegion($subdomain)
+    public function actionRegion($subdomain = '')
     {
         Yii::$app->response->cookies->add(new \yii\web\Cookie([
             'name' => 'region',
@@ -59,7 +59,9 @@ class SiteController extends Controller
             'domain' => '.' . DOMAIN
         ]));
         Yii::$app->params['region'] = $subdomain;
-        return $this->redirect((Yii::$app->request->isSecureConnection ? 'https://' : 'http://') . ($subdomain ? $subdomain . '.' : '') . DOMAIN);
+        $request = Yii::$app->request;
+        
+        return $this->redirect(($request->isSecureConnection ? 'https://' : 'http://') . ($subdomain ? $subdomain . '.' : '') . DOMAIN . str_replace($request->hostInfo, '', $request->referrer));
     }
 
     /**
