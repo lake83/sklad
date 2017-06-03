@@ -34,7 +34,7 @@ class CatalogController extends Controller
         $childrens = $model->children()->andWhere(['is_active' => 1])->column();
         
         $dataProvider = new ActiveDataProvider([
-            'query' => Products::find()->where(['catalog_id' => $model->id, 'is_active' => 1])->orWhere(['catalog_id' => $childrens])->orderBy('ISNULL(position), position ASC, catalog_id ASC')->localized(),
+            'query' => Products::find()->where(['catalog_id' => $model->id, 'is_active' => 1])->orWhere(['catalog_id' => $childrens, 'is_active' => 1])->orderBy('ISNULL(position), position ASC, catalog_id ASC')->localized(),
             'pagination' => [
                 'defaultPageSize' => 12
             ]
