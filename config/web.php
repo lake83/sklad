@@ -70,7 +70,7 @@ $config = [
                 '/search' => 'site/search',
                 '/<alias>' => 'materials/page',
                 '/nashi_postavchshiki/<alias>' => 'materials/postavchshiki-view',
-                '/<_a:(stati|news|clients)>/<alias>' => 'materials/materials-view',
+                '/<_a:(press-centr/stati|press-centr/news|clients)>/<alias>' => 'materials/materials-view',
                 
                 '/<module:\w+>/<controller:\w+>/<action:\w+>' => '<module>/<controller>/<action>',
                 '/<action:\w+>/<id:\d+>' => 'site/<action>',

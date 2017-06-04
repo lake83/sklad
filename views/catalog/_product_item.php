@@ -12,7 +12,7 @@ if ($model->not_show_region == 0):
   
 <div class="product_item">
     <div class="thumbnail">
-        <a href="<?= $model->getUrl() ?>">
+        <a href="<?= $model->getUrl() ?>" data-pjax="0">
             <div class="prod-title"><?= $model->name ?></div>
             <div class="product_img" title="<?=$model->name?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$size[0]>$size[1] ? '100% auto' : 'auto 100%'?>"></div>
         </a>
