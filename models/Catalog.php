@@ -10,6 +10,7 @@ use app\models\CatalogRegions;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%catalog}}".
@@ -42,7 +43,11 @@ class Catalog extends \yii\db\ActiveRecord
         return '{{%catalog}}';
     }
     
-    public function behaviors() {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
         return [
             'tree' => [
                 'class' => NestedSetsBehavior::className()
@@ -51,7 +56,8 @@ class Catalog extends \yii\db\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
                 'immutable' => true
-            ]
+            ],
+            LogBehavior::className()
         ];
     }
     

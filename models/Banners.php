@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\components\LocalizedActiveRecord;
+use app\components\LogBehavior;
 use yii\caching\TagDependency;
 
 /**
@@ -27,6 +28,16 @@ class Banners extends LocalizedActiveRecord
     public static function tableName()
     {
         return '{{%banners}}';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            LogBehavior::className()
+        ];
     }
 
     /**

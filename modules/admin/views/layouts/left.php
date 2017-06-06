@@ -27,7 +27,8 @@ app\assets\AdminAsset::register($this);
         ['label' => 'Расположение меню', 'url' => ['/admin/menu/index'], 'icon' => 'bars'],
         ['label' => 'Регионы', 'url' => ['/admin/regions/index'], 'icon' => 'arrows-alt'],
         ['label' => 'Пользователи', 'url' => ['/admin/user/index'], 'icon' => 'users'],
-        ['label' => 'Медиабиблиотека', 'url' => ['/admin/media/index'], 'icon' => 'window-restore']
+        ['label' => 'Медиабиблиотека', 'url' => ['/admin/media/index'], 'icon' => 'window-restore'],
+        ['label' => 'Логи', 'url' => ['/admin/log/index'], 'icon' => 'sign-in']
     ]
 ]);	
 ?>

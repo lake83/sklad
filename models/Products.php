@@ -7,6 +7,7 @@ use yii\behaviors\SluggableBehavior;
 use app\components\LocalizedActiveRecord;
 use yii\caching\TagDependency;
 use yii\helpers\Url;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%products}}".
@@ -56,7 +57,8 @@ class Products extends LocalizedActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
                 'immutable' => true
-            ]
+            ],
+            LogBehavior::className()
         ];
     }
 

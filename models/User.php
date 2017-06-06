@@ -8,6 +8,7 @@ use yii\web\ForbiddenHttpException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\behaviors\TimestampBehavior;
+use app\components\LogBehavior;
 
 /**
  * User model
@@ -43,7 +44,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className()
+            TimestampBehavior::className(),
+            LogBehavior::className()
         ];
     }
     

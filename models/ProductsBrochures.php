@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-use yii\web\UploadedFile;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%products_brochures}}".
@@ -24,6 +24,16 @@ class ProductsBrochures extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%products_brochures}}';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            LogBehavior::className()
+        ];
     }
 
     /**

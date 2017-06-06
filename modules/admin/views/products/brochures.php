@@ -17,7 +17,7 @@ if ($dir = FileHelper::findFiles(Yii::getAlias('@webroot/images/uploads/source/f
 }
 $labelOptions = ['labelOptions' => ['style' => 'margin-right:30px']];
 
-$form = ActiveForm::begin(['id' => 'dynamic-form-brochures', 'action' => ['products/brochures', 'id' => Yii::$app->request->get('id')], 'options' => ['enctype' => 'multipart/form-data'], 'layout' => 'horizontal']); ?>
+$form = ActiveForm::begin(['id' => 'dynamic-form-brochures', 'action' => ['products/brochures', 'id' => Yii::$app->request->get('id')], 'layout' => 'horizontal']); ?>
     
 <div class="form-group">
     <div class="col-sm-offset-3 col-sm-6">

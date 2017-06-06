@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%manufacturers}}".
@@ -41,7 +42,8 @@ class Manufacturers extends \yii\db\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
                 'immutable' => true
-            ]
+            ],
+            LogBehavior::className()
         ];
     }
 

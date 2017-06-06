@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%products_related}}".
@@ -22,6 +23,16 @@ class ProductsRelated extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%products_related}}';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            LogBehavior::className()
+        ];
     }
 
     /**

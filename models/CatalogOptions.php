@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%catalog_options}}".
@@ -30,6 +31,16 @@ class CatalogOptions extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%catalog_options}}';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            LogBehavior::className()
+        ];
     }
 
     /**

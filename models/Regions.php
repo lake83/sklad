@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%regions}}".
@@ -27,6 +28,16 @@ class Regions extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%regions}}';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            LogBehavior::className()
+        ];
     }
 
     /**

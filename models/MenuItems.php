@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\caching\TagDependency;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%menu_items}}".
@@ -28,6 +29,16 @@ class MenuItems extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%menu_items}}';
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            LogBehavior::className()
+        ];
     }
 
     /**

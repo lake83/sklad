@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\helpers\ArrayHelper;
 use yii\caching\TagDependency;
+use app\components\LogBehavior;
 
 /**
  * This is the model class for table "{{%menu}}".
@@ -37,7 +38,8 @@ class Menu extends \yii\db\ActiveRecord
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
                 'immutable' => true
-            ]
+            ],
+            LogBehavior::className()
         ];
     }
 
