@@ -31,6 +31,11 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_USER = 20;
     
     /**
+     * @var string Используется при смене пароля в профиле пользователя.
+     */
+    public $new_password;
+    
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -63,9 +68,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['email'], 'string', 'max' => 255],
             
             [['username', 'email'], 'trim'],
-            [['password_hash'], 'string', 'min' => 6],
+            [['password_hash', 'new_password'], 'string', 'min' => 6],
             [['status', 'is_active', 'created_at', 'updated_at'], 'integer'],
-            [['username'], 'match', 'pattern' => '/^(([a-z\(\)\s]+)|([а-яё\(\)\s]+))$/isu']
+            [['username'], 'match', 'pattern' => '/^(([a-z\(\)\s]+)|([а-яё\(\)\s]+))$/isu'],
+            ['new_password', 'required', 'on' => 'insert']
         ];
     }
     
@@ -79,6 +85,7 @@ class User extends ActiveRecord implements IdentityInterface
             'username' => 'Имя',
             'email' => 'E-mail',
             'password_hash' => 'Пароль',
+            'new_password' => 'Новый пароль',
             'status' => 'Статус',
             'is_active' => 'Активно',
             'created_at' => 'Создан',
@@ -91,8 +98,14 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function beforeSave($insert)
     {
-        if (!$insert && ($this->status == self::ROLE_USER || $this->is_active == 0) && (self::find()->where(['status' => self::ROLE_ADMIN, 'is_active' => 1])->count()) == 1) {
+        if (!$insert && $this->status == self::ROLE_ADMIN && $this->is_active == 0 && (self::find()->where(['status' => self::ROLE_ADMIN, 'is_active' => 1])->count()) == 1) {
             throw new ForbiddenHttpException('Должен быть хотя бы один действующий администратор.');
+        }
+        if ($insert) {
+            $this->generateAuthKey();
+        }
+        if (!empty($this->new_password)) {
+            $this->setPassword($this->new_password);
         }
         return parent::beforeSave($insert);
     }
@@ -102,7 +115,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function beforeDelete()
     {
-        if (self::find()->where(['status' => self::ROLE_ADMIN, 'is_active' => 1])->count() == 1) {
+        if ($this->status == self::ROLE_ADMIN && self::find()->where(['status' => self::ROLE_ADMIN, 'is_active' => 1])->count() == 1) {
             throw new ForbiddenHttpException('Должен быть хотя бы один действующий администратор.');
         }
         return parent::beforeDelete();

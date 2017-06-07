@@ -14,6 +14,8 @@ $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->dropDownList($model->getStatus()) ?>
+    
+    <?= $form->field($model, 'new_password')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'is_active')->checkbox() ?>
 

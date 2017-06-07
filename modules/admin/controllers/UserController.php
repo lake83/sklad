@@ -18,7 +18,8 @@ class UserController extends AdminController
             ],
             'create' => [
                 'class' => $this->actionsPath.'Create',
-                'model' => $this->modelPath.'User'
+                'model' => $this->modelPath.'User',
+                'scenario' => 'insert'
             ],
             'update' => [
                 'class' => $this->actionsPath.'Update',

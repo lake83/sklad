@@ -38,13 +38,7 @@ $this->title = 'Логи';
                     return $model->user->username;}
             ],
             'target_id',
-            SiteHelper::created_at($searchModel),
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{delete}',
-                'options' => ['width' => '50px']
-            ]
+            SiteHelper::created_at($searchModel)
         ]
     ]);
 
