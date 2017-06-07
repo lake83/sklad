@@ -106,19 +106,19 @@ $config = [
                         YII_DEBUG ? 'js/bootstrap.js' : 'js/bootstrap.min.js'
                     ]
                 ],
-                /*'app\assets\AppAsset' => [
+                'app\assets\AppAsset' => [
                     'css' => [
                         YII_DEBUG ? 'css/site.css' : 'css/site.min.css'
+                    ],
+                    'js' => [
+                        YII_DEBUG ? 'js/main.js' : 'js/main.min.js'
                     ]
                 ],
                 'app\assets\AdminAsset' => [
-                    'css' => [
-                        YII_DEBUG ? 'css/admin.css' : 'css/admin.min.css'
-                    ],
                     'js' => [
                         YII_DEBUG ? 'js/admin.js' : 'js/admin.min.js'
                     ]
-                ]*/
+                ]
             ]
         ],
         'formatter' => [
