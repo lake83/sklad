@@ -28,7 +28,9 @@ if ($model->description) {
         array_shift($section);
         $section_list = $model->name . ' ';
         foreach (array_reverse($section) as $one) {
-            $section_list.= mb_strtolower($one['label']) . ' ';
+            if (is_array($one)) {
+                $section_list.= mb_strtolower($one['label']) . ' ';
+            }
         }
         $description = $section_list . ': купить по доступной цене в «Макси Склад» г. ' . $regions[Yii::$app->params['region']]['name'] . '. Широкий ассортимент (в каталоге представлено более ' . (\app\models\Products::find()->where(['is_active' => 1])->count()) . ' моделей). Гарантия. Сервис и ремонт. Мы являемся официальным дилером';
     }

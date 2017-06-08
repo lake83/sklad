@@ -10,6 +10,7 @@ $this->title = 'Статьи';
 $this->registerMetaTag(['name' => 'keywords', 'content' => '']);
 $this->registerMetaTag(['name' => 'description', 'content' => '']);
 $this->params['breadcrumbs'][] = ['label' => 'Пресс-центр', 'url' => ['/press-centr']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <h1><?= $this->title ?></h1>

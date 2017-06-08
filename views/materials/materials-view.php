@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->type !== 4 ? 'Пресс-ц
 if ($model->type !== 4) {
     $this->params['breadcrumbs'][] = ['label' => $model->type == 1 ? 'Новости' : 'Статьи', 'url' => [$model->type == 1 ? '/press-centr/news' : '/press-centr/stati']];
 }
+$this->params['breadcrumbs'][] = $model->name;
 ?>
 
 <h1><?= $model->name ?></h1>

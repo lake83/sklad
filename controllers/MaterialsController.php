@@ -40,6 +40,7 @@ class MaterialsController extends Controller
                     $view->params['breadcrumbs'][] = ['label' => $page->name, 'url' => ['materials/page', 'alias' => $page->slug]];
                 }
             }
+            $view->params['breadcrumbs'][] = $model->name;
         }
         return $this->render('page', ['model' => $model]);
     }

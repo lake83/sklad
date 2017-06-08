@@ -25,11 +25,11 @@ class CatalogController extends Controller
         if ((!$model = Catalog::find()->where(['slug' => $alias, 'is_active' => 1])->localized()->one()) || $model->not_show_region == 1) {
             throw new NotFoundHttpException('Страница не найдена.');
         }
-        if (strpos(trim(Yii::$app->request->pathInfo, '/'), '/') === false) {
-            $this->view->params['breadcrumbs'][] = $model->name;
-        } else {
+        if (strpos(trim(Yii::$app->request->pathInfo, '/'), '/') !== false) {
             Catalog::getBreadcrumbs($model);
         }
+        $this->view->params['breadcrumbs'][] = $model->name;
+        
         $children = $model->children(1)->andWhere(['is_active' => 1])->localized()->asArray()->all();
         
         $childrens = $model->children()->andWhere(['is_active' => 1])->column();
@@ -56,6 +56,7 @@ class CatalogController extends Controller
             throw new NotFoundHttpException('Страница не найдена.');
         }
         Catalog::getBreadcrumbs($model->catalog);
+        $this->view->params['breadcrumbs'][] = $model->name;
         
         if ($options = $model->options) {
             $short = [];
