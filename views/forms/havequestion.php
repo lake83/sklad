@@ -49,7 +49,7 @@ Modal::end();
 
     <?= $form->field($model, 'catalog_id')->hiddenInput()->label(false) ?>
 
-    <?= Html::submitButton('Отпрвить', ['class' => 'btn btn-success btn-block']) ?>
+    <?= Html::submitButton('Отправить', ['class' => 'btn btn-success btn-block']) ?>
     <br />
     <?php ActiveForm::end(); ?>
 </div>
