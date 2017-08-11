@@ -30,24 +30,11 @@ $form = ActiveForm::begin([
                 <span class=\"input-group-addon\"><span class='glyphicon glyphicon-envelope'></span></span>
                    {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Email']) ?>
 
-        <?= $form->field($model, 'city', ['template'=>"{label}\n<div class=\"input-group\">\n
-                <span class=\"input-group-addon\"><span class='glyphicon glyphicon-home'></span></span>
-                   {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Город']) ?>
-
-
         <?= $form->field($model, 'catalog_id')->label(false)->hiddenInput() ?>
         
         <?= $form->field($model, 'product_id')->label(false)->hiddenInput() ?>
         
         <?= $form->field($model, 'type')->label(false)->hiddenInput() ?>
-
-        <?= $form->field($model, 'organization', ['template'=>"{label}\n<div class=\"input-group\">\n
-                <span class=\"input-group-addon\"><span class='glyphicon glyphicon-briefcase'></span></span>
-                   {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Название организации']) ?>
-
-        <?= $form->field($model, 'how_did_you_know', ['template'=>"{label}\n<div class=\"input-group\">\n
-                <span class=\"input-group-addon\"><span class='glyphicon glyphicon-hand-right'></span></span>
-                   {input}</div>\n{hint}\n{error}"])->label(false)->textInput(['placeholder' => 'Откуда вы узнали про нас']) ?>
 
         <?= $form->field($model, 'comment')->textarea(['placeholder' => 'Комментарий*'])->label(false) ?>
         
