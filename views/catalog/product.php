@@ -37,13 +37,8 @@ $this->registerMetaTag(['name' => 'description', 'content' => ($model->descripti
                     'allowfullscreen' => 'true'
                 ]
             ]); 
-            foreach ($model->image as $image):
-                $src = SiteHelper::resized_image($image, 170, null);
-                $size = SiteHelper::image_size($src);
-        ?>
-            <a href="/images/uploads/source/<?=$image?>">
-                <div title="<?=$model->name?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$size[0]>$size[1] ? '100% auto' : 'auto 100%'?>"></div>
-            </a>
+            foreach ($model->image as $image): ?>
+                <img src="/images/uploads/source/<?=$image?>" alt="<?=$model->name?>" width="200"/>
             <?php endforeach; 
             $fotorama->end();
             else: ?>
