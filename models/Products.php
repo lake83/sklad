@@ -8,6 +8,7 @@ use app\components\LocalizedActiveRecord;
 use yii\caching\TagDependency;
 use yii\helpers\Url;
 use app\components\LogBehavior;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "{{%products}}".
@@ -75,7 +76,7 @@ class Products extends LocalizedActiveRecord
             [['full_text', 'description'], 'string'],
             [['name', 'slug', 'title', 'keywords'], 'string', 'max' => 255],
             [['region'], 'string', 'max' => 50],
-            [['image'], 'string', 'max' => 100],
+            [['image'], 'safe'],
             ['not_show_region', \app\components\ShowRegionValidator::className()],
             ['slug', 'unique', 'on' => 'clone'],
             ['currency', 'default', 'value' => 1],
@@ -172,11 +173,34 @@ class Products extends LocalizedActiveRecord
     /**
      * @inheritdoc
      */
+    public function beforeSave($insert)
+    {
+        $this->image = trim(str_replace(',,', ',', $this->image), ',');
+        
+        return parent::beforeSave($insert);
+    }
+    
+    /**
+     * @inheritdoc
+     */
     public function afterSave($insert, $changedAttributes)
     {
         TagDependency::invalidate(Yii::$app->cache, 'product');
         
         return parent::afterSave($insert, $changedAttributes);
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function afterFind()
+    {
+        if (strpos($this->image, ',')) {
+            $this->image = explode(',', $this->image);
+        } elseif (!empty($this->image)) {
+            $this->image = [$this->image];
+        }
+        parent::afterFind();
     }
     
     /**

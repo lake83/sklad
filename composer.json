@@ -30,9 +30,10 @@
         "jisoft/yii2-sypexgeo": "dev-master",
         "dkhlystov/yii2-treegrid": "^0.1.6",
         "creocoder/yii2-nested-sets": "^0.9.0",
-        "newerton/yii2-fancybox-3": "dev-master",
         "wbraganca/yii2-dynamicform": "*",
-        "2amigos/yii2-multi-select-widget": "*"
+        "2amigos/yii2-multi-select-widget": "*",
+        "kartik-v/yii2-sortable-input": "*",
+        "metalguardian/yii2-fotorama-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

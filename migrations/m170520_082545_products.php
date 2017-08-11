@@ -20,7 +20,7 @@ class m170520_082545_products extends Migration
             'slug' => $this->string()->notNull(),
             'parent_id' => $this->integer()->notNull(),
             'region' => $this->string(50)->notNull(),
-            'image' => $this->string(100)->notNull(),
+            'image' => $this->text()->notNull(),
             'price' => $this->float()->notNull(),
             'currency' => $this->boolean()->defaultValue(1)->comment('1-RUR,2-USD,3-EUR'),
             'not_show_price' => $this->boolean()->defaultValue(0),

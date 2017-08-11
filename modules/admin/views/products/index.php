@@ -36,7 +36,7 @@ $listOptions = ['class' => 'form-control', 'prompt' => '- выбрать -'];
                 'format' => 'raw',
                 'filter' => false,
                 'value' => function ($model, $index, $widget) {
-                    return Html::img(SiteHelper::resized_image($model->image, 120, 100), ['width' => 70]);
+                    return Html::img(SiteHelper::resized_image($model->image[0], 120, 100), ['width' => 70]);
                 }
             ],
             'name',

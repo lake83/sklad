@@ -7,7 +7,7 @@ use yii\helpers\Url;
 use app\components\SiteHelper;
 
 if ($model->not_show_region == 0):
-    $src = SiteHelper::resized_image($model->image, 170, null);
+    $src = SiteHelper::resized_image($model->image[0], 170, null);
     $size = SiteHelper::image_size($src); ?>
   
 <div class="product_item">

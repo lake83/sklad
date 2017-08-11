@@ -28,18 +28,30 @@ $this->registerMetaTag(['name' => 'description', 'content' => ($model->descripti
 
 <div class="detail">
     <div class="left">
-        <div class="main"> 
-            <?php if ($model->image): ?>
-            <a class="fancyItem" href="/images/uploads/source/<?=$model->image?>" data-fancybox="true">
-            <?= newerton\fancybox3\FancyBox::widget() ?>
-            <?php $src = SiteHelper::resized_image($model->image, 170, null);
-                  $size = SiteHelper::image_size($src);
-                  endif; ?>
+        <?php if ($model->image):
+            $fotorama = \metalguardian\fotorama\Fotorama::begin([
+                'options' => [
+                    'width' => '200',
+                    'loop' => 'true',
+                    'nav' => 'thumbs',
+                    'allowfullscreen' => 'true'
+                ]
+            ]); 
+            foreach ($model->image as $image):
+                $src = SiteHelper::resized_image($image, 170, null);
+                $size = SiteHelper::image_size($src);
+        ?>
+            <a href="/images/uploads/source/<?=$image?>">
                 <div title="<?=$model->name?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$size[0]>$size[1] ? '100% auto' : 'auto 100%'?>"></div>
-            <?php if ($model->image): ?>
             </a>
+            <?php endforeach; 
+            $fotorama->end();
+            else: ?>
+            <div class="main">
+            <div title="<?=$model->name?>" style="background: url('<?=SiteHelper::resized_image('', 170, null)?>') no-repeat;background-size:100% 100%"></div>
+            </div>
             <?php endif; ?>
-        </div>
+        
         <a class="formreqestitem requestbutton" data-toggle="modal" data-target="#get-pricelist-modal" href="javascript:void(0)">
             <?php if ($model->not_show_price == 1 || $model->price == 0): ?>
                 Уточнить стоимость
