@@ -107,7 +107,7 @@ $this->registerMetaTag(['name' => 'description', 'content' => ($model->descripti
             'itemView' => '_brochures_item'
         ])];
     }
-    $items[] = ['label' => 'Схема работы', 'content' => Html::img('/images/uploads/source/Pages/skhema-prodazh.jpg', ['alt' => 'Схема работы', 'title' => 'Схема работы', 'width' => '100%'])];
+    $items[] = ['label' => 'Схема работы', 'content' => Html::img('/images/uploads/source/Pages/skhema-prodazh.jpg', ['alt' => 'Схема работы', 'title' => 'Схема работы', 'style' => 'width:100%'])];
     
     echo Tabs::widget(['id' => 'product_details', 'items' => $items]); ?>
 </div>

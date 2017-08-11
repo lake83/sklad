@@ -15,7 +15,7 @@ $level = 0;
 foreach($catalogItems as $category) {
 	if ($category['is_active'] == 1 && $category['not_show_region'] == 0) {
         if ($category['depth'] == $level) {
-	        echo '</li>'."\n";
+	        //echo '</li>'."\n";
 	    } else if ($category['depth'] > $level) {
 	        echo '<ul>'."\n";
 	    } else {
@@ -55,3 +55,4 @@ for ($i = $level; $i; $i--) {
 	echo '</ul>'."\n";
 }
 endif; ?>
+</ul>

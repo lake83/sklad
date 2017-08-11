@@ -11,22 +11,25 @@ $request = Yii::$app->request;
 <div class="tooltip_conteiner" id="city-list">
     <span class="fl">Ваш регион:</span>
     <a class="fl" href="javascript:void(0)" id="download_now"><?= $regions[Yii::$app->params['region']]['name'] ?></a>
-    <img src="/images/toolsel.gif"/>
+    <img src="/images/toolsel.gif" alt="arrow_down"/>
     <div id="region-list">
         <?php foreach($regions as $region): ?>
              <br/>
              <?= Html::a($region['name'], ($request->isSecureConnection ? 'https://' : 'http://') .
                  ($region['subdomain'] ? $region['subdomain'] . '.' : '') . DOMAIN . '/' . $request->pathInfo)
              ?>
+             <?/*= Html::a($region['name'], ($request->isSecureConnection ? 'https://' : 'http://') .
+                 ($region['subdomain'] ? $region['subdomain'] . '.' : '') . DOMAIN .
+                 '/site/region?subdomain=' . $region['subdomain'] . '&redirect=' . urlencode('/' . $request->pathInfo));*/?>
         <?php endforeach; ?>
     </div>
 </div>
 
-<?php if (!isset($_COOKIE['region'])): ?>
+<?php if (Yii::$app->session->hasFlash('region')): ?>
 <div class="tooltip-fader"></div>
 <div class="tooltip_conteiner" id="tooltip_conteiner_city">
     <div id="region-city">
-        <img src="/images/top_tooltip.png" style="left: -15px;position: relative;top: -12px;"/>
+        <img src="/images/top_tooltip.png" style="left: -15px;position: relative;top: -12px;" alt="arrow"/>
         <div>
             Ближайший<br />к вам город:<br />
             <h3><?=$regions[$thisRegion]['name']?></h3>

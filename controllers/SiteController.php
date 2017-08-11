@@ -60,6 +60,10 @@ class SiteController extends Controller
         ]));
         Yii::$app->params['region'] = $subdomain;
         $request = Yii::$app->request;
+        //$redirect = urldecode($request->get('redirect'));
+        //$url = ($request->isSecureConnection ? 'https://' : 'http://') . ($subdomain ? $subdomain . '.' : '') . DOMAIN . str_replace($request->hostInfo, '', $redirect);
+
+        //return '<html><head><meta http-equiv="refresh" content="0;' . $url . '"> </head><body>&nbsp;</body></html>';
         
         return $this->redirect(($request->isSecureConnection ? 'https://' : 'http://') . ($subdomain ? $subdomain . '.' : '') . DOMAIN . str_replace($request->hostInfo, '', $request->referrer));
     }

@@ -29,6 +29,16 @@ $regions = Regions::getRegions();
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <title><?= Html::encode(str_replace('##CITY##', $regions[Yii::$app->params['region']]['name'], $this->title)) ?></title>
     <?php $this->head() ?>
+
+    <!--<script type="text/javascript">
+        (function ct_load_script() {
+        var ct = document.createElement('script'); ct.type = 'text/javascript';
+        ct.src = document.location.protocol+'//cc.calltracking.ru/phone.5c429.4879.async.js?nc='+Math.floor(new Date().getTime()/300000);
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ct, s);
+        })();
+    </script>-->
+
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -75,10 +85,10 @@ $regions = Regions::getRegions();
                 </div>
                 <div class="z-right">
                     <div class="phone-top">
-                        <span id="main_tel">
-                            <span><?= $regions[Yii::$app->params['region']]['phone'] ?></span>
-                            <span>+7 (800) 555-5393<p>Звонок бесплатный по РФ</p></span>
-                        </span>
+                        <div id="main_tel">
+                            <div><?= $regions[Yii::$app->params['region']]['phone'] ?></div>
+                            <div>+7 (800) 555-5393<p>Звонок бесплатный по РФ</p></div>
+                        </div>
                     </div>
                 </div>
                 <div class="top-menu">
@@ -142,13 +152,20 @@ $regions = Regions::getRegions();
             </div>
         </div>
         <div class="right-column">
-            <?= Breadcrumbs::widget([
+        
+            <div xmlns:v="http://rdf.data-vocabulary.org/#">
+            <? $breadcrumbs = Breadcrumbs::widget([
+            'itemTemplate' => "<li><span typeof=\"v:Breadcrumb\">{link}</span></li>\n", // template for all links
             'homeLink' => [ 
                 'label' => 'Складская техника',
                 'url' => Yii::$app->homeUrl
             ],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        ]) ;
+        echo preg_replace("/<a href/","<a rel=\"v:url\" property=\"v:title\" href",$breadcrumbs);  
+        ?>
+        </div>
+        
             <?= $content ?>
         </div>
     </div>
@@ -163,7 +180,7 @@ $regions = Regions::getRegions();
         </div>
         <div>
             Адрес: <?= $regions[Yii::$app->params['region']]['name'] ?>, <br/><?= $regions[Yii::$app->params['region']]['address'] ?><br/>
-            E-mail: <?= $mailto ?></a>
+            E-mail: <?= $mailto ?>
         </div>
         <a href="<?=Url::to(['materials/page', 'alias' => 'karta_sayta'])?>" class="sitemap_link">Карта сайта</a>
         <div>
@@ -216,6 +233,12 @@ $regions = Regions::getRegions();
   ga('create', 'UA-92777752-2', 'auto');
   ga('send', 'pageview');
 </script>
+
+<script type="text/javascript">
+var __cs = __cs || [];
+__cs.push(["setCsAccount", "krG_aaGTtHyHy9zgihzs6y3L42zH8fhr"]);
+</script>
+<script type="text/javascript" async src="//app.comagic.ru/static/cs.min.js"></script>
 
 </body>
 </html>

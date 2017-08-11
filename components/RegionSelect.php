@@ -34,6 +34,8 @@ class RegionSelect extends Widget
             }
             Yii::$app->params['region'] = $thisRegion;
             
+            Yii::$app->session->setFlash('region', 'false');
+            
         } else {
             Yii::$app->response->cookies->add(new Cookie([
                 'name' => 'region',

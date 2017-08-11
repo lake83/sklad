@@ -25,7 +25,7 @@ if ($news):
                 <div class="glossary_img" title="<?=$n['name']?>" style="background: url('<?=$src?>') no-repeat;background-size:<?=$size[0]>$size[1] ? '100% auto' : 'auto 100%'?>"></div>
             </div>
             <div class="ZnewsItem__txtbox">
-                <a href="<?=Url::to(['/news/' . $n['slug']])?>" class="ZnewsItem__head"><?=$n['name']?></a>
+                <a href="<?=Url::to(['/press-centr/news/' . $n['slug']])?>" class="ZnewsItem__head"><?=$n['name']?></a>
                 <div class="ZnewsItem__date"><?= Yii::$app->formatter->asDate($n['created_at'], 'php:d.m.Y') ?></div>
                 <div class="ZnewsItem__description"><?=$n['intro_text']?></div>
             </div>
@@ -71,7 +71,7 @@ echo $this->context->renderPartial('/materials/page', ['model' => $main, 'title'
 if ($slider) :
 foreach ($slider as $item) {
     if ($item['not_show_region'] == 0) {
-        $items_clients[] = Html::a('<div class="slider_img" title="' . $item['name'] . '" style="background: url(\'' . SiteHelper::resized_image($item['image'], 130, null) . '\') no-repeat;"></div>', ['/clients/' . $item['slug']]);
+        $items_clients[] = Html::a('<div class="slider_img" title="' . Html::encode($item['name']) . '" style="background: url(\'' . SiteHelper::resized_image($item['image'], 130, null) . '\') no-repeat;"></div>', ['/clients/' . $item['slug']]);
     }
 } ?>
 

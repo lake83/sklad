@@ -208,11 +208,11 @@ h3 {
     font-size: 13px;
     float: left;
 }
-#main_tel > span:nth-child(1) {
+#main_tel > div:nth-child(1) {
     position: absolute;
     top: 10px;
 }
-#main_tel > span:nth-child(2) {
+#main_tel > div:nth-child(2) {
     position: absolute;
     left: 198px;
     top: 10px;
