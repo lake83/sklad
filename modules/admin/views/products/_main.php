@@ -26,7 +26,7 @@ $form = ActiveForm::begin(['layout' => 'horizontal']);
     echo Html::activeHiddenInput($model, 'slug');
 } ?>
     
-<?= $form->field($model, 'image')->widget(\app\components\FilemanagerInput::className()) ?>
+<?= $form->field($model, 'image')->widget(\app\components\FilemanagerMultipleInput::className()) ?>
     
 <?php if (!$catalog_id || $controller->action->id == 'update') {
     echo $form->field($model, 'catalog_id')->dropDownList(Catalog::getAll(), $listOptions);

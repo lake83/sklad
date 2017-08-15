@@ -38,7 +38,11 @@ $this->registerMetaTag(['name' => 'description', 'content' => ($model->descripti
                 ]
             ]); 
             foreach ($model->image as $image): ?>
+                <?php if (file_exists(Yii::getAlias('@webroot/images/uploads/source/') . $image)): ?>
                 <img src="/images/uploads/source/<?=$image?>" alt="<?=$model->name?>" width="200"/>
+                <?php else: ?>
+                <img src="<?=SiteHelper::resized_image($image, 170, null)?>" alt="<?=$model->name?>" width="200"/>
+                <?php endif; ?>
             <?php endforeach; 
             $fotorama->end();
             else: ?>
