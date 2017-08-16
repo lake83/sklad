@@ -94,14 +94,6 @@ $this->registerMetaTag(['name' => 'description', 'content' => ($model->descripti
             'columns' => $columns
         ])];
     }
-    if ($relatedData) {
-        $items[] = ['label' => 'С этим товаром покупают', 'content' => ListView::widget([
-            'id' => 'related_list',
-            'dataProvider' => $relatedData,
-            'layout' => "{items}",
-            'itemView' => '_product_item'
-        ])];
-    }
     if ($videoData) {
         $items[] = ['label' => 'Видео', 'content' => ListView::widget([
             'id' => 'video_list',
@@ -120,7 +112,17 @@ $this->registerMetaTag(['name' => 'description', 'content' => ($model->descripti
     }
     $items[] = ['label' => 'Схема работы', 'content' => Html::img('/images/uploads/source/Pages/skhema-prodazh.jpg', ['alt' => 'Схема работы', 'title' => 'Схема работы', 'style' => 'width:100%'])];
     
-    echo Tabs::widget(['id' => 'product_details', 'items' => $items]); ?>
+    echo Tabs::widget(['id' => 'product_details', 'items' => $items]);
+    
+    if ($relatedData) {
+        echo '<h3>С этим товаром покупают</h3>';
+        echo ListView::widget([
+            'id' => 'related_list',
+            'dataProvider' => $relatedData,
+            'layout' => "{items}",
+            'itemView' => '_product_item'
+        ]);
+    } ?>
 </div>
 
 <?php
