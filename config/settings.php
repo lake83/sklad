@@ -21,18 +21,18 @@ class settings implements BootstrapInterface
     */
     public function bootstrap($app)
     {
-        if (!$settings = Yii::$app->cache->get('settings')) {
+        if (!$settings = $app->cache->get('settings')) {
             $settings = ArrayHelper::map($this->db->createCommand("SELECT name, value FROM settings")->queryAll(), 'name', 'value');
-            Yii::$app->cache->set('settings', $settings, 0, new \yii\caching\TagDependency(['tags' => 'settings']));           
+            $app->cache->set('settings', $settings, 0, new \yii\caching\TagDependency(['tags' => 'settings']));           
         }
-        if (Yii::$app->request->hostName !== DOMAIN) {
-            $region = explode('.', Yii::$app->request->hostName);
+        if ($app->request->hostName !== DOMAIN) {
+            $region = explode('.', $app->request->hostName);
         }
-        Yii::$app->params = array_merge($settings, ['region' => $region[0]]);        
+        $app->params = array_merge($settings, ['region' => $region[0]]);        
         
         if (!$app instanceof \yii\console\Application) {
             // Установка темы в админке
-            Yii::$container->set('dmstr\web\AdminLteAsset', ['skin' => Yii::$app->params['skin']]);
+            Yii::$container->set('dmstr\web\AdminLteAsset', ['skin' => $app->params['skin']]);
         }
     }
 }
