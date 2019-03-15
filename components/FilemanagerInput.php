@@ -39,14 +39,16 @@ class FilemanagerInput extends InputWidget
     {
         if ($this->hasModel()) {
             if ($this->preview) {
-                echo '<div class="form-group">
+                echo '<div class="form-group"' . (empty($this->model->{$this->attribute}) ? ' style="display:none"' : '') . '>
                           <div id="preview" class="control-label col-sm-3">' . Html::img('/images/uploads/thumbs/'. $this->model->{$this->attribute}) . '</div>
                       </div>';
             }
             if (!ArrayHelper::getValue($this->options, 'id')) {
                 $this->options['id'] = Html::getInputId($this->model, $this->attribute);
             }
-            echo Html::activeHiddenInput($this->model, $this->attribute, $this->options + ['onchange' => 'js:$("#preview img").attr("src", "/images/uploads/thumbs/" + this.value)']);
+            echo Html::activeHiddenInput($this->model, $this->attribute, $this->options + [
+                'onchange' => 'js:$("#preview img").attr("src", "/images/uploads/thumbs/" + this.value);if($("#preview").parent(".form-group").is(":hidden")){$("#preview").parent(".form-group").show();}'
+            ]);
         } else {
             if (!ArrayHelper::getValue($this->options, 'id')) {
                 $this->options['id'] = Html::getAttributeName($this->name . rand(1, 9999));
